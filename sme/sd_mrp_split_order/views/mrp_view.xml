@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record id="sd_mrp_split_order_inherit_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">sd_mrp_split_order.inherit.mrp_production_form_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <button name="button_unbuild" position="after">
+                    <button name="split_mrp_order" string="Split Order" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                </button>
+                <xpath expr="//notebook" position="inside">
+                    <page name="track_splits" string="Splits Tracking" attrs="{'invisible': [('split_track_ids', '=', [])]}" groups="base.group_no_one">
+                        <field name="split_track_ids" readonly="1">
+                            <tree edit="false" create="false" delete="false">
+                                <field name="production_id"/>
+                                <field name="split_into"/>
+                                <field name="new_mo"/>
+                                <field name="pre_split_qty"/>
+                                <field name="post_split_qty"/>
+                                <field name="split_by"/>
+                                <field name="split_time"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="split_order"/>
+                                        <field name="split_by"/>
+                                        <field name="split_time"/>
+                                    </group>
+                                    <group>
+                                        <field name="split_into"/>
+                                        <field name="pre_split_qty"/>
+                                        <field name="post_split_qty"/>
+                                    </group>
+                                </group>
+                                <separator string="Split Orders"/>
+                                <field name="split_track_line_ids">
+                                    <tree>
+                                        <field name="split_mo" string="Split MO's"/>
+                                        <field name="split_mo_qty" sum="Total Qty"/>
+                                    </tree>
+                                </field>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

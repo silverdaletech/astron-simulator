@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="LotLine" owl="1">
+        <tr t-attf-class="lot-line {{highlight}}" t-att-data-id="props.lot._id"
+            t-on-click="trigger('click-lot', {lot: props.lot})">
+            <td>
+                <t t-esc="props.lot.text or ''" />
+            </td>
+        </tr>
+    </t>
+
+</templates>

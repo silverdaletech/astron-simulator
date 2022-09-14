@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <!-- project.stages.type form view -->
+        <record id="project_stages_type_view_form" model="ir.ui.view">
+            <field name="name">project.stages.type.view.form</field>
+            <field name="model">project.stages.type</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <!-- Add your fields here -->
+                            <field name="name"/>
+                            <field name='stages_line'>
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- project.stages.type tree view -->
+        <record id="project_stages_type_view_tree" model="ir.ui.view">
+            <field name="name">project.stages.type.view.tree</field>
+            <field name="model">project.stages.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- project.stages.type action window -->
+        <record id="project_stages_type_action" model="ir.actions.act_window">
+            <field name="name">Project Stages type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.stages.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="project_stages_type_menu_act" name="Default Stages" parent="project.menu_project_config"
+                  action="project_stages_type_action" sequence="3"/>
+    </data>
+</odoo>

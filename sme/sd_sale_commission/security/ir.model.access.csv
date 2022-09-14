@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_commission_agent,access_sale_commission_agent,model_sale_commission_agent,,1,1,1,1
+access_sale_commission_agent_line,access_sale_commission_agent_line,model_sale_commission_agent_line,,1,1,1,1
+access_sale_commission_line,access_sale_commission_line,model_sale_commission_line,,1,1,1,0
+access_sale_commission_settlement,access_sale_commission_settlement,model_sale_commission_settlement,,1,1,1,0
+access_commission_settlement_line,access_commission_settlement_line,model_commission_settlement_line,,1,1,1,0
+access_sale_commission_record,access_sale_commission_record,model_sale_commission_record,,1,1,1,0
+access_sale_commission_report,access_sale_commission_report,model_sale_commission_report,,1,1,1,0

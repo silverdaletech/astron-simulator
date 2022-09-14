@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="test_script_process_inherit_form_view" model="ir.ui.view">
+            <field name="name">project.test.script.inherit</field>
+            <field name="model">project.test.script</field>
+            <field name="inherit_id" ref="sd_test_scripts.project_test_script_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="process_id"  options="{'no_create': True, 'no_create_edit': True, 'no_open':True}"/>
+                    <field name="work_stream_id" />
+                </xpath>
+
+                <xpath expr="//form/sheet/group/group/field[@name='partner_id']" position="attributes">
+                     <attribute name="domain">[('is_company', '=', True), ('customer_rank','>', 0)]</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+      <!-- Inherit Form View to Modify it -->
+      <record id="test_script_search_inherit" model="ir.ui.view">
+          <field name="name">project.test.script.search.form.inherit</field>
+          <field name="model">project.test.script</field>
+          <field name="inherit_id" ref="sd_test_scripts.view_test_script_search_form"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='partner_id']" position="after">
+                   <!-- Add your fields or attributes here -->
+                  <field name="process_id" />
+                  <field name="work_stream_id" />
+              </xpath>
+
+              <xpath expr="//filter[@name='client']" position="before">
+                  <filter string="Work Stream" name="priority" context="{'group_by': 'work_stream_id'}"/>
+                  <filter string="Process" name="client" context="{'group_by': 'process_id'}"/>
+                  <separator/>
+
+              </xpath>
+
+          </field>
+      </record>
+
+  </data>
+</odoo>
+

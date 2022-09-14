@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_form_with_provider_ups" model="ir.ui.view">
+        <field name="name">res.partner.form.provider.ups.1</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='shipping_configuration']//group" position="inside">
+                <group name="ups_account" string="UPS Configuration">
+                    <field name="property_ups_carrier_account"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

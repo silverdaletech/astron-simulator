@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_task_type_form" model="ir.ui.view">
+            <field name="name">task.type.form.inherit</field>
+            <field name="model">task.type</field>
+            <field name="inherit_id" ref="sd_project.view_task_type_form"/>
+            <field name="arch" type="xml">
+                    <!-- Add your fields or attributes here -->
+                    <xpath expr="//field[@name='active']" position="after">
+                        <field name="hide_from_portal"  />
+                    </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="sd_restrict_multicompany_checkboxes.SwitchCompanyItem" t-inherit="web.SwitchCompanyItem" t-inherit-mode="extension" owl="1">
+    <xpath expr="//DropdownItem//div[@role='menuitemcheckbox']" position="attributes">
+        <attribute name="t-if">state.checkAccessToCheckBoxes</attribute>
+    </xpath>
+</t>
+
+</templates>

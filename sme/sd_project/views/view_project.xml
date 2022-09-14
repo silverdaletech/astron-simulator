@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_project_sd_project" model="ir.ui.view">
+            <field name="name">view_project_sd_project</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='stage_id']" position="before">
+                    <field name="activity_ids" widget="list_activity" optional="show"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!-- project.project inherit form view -->
+        <record id="project_form_stages_type" model="ir.ui.view">
+            <field name="name">project.inherits.view.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//header" position="inside">
+                    <field name="statusbar" widget="statusbar"/>
+                </xpath> -->
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="project_stage_type_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='privacy_visibility']" position="after">
+                    <field name="type_ids" widget="many2many_tags" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="project_popup_view_main_inherit" model="ir.ui.view">
+            <field name="name">project.project.popup.inherit.simplified</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name = 'name']" position="after">
+                    <field name="project_stage_type_id" class="o_project_name oe_inline"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="view_task_kanban_sd_project" model="ir.ui.view">
+            <field name="name">view_task_kanban</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='legend_done']" position="after">
+                    <field name="task_type_id"/>
+                    <field name="stage_id"/>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_record_headings')]//field[@name='name']" position="after">
+                    <span>
+                        <br/>
+                        #
+                        <field name="id"/>
+                    </span>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_record_body')]//field[@name='tag_ids']" position="after">
+                    <t t-if="record.stage_id.raw_value">
+                        <t t-set="stage_id_class" t-value="'text-warning'"/>
+                        <span name="stage_id" t-attf-class="#{stage_id_class || ''}">
+                            <field name="stage_id"/>
+                        </span>
+                         <br/>
+                    </t>
+                    <br/>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_record_body')]//field[@name='tag_ids']" position="after">
+                    <t t-if="record.task_type_id.raw_value">
+                        <t t-set="task_type_class" t-value="'text-warning'"/>
+                        <span name="task_type_id" t-attf-class="#{task_type_class || ''}">
+                            <field name="task_type_id"/>
+                        </span>
+                    </t>
+                    <br/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

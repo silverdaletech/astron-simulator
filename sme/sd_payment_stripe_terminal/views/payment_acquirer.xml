@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="acquirer_form_stripe_terminal" model="ir.ui.view">
+        <field name="name">acquirer.form.stripe_terminal</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.payment_acquirer_form"/>
+        <field name="arch" type="xml">
+<!--            attrs="{'invisible': [('alipay_payment_method', '=', 'standard_checkout')], 'required': [('provider', '=', 'alipay'), ('alipay_payment_method', '=', 'express_checkout')]}"/>-->
+            <xpath expr='//group[@name="acquirer"]' position='after'>
+                <group attrs="{'invisible': [('provider', '!=', 'stripe_terminal')]}">
+                    <field name="is_simulated_reader" invisible="1" attrs="{'invisible': [('state', '!=', 'test')]}" />
+                    <field name="pos_stripe_api_key" attrs="{'required': [('provider', '=', 'stripe_terminal')]}" />
+
+                    <field name="registration_code"  password="1"  attrs="{'invisible': [('state', 'in', ['disabled','test'])], 'required': [('provider', '=', 'stripe_terminal'), ('state', 'not in', ['disabled','test'])]}" />
+                    <field name="location_id" password="1" attrs="{'invisible': [('state', 'in',['disabled','test'])], 'required': [('provider', '=', 'stripe_terminal'), ('state', 'not in', ['disabled','test'])]}" />
+                    <field name="device_name" attrs="{'invisible': [('state', 'in', ['disabled','test'])], 'required': [('provider', '=', 'stripe_terminal'), ('state', 'not in', ['disabled','test'])]}" />
+
+                </group>
+                <group>
+                    <button  class="oe_highlight" name="stripe_terminal_test" type="object" string="Test Credentials." attrs="{'invisible': [('provider', '!=', 'stripe_terminal')]}"/>
+                </group>
+            </xpath>
+             <xpath expr="/form/*" position="before">
+                <header>
+                    <button name="action_register_device" attrs="{'invisible': [('provider', '!=', 'stripe_terminal')]}" string="Register Stripe Reader" type="object" class="oe_highlight"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='country_ids']" position="after">
+                 <field name="auto_download"/>
+                 <field name="enable_payment"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="transaction_form_stripe_terminal" model="ir.ui.view">
+        <field name="name">acquirer.transaction.form.stripe_terminal</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[2]" position="after">
+                <notebook>
+                    <page string="Stripe Terminal Transaction Details">
+                        <group>
+                            <group>
+                                <field name="stripe_terminal_tx_nid"/>
+                            <field name="stripe_terminal_tx_currency"/>
+                            <field name="stripe_charge_id"/>
+                            </group>
+                            <group>
+                                 <field name="is_interac"/>
+                                <field name="card_number"/>
+                            <field name="card_holder"/>
+                            <field name="card_type"/>
+                            </group>
+
+
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

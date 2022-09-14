@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="sd_tickets_followup" name="SD Helpdesk Tickets" inherit_id="helpdesk.tickets_followup">
+            <xpath expr="//div[@name='description']" position="after">
+                <div class="row mb-4" name="description">
+                    <strong class="col-lg-2">Solution</strong>
+                    <div t-if="not is_html_empty(ticket.solution)" class="col-lg-10" t-field="ticket.solution"/>
+                    <div t-else="" class="col-lg-10">
+                        <em class="text-muted">
+                            <small>No Solution</small>
+                        </em>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

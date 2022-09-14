@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="sales_channel_form_view_inherit" model="ir.ui.view">
+            <field name="name">slide.channel.form</field>
+            <field name="model">slide.channel</field>
+            <field name="inherit_id" ref="website_slides.view_slide_channel_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <button name="publish_content" type="object" string="Publish Content" class="btn btn-primary" attrs="{'invisible':[('content_publish_status','=','published')]}"/>
+                    <button name="unpublish_content" type="object" string="UnPublish Content" class="btn btn-primary" attrs="{'invisible':[('content_publish_status','=','unpublished')]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_view_slides']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <button name="website_publish" type="object" string="UNPUBLISHED" class="btn btn-danger oe_highlight " icon="fa-arrow-down" attrs="{'invisible':[('is_published','=',True)]}" style="color:red" />
+                    <button name="website_unpublish" type="object" string="PUBLISHED" class="btn btn-primary " icon="fa-arrow-up" attrs="{'invisible':[('is_published','=',False)]}" style="color:green" />
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="content_publish_status" invisible="1" />
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

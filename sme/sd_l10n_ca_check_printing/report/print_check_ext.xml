@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="ckca_stub_extended" inherit_id="l10n_ca_check_printing.ckca_stub">
+            <xpath expr="//div/table[@class='table table-bordered table-sm stub_lines']/tbody" position="replace">
+                <tbody>
+                    <t t-foreach="page['stub_lines']" t-as="stub_line">
+                        <t t-if="stub_line.get('header')">
+                            <tr>
+                                <th colspan="6">
+                                    <t t-esc="stub_line['name']"/>
+                                </th>
+                            </tr>
+                        </t>
+                        <t t-if="not stub_line.get('header')">
+                            <tr>
+                                <td class="text-left">
+                                    <t t-if="stub_line['due_date']" t-esc="stub_line['due_date']"/>
+                                </td>
+                                <td class="text-left text-truncate" style="max-width: 300px;">
+                                    <t t-esc="stub_line['number']"/>
+                                </td>
+                                <td class="text-right text-truncate"
+                                    t-if="not stub_line['due_date'] and not stub_line['number'] and not stub_line['currency']"
+                                    style="font-style: italic; max-width: 300px; font-size:10px;border-right-style: hidden; padding-top: 0; padding-bottom: 0;">
+                                    <t t-esc="stub_line['amount_total']"/>
+                                </td>
+                                <td class="text-right" t-else="">
+                                    <t t-esc="stub_line['amount_total']"/>
+                                </td>
+                                <td class="text-right text-truncate"
+                                    t-if="not stub_line['due_date'] and not stub_line['number'] and not stub_line['currency']"
+                                    style="font-style: italic;max-width: 200px; font-size:10px; border-right-style: hidden; padding-top: 0; padding-bottom: 0;">
+                                    <t t-esc="stub_line['amount_residual']"/>
+                                </td>
+                                <td class="text-right" t-else="">
+                                    <t t-esc="stub_line['amount_residual']"/>
+                                </td>
+                                <td class="text-right text-truncate"
+                                    t-if="not stub_line['due_date'] and not stub_line['number'] and not stub_line['currency']"
+                                    style="font-style: italic; max-width: 100px; font-size:10px; padding-top: 0; padding-bottom: 0;">
+                                    <t t-esc="stub_line['amount_paid']"/>
+                                </td>
+                                <td class="text-right" t-else="">
+                                    <t t-esc="stub_line['amount_paid']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <tr t-if="page['stub_cropped']">
+                        <td colspan="6" class="text-right">...</td>
+                    </tr>
+                </tbody>
+            </xpath>
+        </template>
+    </data>
+</odoo>

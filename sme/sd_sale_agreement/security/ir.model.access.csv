@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_agreement,sale.agreement,model_sale_agreement,,1,1,1,1
+access_sale_agreement_line,sale.agreement.line,model_sale_agreement_line,,1,1,1,1
+access_sale_agreement_wiz,sale.agreement.wizard,model_sale_agreement_wizard,,1,1,1,1

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="crm_team_member_view_form" model="ir.ui.view">
+        <field name="name">crm.team.member.role.form</field>
+        <field name="model">crm.team.member</field>
+        <field name="inherit_id" ref="sales_team.crm_team_member_view_form"/>
+        <field name="arch" type="xml">
+            <field name="crm_team_id" position="after">
+                <field name="allow_offer" groups="sd_sale_crm.group_crm_price_team" />
+                <field name="allow_percentage" groups="sd_sale_crm.group_crm_price_team" attrs="{'invisible':[('allow_offer', '=', False)], 'required':[('allow_offer', '=', True)]}" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

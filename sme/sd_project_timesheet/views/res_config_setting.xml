@@ -1,0 +1,25 @@
+<odoo>
+    <!--  Inherit Form View to Modify it  -->
+    <record id="sd_hr_timesheet_visibility_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.project.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="project.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='project']" position="inside">
+                <div class="row mt16 o_settings_container" name="silverdale_task_type_hide">
+                    <div class="col-12 col-lg-6 o_setting_box" id="group_hide_task_type_portal">
+                        <div class="o_setting_left_pane">
+                            <field name="group_hide_task_type_portal"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Task Type Hide Functionality" for="group_hide_task_type_portal"/>
+                            <div class="text-muted">
+                                Hide Tasks and Timesheets from Customer portal.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

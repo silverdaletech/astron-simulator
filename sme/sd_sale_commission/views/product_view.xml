@@ -1,0 +1,33 @@
+<odoo>
+    <!-- Inherit product Form View to Modify it -->
+    <record id="product_product_commission_inherit" model="ir.ui.view">
+        <field name="name">product.product.from.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='description_sale']" position="after">
+                <!-- Add your fields or attributes here -->
+                <field name="commissionable" groups="sd_sale_commission.group_sale_commission"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- Inherit Product category Form View to Modify it -->
+    <record id="product_category_commisson_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <!-- Add your fields or attributes here -->
+                <field name="commissionable" groups="sd_sale_commission.group_sale_commission" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

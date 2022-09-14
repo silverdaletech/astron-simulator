@@ -1,0 +1,23 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">MRP Integrations</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="mrp.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='process_operations_setting_container']" position="inside">
+                <div class="col-lg-6 col-12 o_setting_box" id="split_child_mo">
+                    <div class="o_setting_left_pane">
+                        <field name="split_child_mo"/>
+                    </div>
+                    <div class="o_setting_right_pane" id="split_child_mo">
+                        <label for="group_mrp_routings" string="Split Child MO"/>
+                        <div class="text-muted">
+                            If checked, will split child MO when you will split Parent MO
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

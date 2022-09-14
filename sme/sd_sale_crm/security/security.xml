@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_crm_price_role" model="res.groups">
+        <field name="name">CRM Price Based on Role</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_crm_price_team" model="res.groups">
+        <field name="name">CRM Price Based on Team</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record> 
+    
+    <record id="group_crm_product_pipeline_report" model="res.groups">
+        <field name="name">CRM Pipeline by Product Report</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+</odoo>

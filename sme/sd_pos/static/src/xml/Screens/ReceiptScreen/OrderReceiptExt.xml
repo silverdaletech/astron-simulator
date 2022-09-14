@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="point_of_sale.template" xml:space="preserve">
+    <t t-name="OrderReceiptExt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-if='receipt.company.logo']" position="replace">
+            <t t-if="posLogoUrl">
+                <img class="pos-receipt-logo" t-att-src="posLogoUrl" alt="Logo" style="width:25%"/>
+                <br/>
+            </t>
+            <t t-else="">
+                <t t-if="receipt.company.logo">
+                    <img class="pos-receipt-logo" t-att-src="receipt.company.logo" alt="Logo"/>
+                    <br/>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="replace">
+            <t t-if="pos_address">
+                <div class="pos-receipt-contact">
+                    <t t-if="receipt.company.contact_address">
+                        <div><t t-esc="receipt.company.contact_address" /></div>
+                    </t>
+                    <t t-if="pos_address.phone">
+                        <div>Tel:<t t-esc="pos_address.phone" /></div>
+                    </t>
+                    <t t-if="pos_address.vat">
+                        <div><t t-esc="pos_address.vat_label"/>:<t t-esc="pos_address.vat" /></div>
+                    </t>
+                    <t t-if="pos_address.email">
+                        <div><t t-esc="pos_address.email" /></div>
+                    </t>
+                    <t t-if="pos_address.website">
+                        <div><t t-esc="pos_address.website" /></div>
+                    </t>
+                    <t t-if="receipt.header_html">
+                        <t t-raw="receipt.header_html" />
+                    </t>
+                    <t t-if="!receipt.header_html and receipt.header">
+                        <div style="white-space:pre-line"><t t-esc="receipt.header" /></div>
+                    </t>
+                    <t t-if="receipt.cashier">
+                        <div class="cashier">
+                            <div>--------------------------------</div>
+                            <div>Served by <t t-esc="receipt.cashier" /></div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="pos-receipt-contact">
+                    <t t-if="receipt.company.contact_address">
+                        <div><t t-esc="receipt.company.contact_address" /></div>
+                    </t>
+                    <t t-if="receipt.company.phone">
+                        <div>Tel:<t t-esc="receipt.company.phone" /></div>
+                    </t>
+                    <t t-if="receipt.company.vat">
+                        <div><t t-esc="receipt.company.vat_label"/>:<t t-esc="receipt.company.vat" /></div>
+                    </t>
+                    <t t-if="receipt.company.email">
+                        <div><t t-esc="receipt.company.email" /></div>
+                    </t>
+                    <t t-if="receipt.company.website">
+                        <div><t t-esc="receipt.company.website" /></div>
+                    </t>
+                    <t t-if="receipt.header_html">
+                        <t t-raw="receipt.header_html" />
+                    </t>
+                    <t t-if="!receipt.header_html and receipt.header">
+                        <div style="white-space:pre-line"><t t-esc="receipt.header" /></div>
+                    </t>
+                    <t t-if="receipt.cashier">
+                        <div class="cashier">
+                            <div>--------------------------------</div>
+                            <div>Served by <t t-esc="receipt.cashier" /></div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sd_pos_inherit_pos_config_form_view" model="ir.ui.view">
+        <field name="name">sd_pos.inherit.pos_config_form_view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='receipt']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="pos_specific_info">
+                    <div class="o_setting_left_pane">
+                        <field name="has_pos_specific_info"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="has_pos_specific_info"/>
+                        <div class="text-muted">
+                            Add point of sale specific logo and address
+                        </div>
+                        <div class="content-group mt16" attrs="{'invisible' : [('has_pos_specific_info', '=', False)]}">
+                            <div>
+                                <field name="set_logo" class="oe_inline"/><span class="oe_inline"><b>Set POS Specific Logo</b></span>
+                                <field name="logo" attrs="{'invisible' : [('set_logo', '=', False)]}" widget="image" class="oe_avatar"/>
+                            </div>
+                            <div>
+                                <field name="set_address" class="oe_inline"/><span class="oe_inline"><b>Set POS Specific Address</b></span>
+                            </div>
+                            <div class="mt-3" attrs="{'invisible' : [('set_address', '=', False)]}">
+                                <b >Contact Address</b>
+                                <div class="o_address_format mt-2">
+                                    <field name="phone" placeholder="Phone..." class="o_address_street"/>
+                                    <field name="vat" placeholder="Vat..." class="o_address_street"/>
+                                    <field name="email" placeholder="Email" class="o_address_city"/>
+                                    <field name="website" class="o_address_state" placeholder="Website"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane">
+                        <field name="print_closing_stats"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="print_closing_stats"/>
+                        <div class="text-muted">
+                            Print Session closing states on closing POS session.
+                        </div>
+                        <div class="mt-3" attrs="{'invisible' : [('print_closing_stats', '=', False)]}">
+                            <div class="mt-2">
+                                <div class="o_setting_left_pane">
+                                    <field name="auto_print_closing_stats"/>
+                                </div>
+                                <div class="text-muted">
+                                   Auto Print Session closing states on closing POS session.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='tip_product']" position="after">
+                <div attrs="{'invisible' : [('iface_tipproduct', '=', False)]}">
+                    <field name="show_tips_in_closing_stats" class="oe_inline"/>
+                    <label class="font-weight-normal" for="show_tips_in_closing_stats"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='inventory_location']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="show_selectable_lots"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="show_selectable_lots"/>
+                        <div class="text-muted">
+                            Show selectable lots list for products.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="helpdesk_ticket_form_view_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.form.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="non_billable" widget="boolean_toggle" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="helpdesk_timesheet_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.form.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']" position="after">
+                    <field name="is_helpdesk_toggle" invisible="1"/>
+                    <field name="validated_status" invisible="1"/>
+                    <field name="non_billable" widget="boolean_toggle" attrs="{'invisible': ['|', ('is_helpdesk_toggle', '=', True), ('validated_status', '=', 'validated')]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

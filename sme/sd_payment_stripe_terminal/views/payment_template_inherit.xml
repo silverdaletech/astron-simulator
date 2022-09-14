@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <template id="payment_tokens_list_inherit" inherit_id="payment.payment_token_list" name="Payment Tokens list">-->
+<!--            <xpath expr="//div[4]" position="replace">-->
+<!--                <div role="dialog" class="modal fade" id="modalaccept">-->
+
+<!--                        <div class="modal-dialog">-->
+<!--                            <div class="modal-content">-->
+<!--                                <header class="modal-header">-->
+<!--                                    <h4 class="modal-title">Validate Order</h4>-->
+<!--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&amp;times;</button>-->
+<!--                                </header>-->
+<!--                                <main class="modal-body" id="sign-dialog">-->
+<!--                                    <p>-->
+<!--                                        <span>By paying this proposal, I agree to the following terms:</span>-->
+<!--                                    </p>-->
+
+<!--                                </main>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                <div class="float-right mt-2">-->
+<!--                <button data-toggle="modal" data-target="#modalaccept" href="#" t-if="mode == 'payment'" id="o_payment_form_pay" type="submit" t-att-class="submit_class if submit_class else 'btn btn-primary btn-lg mb8 mt8'" disabled="true">-->
+<!--                    <t t-if="submit_txt">-->
+<!--                        <i t-if="icon_class and not icon_right" t-attf-class="fa {{icon_class}}"/>-->
+<!--                        <t t-esc="submit_txt"/>-->
+<!--                        <i t-if="icon_class and icon_right" t-attf-class="fa {{icon_class}}"/>-->
+<!--                    </t>-->
+<!--                    <t t-else="">-->
+<!--                        <i class="fa fa-lock"/> Pay-->
+<!--                    </t>-->
+<!--                </button>-->
+<!--                <t t-if="show_manage_btn">-->
+<!--                    <a class="btn btn-link mb8 mt8" href="/my/payment_method">Manage your payment methods</a>-->
+<!--                </t>-->
+<!--                <button t-if="mode == 'manage' and list(filter(lambda x: x.payment_flow == 's2s', acquirers))" type="submit" id="o_payment_form_add_pm" class="btn btn-primary btn-lg mb8 mt8">-->
+<!--                    <i class="fa fa-plus-circle"/> Add new card-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--            </xpath>-->
+<!--&lt;!&ndash;            <xpath expr="//div[4]" position="replace">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="float-right mt-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button data-toggle="modal" data-target="#modalaccept" href="#" t-if="mode == 'payment'" id="o_payment_form_pay" type="submit" t-att-class="submit_class if submit_class else 'btn btn-primary btn-lg mb8 mt8'" disabled="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <t t-if="submit_txt">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i t-if="icon_class and not icon_right" t-attf-class="fa {{icon_class}}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <t t-esc="submit_txt"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i t-if="icon_class and icon_right" t-attf-class="fa {{icon_class}}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <t t-else="">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="fa fa-lock"/> Pay&ndash;&gt;-->
+<!--&lt;!&ndash;                    </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                <t t-if="show_manage_btn">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a class="btn btn-link mb8 mt8" href="/my/payment_method">Manage your payment methods</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button t-if="mode == 'manage' and list(filter(lambda x: x.payment_flow == 's2s', acquirers))" type="submit" id="o_payment_form_add_pm" class="btn btn-primary btn-lg mb8 mt8">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <i class="fa fa-plus-circle"/> Add new card&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </xpath>&ndash;&gt;-->
+<!--        </template>-->
+
+    </data>
+</odoo>

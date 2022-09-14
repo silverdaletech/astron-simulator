@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+
+        <record id="ticket_root_cause_view_tree" model="ir.ui.view">
+            <field name="name">ticket.rootcause.view.tree</field>
+            <field name="model">ticket.rootcause</field>
+            <field name="arch" type="xml">
+                <tree string="Root Cause" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="root_cause_action" model="ir.actions.act_window">
+            <field name="name">Root Cause</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ticket.rootcause</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="ticket_root_cause" name="Ticket Root Cause" parent="helpdesk.helpdesk_menu_config" action="root_cause_action" sequence="4"/>
+    </data>
+</odoo>

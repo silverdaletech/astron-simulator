@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+
+
+         <template id="helpdesk.portal_my_home_helpdesk_ticket" name="Show Tickets" customize_show="True" inherit_id="portal.portal_my_home" priority="50">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="ticket_enable">
+            <t  t-call="portal.portal_docs_entry">
+
+                <t t-set="title">Tickets</t>
+                <t t-set="url" t-value="'/my/tickets'"/>
+                <t t-set="placeholder_count" t-value="'ticket_count'"/>
+                 </t>
+            </t>
+        </xpath>
+    </template>
+
+
+    </data>
+</odoo>

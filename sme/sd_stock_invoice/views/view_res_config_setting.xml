@@ -1,0 +1,44 @@
+<odoo>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res_config_settings_view_form_inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='automatic_invoicing']" position="after">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="invoice_on_delivery">
+                    <div class="o_setting_left_pane">
+                        <field name="invoice_on_delivery"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="invoice_on_delivery"/>
+                        <div class="text-muted">
+                            Generate the invoice automatically on delivery confirmation
+                        </div>
+                    </div>
+
+                  
+                    <div class="o_setting_right_pane" attrs="{'invisible': [('invoice_on_delivery', '=', False)]}">
+                        <div class="row mt16">
+                            <label for="delivery_invoice_email_template_id" class="col-lg-4 o_light_label"/>
+                            <field name="delivery_invoice_email_template_id" class="oe_inline" attrs="{'required': [('invoice_on_delivery', '!=', False)]}"/>
+                        </div>
+                    </div>
+                    <div class="o_setting_left_pane" attrs="{'invisible': [('invoice_on_delivery', '=', False)]}">
+                        <field name="delivery_invoice_auto_reconcile"/>
+                    </div>
+                    <div class="o_setting_right_pane" attrs="{'invisible': [('invoice_on_delivery', '=', False)]}">
+                        <label for="delivery_invoice_auto_reconcile"/>
+                        <div class="text-muted">
+                            Autoreconcile the payment with that inovice
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

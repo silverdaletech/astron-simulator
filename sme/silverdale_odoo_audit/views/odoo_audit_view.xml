@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <record id="view_odoo_audit_form" model="ir.ui.view">
+            <field name="name">odoo.audit.form</field>
+            <field name="model">odoo.audit</field>
+            <field name="arch" type="xml">
+                <form delete="0">
+                    <header>
+                        <button name="action_run_report" 
+                                type="object"
+                                string="Run Report" 
+                                states="draft"/>
+                        <button name="refresh_data" type="object" string="Refresh" states="processing"/>
+                        <button name="print_report" type="object" string="Generate Report"   attrs="{'invisible':['|',('audit_report', '!=', False),('state','!=','ready')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <div class="alert alert-info" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [ ('state', '!=', 'processing')]}">
+                        This will be running in the backgroud, you can leave the screen and continue working on other apps.
+                    </div>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="user_id" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="date" readonly="1"/>
+                                <field name="file_name" invisible="1" />
+                                <field name="audit_report" filename="file_name" readonly="1" attrs="{'invisible':[('state','in',['draft','processing','failed'])]}"/>
+                                <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state','!=','draft')]}"/>
+
+                            </group>
+                        </group>
+                            <notebook>
+                                <page name="param" string="Configuration">
+                                    <group>
+                                        <group>
+                                            <field name="is_installed_app_chart" attrs="{'readonly':[('state','!=','draft')]}" />    
+                                            <field name="is_categ_app" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <field name="is_group_role" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <field name="is_company_config" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <field name="is_show_studio_changes" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <field name="is_tech_data" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                        </group>
+                                        <group>
+                                            <field name="is_installed_app_list" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <field name="is_master_data" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <field name="is_duplicated_count" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <field name="is_system_config" attrs="{'readonly':[('state','!=','draft')]}"/>    
+                                            <!-- <field name="is_manifest_data" attrs="{'readonly':[('state','!=','draft')]}"/>     -->
+                                        </group>
+                                    </group>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoo_audit_tree" model="ir.ui.view">
+            <field name="name">odoo.audit.tree</field>
+            <field name="model">odoo.audit</field>
+            <field name="arch" type="xml">
+                <tree delete="0">
+                    <field name="name" readonly="1"/>
+                    <field name="user_id"/>
+                    <field name="industry_id"/>
+                    <field name="date"/>
+                    <field name="file_name" invisible="1" />
+                    <field name="audit_report" filename="file_name" widget="binary"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Windows Actions -->
+        <record id="odoo_audit_action" model="ir.actions.act_window">
+            <field name="name">Audit</field>
+            <field name="res_model">odoo.audit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_odoo_audit"
+            name="Audit Report"
+            action="odoo_audit_action"
+            parent="odoo_audit_audit"
+            sequence="1" />
+
+    </data>
+</odoo>

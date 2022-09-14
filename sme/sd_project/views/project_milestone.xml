@@ -1,0 +1,94 @@
+<odoo>
+    <data>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="milestone_form_view_inherit" model="ir.ui.view">
+        <field name="name">project.milestone.form.inherit</field>
+        <field name="model">project.milestone</field>
+        <field name="inherit_id" ref="project.project_milestone_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='is_reached']" position="after">
+                <!-- Add your fields or attributes here -->
+                    <field name="project_id" />
+                    <field name="note" />
+            </xpath>
+
+            <xpath expr="//field[@name='deadline']" position="before">
+                <field name="planned_date" />
+            </xpath>
+<!--            <xpath expr="//field[@name='is_reached']" position="attributes">-->
+<!--                <attribute name="readonly">0</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='deadline']" position="attributes">
+                <attribute name="string">Actual End Date</attribute>
+                <attribute name="attrs">
+                        {'required':[('is_reached','=',True)]}
+                    </attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit tree View to Modify it -->
+    <record id="project_milestone_tree_view_inherit" model="ir.ui.view">
+        <field name="name">project.milestone</field>
+        <field name="model">project.milestone</field>
+        <field name="inherit_id" ref="project.project_milestone_view_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="after">
+            	<field name="project_id" optional="show"/>
+                <field name="planned_date" string="Planned End Date" optional="show" />
+            </xpath>
+            <xpath expr="//field[@name='is_reached']" position="after">
+                <!-- Add your fields or attributes here -->
+                <field name="note" optional="hide" />
+            </xpath>
+
+            <xpath expr="//field[@name='deadline']" position="attributes">
+                <attribute name="string">Actual End Date</attribute>
+                <attribute name="attrs">
+                        {'required':[('is_reached','=',True)]}
+                    </attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+     <record id="milestone_under_project_search" model="ir.ui.view">
+        <field name="name">Milestones</field>
+        <field name="model">project.milestone</field>
+         <field name="arch" type="xml">
+             <search string="Milestones">
+                 <field name="project_id" string="Project"/>
+                 <separator/>
+                 <group expand="0" string="Group By">
+                    <filter string="Milestones" name="group_by_project" context="{'group_by':'project_id'}"/>
+                 </group>
+         </search>
+        </field>
+     </record>
+
+     <record id="under_project_milestone_all" model="ir.actions.act_window">
+        <field name="name">Milestones</field>
+        <field name="res_model">project.milestone</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_group_by_project': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            No milestones found. Let's create one!
+            </p><p>
+            Track major progress points that must be reached to achieve success.
+            </p>
+        </field>
+    </record>
+
+    <!--    **************************** Menu Item ************************-->
+    <menuitem id="milestone_under_project"
+              name="Milestones"
+              parent="project.menu_main_pm"
+              sequence="1"
+              action="under_project_milestone_all"/>
+    </data>
+</odoo>

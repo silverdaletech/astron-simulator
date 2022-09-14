@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.form.split</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_id"  position="after">
+                <field name="next_split_operation_id" />
+            </field>
+        </field>
+    </record> -->
+
+    <!-- Silverdale Remove it  -->
+    <!-- <record id="mrp_production_workorder_tree_editable_view" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.tree.split</field>
+        <field name="model">mrp.workorder</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view"/>
+        <field name="arch" type="xml">
+            <field name="json_popover"  position="before">
+                <field name="production_state" invisible="1" />
+                <!-- <button name="action_split" type="object" string="Split" /> -->
+                <button name="action_split" type="object" string="Split" attrs="{'invisible':['|',('production_state', '!=','confirmed'),('state','not in',['pending', 'waiting', 'ready'])]}"/>
+            </field>
+        </field>
+    </record> -->
+
+</odoo>

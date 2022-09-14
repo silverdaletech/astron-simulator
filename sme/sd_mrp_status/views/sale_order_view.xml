@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+<!--            sale.order model is inherited to add manufacturing_status and invoice_status on SO form view-->
+        <record id="sale_order_status_form_view_inherit" model="ir.ui.view">
+            <field name="name">sale.order.status.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='order_details']" position="inside">
+                    <field name="invoice_status_related" decoration-bf="1" decoration-info="invoice_status_related in ['upselling', 'to_invoice']"
+                           decoration-success="invoice_status_related == 'invoiced'"/>
+                    <field name="manufacturing_status"   attrs="{'invisible': [('manufacturing_status', '=', False)]}"
+                           decoration-bf="1" decoration-info="manufacturing_status == 'partial'"
+                           decoration-danger="manufacturing_status == 'over'" decoration-success="manufacturing_status == 'done'"
+                        />
+                </xpath>
+                <field name="partner_id" position="after">
+                    <field name="mo" invisible="1"/>
+                </field>
+               <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                       position="after">
+                   <field name="manufacturing_status" optional="hide" attrs="{'column_invisible': [('parent.manufacturing_status', '=', False)]}"
+                          decoration-bf="manufacturing_status in ['partial', 'done', 'over']" decoration-danger="manufacturing_status == 'over'"
+                          decoration-success="manufacturing_status == 'done'"
+                   />
+                   <field name="inv_condition" invisible="1"/>
+                   <field name="mo" invisible="1"/>
+                   <field name="mo_qty"
+                           attrs="{'invisible': [('inv_condition', '=', True)], 'column_invisible': [('parent.mo', '=', True)]}"/>
+                   <field name="state" invisible="1" />
+               </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

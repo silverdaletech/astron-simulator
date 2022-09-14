@@ -1,0 +1,30 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sd_user_log_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">silverdale Integrations</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='uninstall_multiple_module']" position="after">
+
+                <div class="col-12 col-lg-6 o_setting_box" id="enforce_time_interval_id">
+                        <div class="o_setting_left_pane">
+                            <field name="enforce_time_interval"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Enforce Maximum Time Between Logins" for="enforce_time_interval"/>
+                            <div class="text-muted">
+                                By enabling this you will be able to Enforce Maximum Time Between Logins.
+                            </div>
+                            <div  attrs="{'invisible':[('enforce_time_interval', '=', False)], 'required':[('enforce_time_interval', '=', True)]}">
+<!--                                <label for="interval_number" class="o_light_label"/>-->
+                                <field name="interval_number" attrs="{'required':[('interval_number', '=', True)]}" style="width:35%;  margin-right:30px;"/>
+                                <field name="interval_type" attrs="{'required':[('interval_type', '=', True)]}"/>
+                            </div>
+                        </div>
+                    </div>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

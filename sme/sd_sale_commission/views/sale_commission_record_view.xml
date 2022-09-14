@@ -1,0 +1,105 @@
+<odoo>
+
+    <record id="sale_commission_record_form_view" model="ir.ui.view">
+        <field name="name">sale.commission.record.form</field>
+        <field name="model">sale.commission.record</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0">
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="commission_agent" />
+                            <field name="partner_id" />
+                            <field name="invoice_id" />
+                        </group>
+                    <group>
+                        <field name="commission_expense_acc_id" />
+                        <field name="company_id" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        
+                    </group>
+                </group>
+                <notebook>
+                    <page name="commission_line" string="Commission">
+                        <field name="commission_line">
+                            <tree>
+                                <field name="product_id" />
+                                <field name="name" />
+                                <field name="unit_price" />
+                                <field name="qty" />
+                                <!-- <field name="uom_id" /> -->
+                                <field name="subtotal" widget="monetary"/>
+                                <field name="commissionable_amount" widget="monetary" />
+                                <field name="commission_amount" widget="monetary"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                        <group col="4">
+                            <!-- Totals (only invoices / receipts) -->
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_invoice_amount" widget="monetary"/>
+                                <field name="commissionable_amount" widget="monetary"/>
+                                <field name="commission_amount" widget="monetary"/>
+
+                                <!-- <field name="invoice_payments_widget" colspan="2" nolabel="1" widget="payment"/> -->
+                                <!-- <field name="amount_residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/> -->
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+            </form>
+        </field>
+    </record>
+    <record id="sale_commission_record_view_tree" model="ir.ui.view">
+        <field name="name">sale.commision.record.tree</field>
+        <field name="model">sale.commission.record</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="name" />
+                <field name="commission_agent" />
+                <field name="invoice_id" />
+                <field name="partner_id" />
+                <field name="commission_expense_acc_id" />
+                <field name="company_id" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="total_invoice_amount" widget="monetary"/>
+                <field name="commissionable_amount" widget="monetary"/>
+                <field name="commission_amount" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_commission_record_filter" model="ir.ui.view">
+        <field name="name">sale.commission.record.search</field>
+        <field name="model">sale.commission.record</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                
+                <group expand="0" string="Group By">
+                    <filter string="Agent" name="group_by_agent" domain="[]" context="{'group_by': 'commission_agent'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_commission_record_action" model="ir.actions.act_window">
+        <field name="name">Commission Records</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.commission.record</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="menu_sale_commission_record" name="Commission Record" groups="sd_sale_commission.group_commission_manager" parent="sd_sale_commission.menu_commission" action="sd_sale_commission.sale_commission_record_action" sequence="2"/>
+</odoo>

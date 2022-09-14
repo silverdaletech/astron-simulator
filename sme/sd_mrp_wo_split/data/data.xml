@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Product -->
+    <record id="product_product_300" model="product.product">
+        <field name="name">WorkOrder Generic Product</field>
+        <field name="detailed_type">consu</field>
+    </record>
+<!-- Bom -->
+    <record id="mrp_bom_generic" model="mrp.bom">
+        <field name="product_tmpl_id" ref="product_product_300_product_template"/>
+        <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        <field name="sequence">3</field>
+        <field name="consumption">flexible</field>
+    </record>
+<!-- Work Center -->
+<record id="mrp_workcenter_300" model="mrp.workcenter">
+    <field name="name">Generic</field>
+</record>
+<!-- Operations -->
+<record id="mrp_routing_workcenter_9999_0" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 1</field>
+</record>
+<record id="mrp_routing_workcenter_9999_1" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 2</field>
+</record>
+<record id="mrp_routing_workcenter_9999_2" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 3</field>
+</record>
+<record id="mrp_routing_workcenter_9999_3" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 4</field>
+</record>
+<record id="mrp_routing_workcenter_9999_4" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 5</field>
+</record>
+<record id="mrp_routing_workcenter_9999_5" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 6</field>
+</record>
+<record id="mrp_routing_workcenter_9999_6" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 7</field>
+</record>
+<record id="mrp_routing_workcenter_9999_7" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 8</field>
+</record>
+<record id="mrp_routing_workcenter_9999_8" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 9</field>
+</record>
+<record id="mrp_routing_workcenter_9999_9" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 10</field>
+</record>
+<record id="mrp_routing_workcenter_9999_10" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 11</field>
+</record>
+<record id="mrp_routing_workcenter_9999_11" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 12</field>
+</record>
+<record id="mrp_routing_workcenter_9999_12" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 13</field>
+</record>
+<record id="mrp_routing_workcenter_9999_13" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 14</field>
+</record>
+<record id="mrp_routing_workcenter_9999_14" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 15</field>
+</record>
+<record id="mrp_routing_workcenter_9999_15" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 16</field>
+</record>
+<record id="mrp_routing_workcenter_9999_16" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 17</field>
+</record>
+<record id="mrp_routing_workcenter_9999_17" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 18</field>
+</record>
+<record id="mrp_routing_workcenter_9999_18" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 19</field>
+</record>
+<record id="mrp_routing_workcenter_9999_19" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 20</field>
+</record>
+<record id="mrp_routing_workcenter_9999_20" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 21</field>
+</record>
+<record id="mrp_routing_workcenter_9999_21" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 22</field>
+</record>
+<record id="mrp_routing_workcenter_9999_22" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 23</field>
+</record>
+<record id="mrp_routing_workcenter_9999_23" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 24</field>
+</record>
+<record id="mrp_routing_workcenter_9999_24" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 25</field>
+</record>
+<record id="mrp_routing_workcenter_9999_25" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 26</field>
+</record>
+<record id="mrp_routing_workcenter_9999_26" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 27</field>
+</record>
+<record id="mrp_routing_workcenter_9999_27" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 28</field>
+</record>
+<record id="mrp_routing_workcenter_9999_28" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 29</field>
+</record>
+<record id="mrp_routing_workcenter_9999_29" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 30</field>
+</record>
+<record id="mrp_routing_workcenter_9999_30" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 31</field>
+</record>
+<record id="mrp_routing_workcenter_9999_31" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 32</field>
+</record>
+<record id="mrp_routing_workcenter_9999_32" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 33</field>
+</record>
+<record id="mrp_routing_workcenter_9999_33" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 34</field>
+</record>
+<record id="mrp_routing_workcenter_9999_34" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 35</field>
+</record>
+<record id="mrp_routing_workcenter_9999_35" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 36</field>
+</record>
+<record id="mrp_routing_workcenter_9999_36" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 37</field>
+</record>
+<record id="mrp_routing_workcenter_9999_37" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 38</field>
+</record>
+<record id="mrp_routing_workcenter_9999_38" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 39</field>
+</record>
+<record id="mrp_routing_workcenter_9999_39" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 40</field>
+</record>
+<record id="mrp_routing_workcenter_9999_40" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 41</field>
+</record>
+<record id="mrp_routing_workcenter_9999_41" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 42</field>
+</record>
+<record id="mrp_routing_workcenter_9999_42" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 43</field>
+</record>
+<record id="mrp_routing_workcenter_9999_43" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 44</field>
+</record>
+<record id="mrp_routing_workcenter_9999_44" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 45</field>
+</record>
+<record id="mrp_routing_workcenter_9999_45" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 46</field>
+</record>
+<record id="mrp_routing_workcenter_9999_46" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 47</field>
+</record>
+<record id="mrp_routing_workcenter_9999_47" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 48</field>
+</record>
+<record id="mrp_routing_workcenter_9999_48" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 49</field>
+</record>
+<record id="mrp_routing_workcenter_9999_49" model="mrp.routing.workcenter">
+    <field name="bom_id" ref="mrp_bom_generic"/>
+    <field name="workcenter_id" ref="mrp_workcenter_300"/>
+    <field name="name">Operation Generic 50</field>
+</record>
+</odoo>
+    
+    <!-- <field name="image_1920" type="base64" file="product/static/img/product_product_3-image.jpg"/> -->
+    <!-- <field name="default_code">FURN_7800</field> -->
+    <!-- <field name="uom_id" ref="uom.product_uom_unit"/>
+    <field name="uom_po_id" ref="uom.product_uom_unit"/>
+    <field name="description_sale">Desk combination, black-brown: chair + desk + drawer.</field> -->

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    ///////////// This report is useless and that why its menu item is removed/////////////////////////////////////-->
+
+    <record id="action_user_report" model="ir.actions.act_window">
+        <field name="name">User Detail Report</field>
+        <field name="res_model">login.user.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="report_login_user" model="ir.actions.report">
+        <field name="name">User Detail Report</field>
+        <field name="model">login.user.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sd_user_logs.user_detail_report</field>
+        <field name="report_file">sd_user_logs.user_detail_report</field>
+        <field name="print_report_name">'User Details'</field>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

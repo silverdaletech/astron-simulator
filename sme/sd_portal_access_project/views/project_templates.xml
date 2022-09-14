@@ -1,0 +1,15 @@
+<odoo>
+
+    <!-- to count exact tasks according to boolean field in task form template is inherited and called computed field 'task_count_with_subtasks_portal2' -->
+<!--    <template id="portal_my_projects" inherit_id="project.portal_my_projects" name="Portal: My Task with Timesheets sd_project_portal">-->
+<!--        <xpath expr="//tbody/tr/td[2]/t" position="replace">-->
+<!--            <t t-if="portal_user">-->
+<!--                <t t-out="project.task_count_with_subtasks_portal2" />-->
+<!--            </t>-->
+<!--            <t t-else="">-->
+<!--                <t t-out="project.task_count_with_subtasks" />-->
+<!--            </t>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+</odoo>

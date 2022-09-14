@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+zpl_label_design,zpl.label.design,model_zpl_label_design,,1,1,1,1
+zpl_label_size,zpl.label.size,model_zpl_label_size,,1,1,1,1
+zpl_design_preview,zpl.design.preview,model_zpl_design_preview,,1,1,1,1
+zpl_custom_content,zpl.custom.content,model_zpl_custom_content,,1,1,1,1
+zpl_design_history,zpl.design.history,model_zpl_design_history,,1,1,1,1
+

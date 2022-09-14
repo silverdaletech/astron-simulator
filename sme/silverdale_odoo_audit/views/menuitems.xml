@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Root app menu -->
+    <menuitem
+        id="odoo_audit_root"
+        name="System Audit"
+        sequence="10"/>
+    <!-- Main menu -->
+        <menuitem
+        id="odoo_audit_audit"
+        name="Audit"
+        action="odoo_audit_action"
+        parent="odoo_audit_root"
+        sequence="1"/>
+        <!-- groups="groups_id" -->
+
+</odoo>

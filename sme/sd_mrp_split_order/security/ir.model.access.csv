@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_split_order_wizard,access.split.order.wizard,model_split_order_wizard,,1,1,1,1
+access_split_order_line_wizard,access.split.order.line.wizard,model_split_order_line_wizard,,1,1,1,1
+access_mrp_track_split,access.mrp.track.split,model_mrp_track_split,,1,1,1,1
+access_mrp_track_split_lines,access.mrp.track.split.lines,model_mrp_track_split_lines,,1,1,1,1

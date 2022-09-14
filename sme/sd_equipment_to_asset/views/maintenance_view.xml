@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="hr_equipment_view_form" model="ir.ui.view">
+        <field name="name">maintenance.equipment.dispose</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//widget" position="before">
+                <field name="is_dispose" invisible="1" />
+                <widget name="web_ribbon" title="Dispose" bg_color="bg-danger" attrs="{'invisible': [('is_dispose', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ptoduct_template_equipment_search_view" model="ir.ui.view">
+        <field name="name">product.template.equipment.search</field>
+        <field name="model">product.template</field>
+        <field name="priority">1</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='consumable']" position="after">
+                <filter string="Equipments" name="is_equipment" domain="[('is_equipment', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_equipment" model="ir.ui.view">
+        <field name="name">product.template.common.form.equipment</field>
+        <field name="model">product.template</field>
+        <field name="priority">1</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <filter string="Equipments" name="is_equipment"/>
+            </xpath>
+            <xpath expr="//page[@name='variants']" position="attributes">
+                <attribute name="groups">sd_equipment_to_asset.group_product_attributes_and_variants</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_equpment_only1" model="ir.ui.view">
+        <field name="name">product.template.form.equipment.only</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sd_equipment_to_asset.product_template_form_view_equipment"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='sale_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='variants']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='inventory']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ptoduct_template_equipment_action1" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="context">{
+            'search_default_is_equipment': True,
+            'default_is_equipment': True,
+            'default_detailed_type': 'consu',
+            'default_purchase_ok': True,
+            'default_sale_ok': False
+            }</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'kanban'}),
+        (0, 0, {'view_mode': 'tree'}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('sd_equipment_to_asset.product_template_form_view_equpment_only1')}),
+        ]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_equipment_product"
+            name="Products"
+            parent="maintenance.menu_maintenance_title"
+            action="ptoduct_template_equipment_action1"
+            sequence="3"/>
+</odoo>

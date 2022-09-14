@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Slide: all its content, not fullscreen mode -->
+        <template name="Slide: Detailed Content Extended" id="elearning_external_videos_inherit_slide_content_detailed" inherit_id="website_slides.slide_content_detailed">
+            <xpath expr="//div[hasclass('o_wslides_lesson_content_type')]" position="inside">
+                <div t-if="slide.slide_type == 'vimeovideo'"
+                     class="embed-responsive embed-responsive-16by9 embed-responsive-item mb8">
+                    <t t-raw="slide.embed_code"/>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="elearning_external_videos_inherit_slide_icon" inherit_id="website_slides.slide_icon">
+            <xpath expr="//i[4]" position="after">
+                <i t-if="slide.slide_type == 'vimeovideo'" t-att-class="'fa fa-play-circle %s' % icon_class"/>
+            </xpath>
+        </template>
+
+        <template name="Slides category template for fullscreen view side bar extended" id="elearning_external_videos_inherit_slide_fullscreen_sidebar_category" inherit_id="website_slides.slide_fullscreen_sidebar_category">
+            <xpath expr="//li[hasclass('o_wslides_fs_sidebar_section')]/ul[hasclass('o_wslides_fs_sidebar_section_slides')]/t[@t-foreach='slides']" position="replace">
+                <t t-foreach="slides" t-as="slide">
+                    <t t-set="slide_completed" t-value="channel_progress[slide.id].get('completed')"/>
+                    <t t-set="is_member" t-value="current_slide.channel_id.is_member"/>
+                    <t t-set="can_access" t-value="slide.is_preview or is_member or current_slide.channel_id.can_publish"/>
+                    <li t-att-class="'o_wslides_fs_sidebar_list_item d-flex align-items-top py-1 %s' % ('active' if slide.id == current_slide.id else '')"
+                        t-att-data-id="slide.id"
+                        t-att-data-can-access="can_access"
+                        t-att-data-name="slide.name"
+                        t-att-data-type="slide.slide_type"
+                        t-att-data-slug="slug(slide)"
+                        t-att-data-has-question="1 if slide.question_ids else 0"
+                        t-att-data-is-quiz="0"
+                        t-att-data-completed="1 if slide_completed else 0"
+                        t-att-data-embed-code="slide.embed_code if slide.slide_type in ['video', 'vimeovideo', 'document', 'presentation', 'infographic'] else False"
+                        t-att-data-is-member="is_member"
+                        t-att-data-session-answers="session_answers">
+                        <span class="ml-3">
+                            <i t-if="slide_completed and is_member" class="o_wslides_slide_completed fa fa-check fa-fw text-success" t-att-data-slide-id="slide.id"/>
+                            <i t-if="not slide_completed and is_member" class="fa fa-circle-thin fa-fw" t-att-data-slide-id="slide.id"/>
+                        </span>
+                        <div class="ml-2">
+                            <a t-if="can_access" class="d-block pt-1" href="#">
+                                <div class="d-flex ">
+                                    <t t-call="website_slides.slide_icon"/>
+                                    <div class="o_wslides_fs_slide_name" t-esc="slide.name"/>
+                                </div>
+                            </a>
+                            <span t-else="" class="d-block pt-1" href="#">
+                                <div class="d-flex ">
+                                    <t t-set="icon_class" t-value="'mr-2 text-600'"/>
+                                    <t t-call="website_slides.slide_icon"/>
+                                    <div class="o_wslides_fs_slide_name text-600" t-esc="slide.name"/>
+                                </div>
+                            </span>
+                            <ul class="list-unstyled w-100 pt-2 small" t-if="slide.link_ids or slide.slide_resource_ids or (slide.question_ids and not slide.slide_type =='quiz')" >
+                                <li t-if="slide.link_ids" t-foreach="slide.link_ids" t-as="link" class="pl-0 mb-1">
+                                    <a t-if="can_access" class="o_wslides_fs_slide_link" t-att-href="link.link" target="_blank">
+                                        <i class="fa fa-link mr-2"/><span t-esc="link.name"/>
+                                    </a>
+                                    <span t-else="" class="o_wslides_fs_slide_link text-600">
+                                        <i class="fa fa-link mr-2"/><span t-esc="link.name"/>
+                                    </span>
+                                </li>
+                                <div class="o_wslides_js_course_join pl-0" t-if="slide.slide_resource_ids">
+                                    <t t-if="is_member or slide.channel_id.can_publish">
+                                        <li t-foreach="slide.slide_resource_ids" t-as="resource" class="mb-1">
+                                            <a class="o_wslides_fs_slide_link" t-attf-href="/web/content/slide.slide.resource/#{resource.id}/data?download=true">
+                                                <i class="fa fa-download mr-2"/><span t-esc="resource.name"/>
+                                            </a>
+                                        </li>
+                                    </t>
+                                    <li t-elif="slide.channel_id.enroll == 'public'" class="o_wslides_fs_slide_link mb-1">
+                                        <i class="fa fa-download mr-1"/>
+                                        <t t-call="website_slides.join_course_link"/>
+                                    </li>
+                                </div>
+                                <li class="o_wslides_fs_sidebar_list_item pl-0 mb-1" t-if="slide.question_ids and not slide.slide_type == 'quiz'"
+                                    t-att-data-id="slide.id"
+                                    t-att-data-can-access="can_access"
+                                    t-att-data-name="slide.name"
+                                    t-att-data-type="slide.slide_type"
+                                    t-att-data-slug="slug(slide)"
+                                    t-att-data-has-question="1 if slide.question_ids else 0"
+                                    t-att-data-is-quiz="1"
+                                    t-att-data-completed="1 if slide_completed else 0"
+                                    t-att-data-is-member="is_member"
+                                    t-att-data-session-answers="session_answers">
+                                    <a t-if="can_access" class="o_wslides_fs_slide_quiz" href="#" t-att-index="i">
+                                        <i class="fa fa-flag-checkered text-warning mr-2"/>Quiz
+                                    </a>
+                                    <span t-else="" class="text-600">
+                                        <i class="fa fa-flag-checkered text-warning mr-2"/>Quiz
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

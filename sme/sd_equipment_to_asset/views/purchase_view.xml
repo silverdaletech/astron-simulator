@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.equipment.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button type="object" name="action_view_equipment" class="oe_stat_button" icon="fa-gavel" attrs="{'invisible':[('equipment_count', '=', 0)]}">
+                    <field name="equipment_count" widget="statinfo" string="Equipments"/>
+                </button>
+            </xpath>    
+        </field>
+    </record>
+
+</odoo>

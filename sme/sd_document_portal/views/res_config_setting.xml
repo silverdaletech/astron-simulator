@@ -1,0 +1,19 @@
+<odoo>
+    <!--  Inherit Form View to Modify it  -->
+    <record id="sd_document_portal_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.sd_document_portal.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_document.sd_document_res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='module_sd_document_portal']//div[hasclass('o_setting_right_pane')]" position="inside">
+                <div class="content-group">
+                    <div class="row mt16">
+                        <label class="o_form_label col-lg-3" string="Shared Link Default Deadline" for="shared_link_default_deadline"/>
+                        <field name="shared_link_default_deadline" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

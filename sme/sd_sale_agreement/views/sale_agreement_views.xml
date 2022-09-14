@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+    <!-- Sale Orders -->
+
+    <record model="ir.actions.act_window" id="action_sale_agreement_to_so">
+        <field name="name">Sale Quotation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('agreement_id','=',active_id)]</field>
+        <field name="context">{
+            "default_agreement_id":active_id,
+            "default_user_id": False,
+            }
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_sale_agreement_list">
+        <field name="name">Sale Quotations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('agreement_id','=',active_id)]</field>
+        <field name="context">{
+            "default_agreement_id":active_id,
+            "default_user_id": False,
+            }
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_sale_agreement_form">
+        <field name="name">sale.agreement.form</field>
+        <field name="model">sale.agreement</field>
+        <field name="arch" type="xml">
+            <form string="Sale Agreements">
+            <header>
+                <field name="is_existing_agreement" force_save="1" invisible="1" />
+                <button name="action_confirm_wizard" type="object"
+                    string="New Quotation" class="btn-primary"
+                    attrs="{'invisible': ['|' , ('state', '!=', 'ongoing'), ('line_copy', '!=', 'manual')]}"/>
+
+                <button name="%(action_sale_agreement_to_so)d" type="action"
+                    string="New Quotation" class="btn-primary"
+                    attrs="{'invisible': ['|' , ('state', '!=', 'ongoing'), ('line_copy', '=', 'manual')]}"/>
+                <button name="action_in_progress" states="new,sent" string="Confirm" type="object" class="btn-primary"/>
+                <button name="action_send_email" states="new, sent,ongoing" string="Send By Email" type="object" class="btn-primary"/>
+<!--                <button name="action_open" states="in_progress" string="Validate" type="object" class="btn-primary"/>-->
+                <button name="action_done" states="ongoing" string="Close" type="object" class="btn-primary"/>
+                <button name="action_draft" states="cancel" string="Reset to Draft" type="object"/>
+                <field name="is_to_invoice" invisible="1"/>
+                <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" class="btn-primary" type="action" context="{'is_sale_agreement': True}" attrs="{'invisible': [('is_to_invoice', '=', False)] }" />
+                <button name="action_cancel" states="new,sent,ongoing,done" string="Cancel" type="object"/>
+                <field name="state" widget="statusbar" statusbar_visible="new,sent,ongoing,done" />
+<!--                <field name="state_blanket_order" widget="statusbar" statusbar_visible="new,ongoing,done,cancel" attrs="{'invisible': [('is_quantity_copy', '!=', 'none')]}"/>-->
+            </header>
+                <div class="alert alert-warning" role="alert" attrs="{'invisible': ['|',('is_existing_agreement', '=', False),('state', 'not in', ['new', 'sent', 'ongoing'])]}" readonly="1">
+<!--                    <span class="fa fa-info-circle"/>-->
+                    <field name="validation_message" class="alart alert-warning" force_save="1"/>
+                </div>
+            <sheet>
+
+                <div class="oe_button_box" name="button_box">
+                    <button name="%(action_sale_agreement_list)d" type="action" class="oe_stat_button" icon="fa-list-alt"
+                        attrs="{'invisible': [('state', '=', 'new')]}">
+                        <field name="order_count" widget="statinfo" string="Sale Orders"/>
+                    </button>
+
+                    <button name="preview_sale_agreement" type="object" class="oe_stat_button" icon="fa-globe icon">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Customer</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                        </button>
+                </div>
+                <div class="float-left">
+                    <label for="name" class="oe_inline"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="user_id" attrs="{'readonly': [('state','!=','new')]}" domain="[('share', '=', False)]"/>
+                        <field name="partner_id" attrs="{'required': [('is_quantity_copy', '=', 'none')], 'readonly': [('state', 'in', ['ongoing','done'])]}"/>
+                        <field name="is_copy_customer_ref"/>
+                        <field name="partner_invoice_id" attrs="{'readonly': [('state', 'in', ['ongoing','done'])]}"/>
+                        <field name="customer_ref"/>
+                        <field name="currency_id" groups="base.group_multi_currency"/>
+                    </group>
+                    <group>
+                        <field name="date_end" attrs="{'readonly': [('state','not in',('new', 'sent', 'ongoing'))]}"/>
+                        <field name="planned_date_begin" attrs="{'readonly': [('state','not in',('new','sent', 'ongoing'))]}"/>
+                        <field name="planned_date_end" attrs="{'readonly': [('state','not in',('new','sent','ongoing'))]}"/>
+                        <field name="show_update_pricelist" invisible="1"/>
+                            <label for="pricelist_id" groups="product.group_product_pricelist"/>
+                            <div groups="product.group_product_pricelist" class="o_row">
+                                <field name="pricelist_id" options="{'no_open':True,'no_create': True}"/>
+                                <button name="update_prices" type="object"
+                                    string=" Update Prices"
+                                    help="Recompute all prices based on this pricelist"
+                                    class="btn-link mb-1 px-0" icon="fa-refresh"
+                                    confirm="This will update all unit prices based on the currently set pricelist."
+                                    attrs="{'invisible': ['|', ('show_update_pricelist', '=', False), ('state', 'in', ['sale', 'done','cancel'])]}"/>
+                            </div>
+                        <field name="invoice_status" optional="show" widget='badge'  decoration-success="invoice_status == 'invoiced'" decoration-info="invoice_status == 'to invoice'" decoration-warning="invoice_status == 'need_action'"/>
+                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" attrs="{'readonly': [('state','not in',('new'))]}"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Products" name="products">
+                        <field name="line_ids" widget="section_and_note_one2many">
+                            <tree string="Products" editable="bottom">
+                                <field name="sequence" widget="handle" />
+
+                                <field name="display_type" invisible="1"/>
+
+                                <field name="product_id" required="1"
+                                       domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/> 
+                                <field name="product_description_variants" optional="show" attrs="{'invisible': [('product_description_variants', '=', '')], }"/>
+                                <field name="line_copy" invisible="1" />
+                                <field name="is_sale_line_for_wizard" invisible="1" />
+                                <field name="take_to_sale_rfq" string="Take to Sale Rfq" optional="hide" widget="boolean_toggle" attrs="{'invisible': [('line_copy', '!=', 'manual')], }" />
+                                <field name="product_qty"/>
+                                <field name="qty_ordered" optional="show"/>
+                                <field name="qty_delivered" optional="show"/>
+                                <field name="qty_invoiced" optional="show"/>
+                                <field name="product_uom_category_id" invisible="1"/>
+                                <field name="product_uom_id" string="UoM" groups="uom.group_uom" optional="show" attrs="{'required': [('product_id', '!=', False)]}"/>
+                                <field name="account_analytic_id" optional="hide" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" groups="analytic.group_analytic_accounting"/>
+                                <field name="analytic_tag_ids" optional="hide" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" groups="analytic.group_analytic_tags" widget="many2many_tags"/>
+                                <field name="price_unit"  optional="show" />
+                                <field name="price_line_total" widget='monetary' />
+                            </tree>
+                            <form string="Products">
+                                <group>
+                                    <field name="product_id"
+                                           domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" />
+                                    <field name="product_qty"/>
+                                    <field name="qty_ordered"/>
+                                    <field name="product_uom_category_id" invisible="1"/>
+                                    <field name="product_uom_id" />
+                                    <field name="account_analytic_id"  domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" groups="analytic.group_analytic_accounting"/>
+                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                </group>
+                            </form>
+                        </field>
+<!--                        <separator string="Terms and Conditions"/>-->
+<!--                        <field name="description" class="oe-bordered-editor" attrs="{'readonly': [('state','not in',('new','sent'))]}"/>-->
+                        <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                <group colspan="4">
+                                    <field name="description" class="oe-bordered-editor" nolabel="1" placeholder="Terms and conditions..."/>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right text-bold" colspan="2" name="sale_agreement_total">
+                                   <field name="totals_json" colspan="2" widget="monetary" />
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                    </page>
+                    <page string="Other Info" name="other_info">
+                        <group>
+                            <group>
+                                <field name="line_copy" widget="radio" />
+<!--                                <field name="exclusive" widget="radio"/>-->
+                                <field name="report_type_portal" widget="radio" />
+                            </group>
+                            <group>
+                                <field name="is_quantity_copy" widget="radio" attrs="{'invisible': [('line_copy','=','none')]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+              <field name="message_follower_ids"/>
+              <field name="activity_ids"/>
+              <field name="message_ids"/>
+            </div>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_sale_agreement_tree">
+        <field name="name">sale.agreement.tree</field>
+        <field name="model">sale.agreement</field>
+        <field name="arch" type="xml">
+            <tree string="Sale Agreements" sample="1">
+                <field name="message_needaction" invisible="1"/>
+                <field name="name" decoration-bf="1"/>
+                <field name="user_id" optional="show" widget='many2one_avatar_user'/>
+                <field name="partner_id" optional="show"/>
+                <field name="customer_ref" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" optional="show"/>
+                <field name="date_end" optional="show" widget='remaining_days' decoration-danger="date_end and date_end&lt;current_date" attrs="{'invisible': [('state','in', ('done', 'cancel'))]}"/>
+                <field name="state" optional="show" widget='badge' decoration-success="state == 'done'" decoration-info="state not in ('done', 'cancel')"/>
+                <field name="invoice_status" optional="show" widget='badge'  decoration-success="invoice_status == 'invoiced'" decoration-info="invoice_status == 'to invoice'" decoration-warning="invoice_status == 'need_action'"/>
+               
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+            </tree>
+      </field>
+    </record>
+
+    <record id="view_sale_agreement_kanban" model="ir.ui.view">
+        <field name="name">sale.agreement.kanban</field>
+        <field name="model">sale.agreement</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="user_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings mt4">
+                                    <strong class="o_kanban_record_title"><span><field name="name"/></span></strong>
+                                </div>
+                                <field name="state" widget="label_selection" options="{'classes': {'new': 'default', 'sent':'success', 'done': 'success', 'close': 'danger'}}" readonly="1"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="partner_id"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sale_agreement_filter" model="ir.ui.view">
+            <field name="name">sale.agreement.list.select</field>
+            <field name="model">sale.agreement</field>
+            <field name="arch" type="xml">
+                <search string="Search Sale Agreements">
+                    <field name="name" string="Reference" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="user_id"/>
+                    <field name="partner_id"/>
+                    <field name="customer_ref"/>
+                    <field name="product_id"/>
+                    <filter string="My Agreements" name="my_agreements" domain="[('user_id', '=', uid)]"/>
+                    <separator/>
+                    <filter string="New" name="new" domain="[('state', '=', 'new')]" help="New Agreements"/>
+                    <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'ongoing')]" help="In negotiation"/>
+                    <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+                    <separator/>
+                    <filter invisible="1" string="Late Activities" name="activities_overdue"
+                        domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                        help="Show all records which has next action date is before today"/>
+                    <filter invisible="1" string="Today Activities" name="activities_today"
+                        domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                        domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Sale Representative" name="representative" domain="[]" context="{'group_by': 'user_id'}"/>
+                        <filter string="Customer" name="customer" domain="[]" context="{'group_by': 'partner_id'}"/>
+                        <filter string="Customer Reference" name="customer_reference" domain="[]" context="{'group_by': 'customer_ref'}"/>
+                        <filter string="Status" name="status" domain="[]" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    <record model="ir.actions.act_window" id="action_sale_agreement">
+        <field name="name">Sale Agreements</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.agreement</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_sale_agreement_filter"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Start a new sale agreement
+          </p><p>
+            Example of sale agreements include blanket orders.
+          </p><p>
+            This sale agreement will be a type of blanked order,
+            For a blanket order, you can record an agreement for a specifc period
+            (e.g. a year) and you order products within this agreement, benefiting
+            from the negotiated prices.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_sale_agreement"
+        name="Sale Agreements"
+        sequence="10"
+        groups="sd_sale_agreement.group_sale_agreement"
+        parent="sale.sale_order_menu"
+        action="action_sale_agreement"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="zpl_template_preview_view_form" model="ir.ui.view">
+        <field name="name">zpl.design.preview.view.form</field>
+        <field name="model">zpl.design.preview</field>
+        <field name="arch" type="xml">
+            <form string="ZPL Label Preview">
+                <span attrs="{'invisible':[('density_choosen','!=','+1')]}"  class="">DPI:
+                    <field id="k" name="density_choosen"   />
+                </span>
+                <div class="container" style="max-width:100%; max-height:100%; text-align:center; background-color:	#888888; overflow-y: scroll;">
+                    <group>
+                        <div style="display: inline-block;" id="preview_holder">
+                            <field name="image" widget="image" style="max-width:100%; max-height:100%; align:center;"  nolabel="1" readonly="1"/>
+                        </div>
+                    </group>
+                </div>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel" data-hotkey="z"/><span style="float:right;" id="both_coordinates"></span>
+                </footer>
+                <script type="text/javascript" src="/sd_zpl_report/static/src/js/coordinate.js"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="zpl_template_preview_action" model="ir.actions.act_window">
+        <field name="name">ZPL Label Preview</field>
+        <field name="res_model">zpl.design.preview</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="zpl_template_preview_view_form"/>
+        <field name="target">new</field>
+        <field name="context">{'default_zpl_template_id':active_id}</field>
+    </record>
+
+</odoo>

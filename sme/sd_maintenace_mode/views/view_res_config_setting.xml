@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_res_config_settings_upgrade_form" model="ir.ui.view">
+            <field name="name">upgrade setting</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='silverdale_integration']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box" id="website_maintenance_mode">
+                        <div class="o_setting_left_pane">
+                            <field name="website_maintenance_mode"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Website Maintenance Mode" for="website_maintenance_mode"/>
+                            <div class="text-muted">
+                                By enabling this user will see message for upgrade process.
+                            </div>
+                        </div>
+
+                        <div class="o_setting_right_pane" attrs="{'invisible': [('website_maintenance_mode', '=', False)]}">
+                            <label string="Upgrade process end" for="upgrade_end_date"/>
+                            <field name="upgrade_end_date"/>
+                        </div>
+                         <div class="o_setting_right_pane" attrs="{'invisible': [('website_maintenance_mode', '=', False)]}">
+                            <label string="Admin User" for="admin_user"/>
+                            <field name="admin_user"/>
+                        </div>
+
+
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

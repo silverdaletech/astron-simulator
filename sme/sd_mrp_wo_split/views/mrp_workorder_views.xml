@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- MRP.WORKORDER TABLET VIEW -->
+    <record id="mrp_workorder_view_form_tablet" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.form.inherit.quality.assigned.qty</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_tablet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='workorder_actions']//div" position="inside">
+                <button name="action_view_consumption"
+                    type="object"
+                    barcode_trigger="continue"
+                    string="Work log"
+                />
+            </xpath>
+            <!-- <xpath expr="//div[@class='workorder_bar']//div" position="inside">
+                <div attrs="{'invisible': [('assign_qty', '=', 0)]}" class="oe_inline pl-5"> Work Order Quantity</div>
+                <label attrs="{'invisible': [('assign_qty', '=', 0)]}" class="oe_inline" for="assign_qty" string=":"/>
+                
+                <field attrs="{'invisible': [('assign_qty', '=', 0)]}" name="assign_qty" options="{'no_open': True}" class="oe_inline text-left" readonly="1"/>
+            </xpath> -->
+    </field>
+</record>
+<!-- MRP Workorder view -->
+<record model="ir.ui.view" id="mrp_production_workorder_form_view_inherit">
+    <field name="name">mrp.production.work.order.form</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='time_tracking']//field[@name='time_ids']//tree" position="inside">
+            <field name="produced_qty" readonly="1" />
+            <field name="produced_range" readonly="1"/>
+            <field name="badge_number" readonly="1"/>
+            <field name="employee_id" readonly="1"/>
+        </xpath>
+    </field>
+</record>
+</odoo>

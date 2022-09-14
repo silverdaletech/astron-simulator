@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="confirm_wiz_view_form" model="ir.ui.view">
+            <field name="name">confirm_wiz_view_form</field>
+            <field name="model">confirm.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Session">
+                    <sheet>
+                        <group>
+                            <p>
+                                <strong>Are you sure you want to end this user's session? This may cause the user to lose data.</strong>
+                            </p>
+
+                        </group>
+                    </sheet>
+                    <footer>
+                    <button string="End Session" name="session_close" data-hotkey="a" class="btn-primary" type="object" fullscreen="True"/>
+                    <button string="Cancel" special="cancel" data-hotkey="z" class="btn-secondary" close="1" fullscreen="True"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+
+<!--        <record id="timeout_wiz_view_form" model="ir.ui.view">-->
+<!--            <field name="name">timeout_wiz_view_form</field>-->
+<!--            <field name="model">timeout.wizard</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Session Timeout ">-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <p>-->
+<!--                                <strong>You have reached the maximum length of time between logins.  Please click OK to sign-in.</strong>-->
+<!--                            </p>-->
+
+<!--                        </group>-->
+<!--                    </sheet>-->
+<!--                    <footer>-->
+<!--                    <button string="OK" name="session_timeout" data-hotkey="a" class="btn-primary" type="object" fullscreen="True"/>-->
+<!--                </footer>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

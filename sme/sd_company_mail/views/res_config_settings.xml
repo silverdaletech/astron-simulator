@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sd_company_mail_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">sd_company_mail.inherit.res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <div id="companies_setting" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" name="notifications_settings">
+                    <div class="o_setting_left_pane">
+                        <field name="company_based_notifications"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="company_based_notifications"/>
+                        <div class="text-muted">
+                            When activated user will be able to have notifications
+                            based on the current active company.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

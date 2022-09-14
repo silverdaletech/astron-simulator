@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="login_details_form">
+            <field name="name">Login User Details Form</field>
+            <field name="model">user.sessions</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="ip_address"/>
+                                <field name="start_date_time"/>
+                            </group>
+                            <group>
+                                <field name="socket_name"/>
+                                <field name="browser"/>
+                                <field name="session_status"/>
+                                <field name="end_date_time" attrs="{'invisible': [('session_status', '=', 'active')]}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="login_details_tree">
+            <field name="name">Login User Details List</field>
+            <field name="model">user.sessions</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id"/>
+                    <field name="start_date_time"/>
+                    <field name="ip_address"/>
+                    <field name="socket_name"/>
+                    <field name="browser"/>
+                    <field name="session_status"/>
+                    <field name="end_date_time" attrs="{'invisible': [('session_status', '=', 'active')]}" />
+                    <button name="action_confirm_wizard" type="object" class="btn btn-primary" string="End Session" attrs="{'invisible':[('session_status', '!=', 'active')]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_login_detail_search" model="ir.ui.view">
+            <field name="name">login detail search view</field>
+            <field name="model">user.sessions</field>
+            <field name="arch" type="xml">
+                <search string="hospital search">
+                    <field name="user_id"/>
+                    <field name="start_date_time"/>
+                    <field name="session_status"/>
+                    <field name="browser"/>
+                    <field name="ip_address"/>
+                    <separator/>
+                    <filter string="Active" name="active_session_filter" domain="[('session_status' , '=' , 'active')]"/>
+                    <filter string="Inactive" name="inactive_session_filter" domain="[('session_status' , '=' , 'inactive')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="User" name="user_id" context="{'group_by':'user_id'}"/>
+                        <filter string="Start Date" name="start_date_time" context="{'group_by':'start_date_time'}"/>
+                        <filter string="End Date" name="end_date_time" context="{'group_by':'end_date_time'}"/>
+                        <filter string="Status" name="session_status" context="{'group_by':'session_status'}"/>
+                        <filter string="Browser" name="browser" context="{'group_by':'browser'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="login_details_action">
+            <field name="name">User Sessions</field>
+            <field name="res_model">user.sessions</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_active_session_filter":1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No User Sessions details....
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_login_details" parent="base.menu_users" name="User Sessions" action="login_details_action" />
+
+    </data>
+</odoo>

@@ -1,0 +1,285 @@
+<odoo>
+    <data>
+
+        <template id="portal_my_home_menu_sale_agreement" name="Portal layout : sales agreement menu entries"
+                  inherit_id="portal.portal_breadcrumbs" priority="20">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'agreement' or sale_agreement"
+                    t-attf-class="breadcrumb-item #{'active ' if not sale_agreement else ''}">
+                    <a t-if="sale_agreement" t-attf-href="/my/agreements?{{ keep_query() }}">Sales Agreements</a>
+                    <t t-else="">Sales Agreements</t>
+                </li>
+                <li t-if="sale_agreement" class="breadcrumb-item active">
+                    <span t-field="sale_agreement.name"/>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="portal_my_home_sale_agreement" name="Sale Agreements" customize_show="True"
+                  inherit_id="portal.portal_my_home" priority="20">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-call="portal.portal_docs_entry">
+
+                    <t t-set="title">Sale Agreements</t>
+                    <t t-set="url" t-value="'/my/agreements'"/>
+                    <t t-set="placeholder_count" t-value="'agreement_count'"/>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="portal_my_agreements" name="My Sales Agreements">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">Sales Agreements</t>
+                </t>
+                <t t-if="not agreements">
+                    <p>There are currently no agreements for your account.</p>
+                </t>
+                <t t-if="agreements" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>
+                                <span class='d-none d-md-inline'>Sales Agreements #</span>
+                                <span class='d-block d-md-none'>Ref.</span>
+                            </th>
+                            <th class="text-center">Customer Reference</th>
+                            <th class="text-right">Agreement Start Date</th>
+                            <th class="text-center">State</th>
+                            <th class="text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="agreements" t-as="order">
+                        <tr>
+                            <td>
+                                <a t-att-href="order.get_portal_url()">
+                                    <t t-esc="order.name"/>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="order.customer_ref"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="order.planned_date_begin" t-options="{'widget': 'date'}"/>&amp;nbsp;
+                                <span class='d-none d-md-inline' t-field="order.planned_date_begin"
+                                      t-options="{'time_only': True}"/>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge badge-pill badge-info" title="Current stage of the task"
+                                      t-field="order.state"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="order.totals_json"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <!--        danish-->
+        <template id="agreement_portal_template" name="Agreement Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+            <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+                <t t-set="o_portal_fullwidth_alert" >
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (sale_agreement._name, sale_agreement.id, action.id)"/>
+                </t>
+            </t>
+
+                <div class="row mt16 o_portal_sale_sidebar">
+                    <!-- Sidebar -->
+                    <t t-call="portal.portal_record_sidebar">
+                        <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+
+                        <t t-set="title">
+                            <h2 class="mb-0">
+                                <b t-field="sale_agreement.totals_json" data-id="total_amount"/>
+                            </h2>
+                        </t>
+                        <t t-set="entries">
+                            <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                                <li class="list-group-item flex-grow-1">
+                                    <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                        <div class="btn-group flex-grow-1 mr-1 mb-1">
+                                            <a class="btn btn-secondary btn-block o_download_btn"
+                                               t-att-href="sale_agreement.get_portal_url(report_type='pdf', download=True)"
+                                               title="Download">
+                                                <i class="fa fa-download"/>
+                                                Download
+                                            </a>
+                                        </div>
+                                        <div class="btn-group flex-grow-1 mb-1">
+                                            <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print"
+                                               t-att-href="sale_agreement.get_portal_url(report_type='pdf')"
+                                               id="print_invoice_report" title="Print" target="_blank">
+                                                <i class="fa fa-print"/>
+                                                Print
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="navspy list-group-item pl-0 flex-grow-1" t-ignore="true"
+                                    role="complementary">
+                                    <ul class="nav flex-column bs-sidenav"></ul>
+                                </li>
+
+                                <li t-if="sale_agreement.user_id" class="list-group-item flex-grow-1">
+                                    <div class="small mb-1">
+                                        <strong class="text-muted">Salesperson</strong>
+                                    </div>
+                                    <div class="row flex-nowrap">
+                                        <div class="col flex-grow-0 pr-2">
+                                            <img class="rounded-circle mr4 float-left o_portal_contact_img"
+                                                 t-att-src="image_data_uri(sale_agreement.user_id.avatar_1024)"
+                                                 alt="Contact"/>
+                                        </div>
+                                        <div class="col pl-0" style="min-width: 150px">
+                                            <span t-field="sale_agreement.user_id"
+                                                  t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                            <a href="#discussion" class="small">
+                                                <i class="fa fa-comment"></i>
+                                                Send message
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </t>
+                    </t>
+
+                    <!-- Page content -->
+                    <div id="quote_content" class="col-12 col-lg justify-content-end">
+                        <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}" id="portal_sale_content">
+                            <div t-call="sd_sale_agreement.agreement_portal_content"/>
+                        </div>
+                        <!-- chatter -->
+                        <div id="sale_order_communication" class="mt-4">
+                            <h2>History</h2>
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="sale_agreement"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="agreement_portal_content" name="Agreement Portal Content">
+            <!-- Intro -->
+            <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
+                <h2 class="my-0">
+                    <span>Sales Agreement
+                        <em t-esc="sale_agreement.name"/>
+                    </span>
+                </h2>
+            </div>
+
+            <div t-attf-class="#{'card-body' if report_type == 'html' else ''}">
+                <!-- Informations -->
+                <div id="informations">
+                    <div class="row" id="sa_date">
+                        <div class="mb-3 col-6">
+                            <strong>Agreement Deadline:</strong>
+                            <span t-field="sale_agreement.date_end" t-options='{"widget": "date"}'/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <strong
+                                    class="d-block mb-1">Customer Address:
+                            </strong>
+                            <address t-field="sale_agreement.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                        </div>
+                    </div>
+                    <section id="details" style="page-break-inside: auto;" class="mt32">
+                        <h3 id="details">Pricing</h3>
+
+                        <table t-att-data-order-id="sale_agreement.id" t-att-data-token="sale_agreement.access_token"
+                               class="table table-sm" id="sale_agreement_table">
+                            <thead class="bg-100">
+                                <tr>
+                                    <th class="text-left">Products</th>
+                                    <th class="text-right">Agreement Qty</th>
+                                    <th class="text-right">Ordered Qty</th>
+                                    <th class="text-right">Delivered Qty</th>
+                                    <th class="text-right">Invoiced Qty</th>
+                                    <th class="text-right">Unit Price</th>
+                                    <th class="text-right">Total</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody class="sale_agreement_tbody">
+                                <t t-foreach="sale_agreement.line_ids" t-as="line">
+
+                                    <tr t-att-class="'o_line_section'">
+                                        <t>
+                                            <td id="product_name">
+                                                <span t-field="line.product_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <div id="product_qty">
+                                                    <span t-field="line.product_qty"/>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div id="qty_ordered">
+                                                    <span t-field="line.qty_ordered"/>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div id="qty_delivered">
+                                                    <span t-field="line.qty_delivered"/>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div id="qty_invoiced">
+                                                    <span t-field="line.qty_invoiced"/>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div id="price_unit">
+                                                    <span t-field="line.price_unit"/>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div id="price_line_total">
+                                                    <span t-field="line.price_line_total"/>
+                                                </div>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div id="total" class="row" name="total" style="page-break-inside: avoid;">
+                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                                <t t-call="sd_sale_agreement.sale_agreement_portal_content_totals_table"/>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </template>
+
+        <template id="sale_agreement_portal_content_totals_table">
+            <table class="table table-sm">
+                <tr class="border-black o_total">
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-esc="sale_agreement.totals_json"/>
+                    </td>
+                </tr>
+            </table>
+        </template>
+    </data>
+</odoo>

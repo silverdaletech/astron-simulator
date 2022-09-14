@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+
+    <record id="multi_email_wizard_view" model="ir.ui.view">
+        <field name="name">Templates</field>
+        <field name="model">slide.channel.mail.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Template">
+                
+                <notebook>
+                    <page string="Attendess">
+                        <field name="partner_ids"/>
+                    </page>
+                    <page string="Courses">
+                        <field name="course_ids"/>
+                    </page>
+                    <page string="Email Templete">
+                        <field name="email_template_id"/>
+                    </page>
+                </notebook>
+                
+                <footer>
+                    <button string="Invite" name="action_apply" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="res_partner_view_commission_inherit" model="ir.ui.view">
+        <field name="name">res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <!-- Add your fields or attributes here -->
+                <field name="commission_agent_id" groups="sd_sale_commission.group_sale_commission" />
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

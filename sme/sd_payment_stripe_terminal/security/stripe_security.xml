@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stripe_payment_security" model="res.groups">
+        <field name="name">Stripe terminal </field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>

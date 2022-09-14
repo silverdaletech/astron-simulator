@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sd_address_validation_website_sale_address"
+              inherit_id="website_sale.address">
+        <xpath expr="//form" position="attributes">
+            <attribute name="action">/shop/address/selector</attribute>
+        </xpath>
+        <xpath expr="//form" position="after">
+            <t t-if="validated">
+                <t t-call="sd_address_validation.website_address_selector_modal" t-if="submitted == 1 and not error">
+                    <t t-set="style" t-value="'display:block'"/>
+                </t>
+                <t t-call="sd_address_validation.website_address_selector_modal" t-else="">
+                    <t t-set="style" t-value="'display:none'"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

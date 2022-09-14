@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="mail_template_get_help" model="mail.template">
+            <field name="name">Get Help</field>
+            <field name="model_id" ref="mail.model_mail_message"/>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0"
+                       style="box-sizing:border-box;padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
+                       width="100%">
+                    <tbody>
+                        <tr>
+                            <td align="center">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                       style="box-sizing:border-box;padding: 24px; background-color: white; color: #454748; border-collapse:separate;">
+                                    <tbody>
+                                        <!-- HEADER -->
+                                        <tr>
+                                            <td align="center" style="min-width: 590px;">
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                       style="background-color: white; padding: 0; border-collapse:separate;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="middle">
+                                                                <br/>
+                                                                <span id="query" style="font-size: 20px; font-weight: bold;"
+                                                                      t-out="object.subject or ''"
+                                                                      contenteditable="false">Help
+                                                                </span>
+                                                            </td>
+                                                            <td valign="middle" align="right">
+                                                                <img t-attf-src="/logo.png?company={{ object.env.company.id }}"
+                                                                     style="padding: 0px; margin: 0px; height: 48px; width:48px"
+                                                                     t-att-alt="object.env.company.name"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" style="text-align:center;">
+                                                                <hr width="100%"
+                                                                    style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"
+                                                                    contenteditable="false"/>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <!-- CONTENT -->
+                                        <tr>
+                                            <td style="min-width: 590px;">
+                                                <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                                       style="box-sizing:border-box;min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" style="font-size: 13px;">
+                                                                <div>
+
+                                                                    <span style="font-weight: bold;">Support Request: <p style="color: rgb(255, 0, 0);" id="url_link"/></span>
+                                                                    <b style="font-weight: bold;">What were you trying to do?</b>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <b style="font-weight: bold;">What happened?</b>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <b style="font-weight: bold;">What did you expect to happen?</b>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <b style="font-weight: bold;">When was the last time you were able to do this successfully?</b>
+                                                                    <br/>
+                                                                    <br/>
+                                                                    <br/>
+
+                                                                    Thank you,
+                                                                    <br/>
+                                                                    <t t-if="object.env.user"
+                                                                       data-oe-t-group-active="true"
+                                                                       data-oe-t-group="3" data-oe-t-selectable="true"
+                                                                       data-oe-t-inline="true">
+                                                                        <b style="box-sizing:border-box;font-weight:500;">
+                                                                            <t t-out="object.env.user.name or ''"
+                                                                               data-oe-t-inline="true"
+                                                                               contenteditable="false"
+                                                                               oe-keep-contenteditable="">Marc Demo
+                                                                            </t>
+                                                                        </b>
+                                                                        <br/>Email:
+                                                                        <t t-out="object.env.user.email or ''"
+                                                                           data-oe-t-inline="true"
+                                                                           contenteditable="false"
+                                                                           oe-keep-contenteditable="">
+                                                                            mark.brown23@example.com
+                                                                        </t>
+                                                                        <br/>Phone:
+                                                                        <t t-out="object.env.user.phone or ''"
+                                                                           data-oe-t-inline="true"
+                                                                           contenteditable="false"
+                                                                           oe-keep-contenteditable="">+1
+                                                                            650-123-4567
+                                                                        </t>
+                                                                    </t>
+                                                                    <t t-else="" data-oe-t-selectable="true"
+                                                                       data-oe-t-group="3"
+                                                                       data-oe-t-inline="true">
+                                                                        <t t-out="object.env.company.name or ''"
+                                                                           data-oe-t-inline="true"
+                                                                           contenteditable="false"
+                                                                           oe-keep-contenteditable="">My Company
+                                                                            (San Francisco)
+                                                                        </t>
+                                                                    </t>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <!-- FOOTER -->
+                                        <tr>
+                                            <td align="center"
+                                                style="min-width: 590px; padding: 0 8px 0 8px; font-size:11px;">
+                                                <hr width="100%"
+                                                    style="border-style:none;border-top-width:medium;border-left-width:medium;border-bottom-width:medium;border-right-width:medium;overflow-y:visible;overflow-x:visible;height:0px;box-sizing:content-box;background-color:#cccccc;border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 4px 0px;"
+                                                    contenteditable="false" oe-keep-contenteditable=""/>
+                                                <b t-out="object.env.company.name or ''"
+                                                   style="box-sizing:border-box;font-weight:500;"
+                                                   contenteditable="false" oe-keep-contenteditable="">My Company (San
+                                                    Francisco)
+                                                </b>
+                                                <br/>
+                                                <div style="color: #999999;">
+                                                    <t t-out="object.env.company.phone or ''" data-oe-t-inline="true"
+                                                       contenteditable="false"
+                                                       oe-keep-contenteditable="">+1 650-123-4567
+                                                    </t>
+                                                    <t t-if="object.env.company.email" data-oe-t-group-active="true"
+                                                       data-oe-t-group="4"
+                                                       data-oe-t-inline="true">
+                                                        |
+                                                        <a t-attf-href="'mailto:%s' % {{ object.env.company.email }}"
+                                                           style="box-sizing:border-box;background-color:transparent;text-decoration:none; color: #999999;"
+                                                           t-out="object.env.company.email or ''"
+                                                           contenteditable="false"
+                                                           oe-keep-contenteditable="">info@yourcompany.com
+                                                        </a>
+                                                    </t>
+                                                    <t t-if="object.env.company.website" data-oe-t-group-active="true"
+                                                       data-oe-t-group="5"
+                                                       data-oe-t-inline="true">
+                                                        |
+                                                        <a t-attf-href="'%s' % {{ object.env.company.website }}"
+                                                           style="box-sizing:border-box;background-color:transparent;text-decoration:none; color: #999999;"
+                                                           t-out="object.env.company.website or ''"
+                                                           contenteditable="false"
+                                                           oe-keep-contenteditable="">http://www.example.com
+                                                        </a>
+                                                    </t>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
+
+
+        

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.equipment.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="inside">
+                <span class="d-inline-block" attrs="{'invisible': [('detailed_type', '!=', 'consu')]}">
+                    <field name="is_equipment"/>
+                    <label for="is_equipment"/>
+                </span>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="equipment" string="Equipment" attrs="{'invisible': [('is_equipment', '=', False)]}">
+                    <group>
+
+                        <group>
+                            <field name="equipment_category" attrs="{'required': [('is_equipment', '=', True)]}" />
+                            <field name="maintenance_team_id" attrs="{'required': [('is_equipment', '=', True)]}"/>
+                            <field name="technician_user_id" />
+                        </group>
+                        <group></group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

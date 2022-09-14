@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="odoo_audit_seq" model="ir.sequence">
+        <field name="name">Odoo Audit Sequence</field>
+        <field name="code">odoo.audit</field>
+        <field name="prefix">Audit/%(year)s/</field>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+    </record>
+
+</odoo>

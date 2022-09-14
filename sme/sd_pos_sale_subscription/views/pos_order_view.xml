@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sd_pos_sale_subscription_inherit_view_pos_pos_form" model="ir.ui.view">
+        <field name="name">sd_pos_sale_subscription.inherit.view_pos_pos_form</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="action_open_subscriptions" type="object" icon="fa-book" attrs="{'invisible': [('subscription_count', '=', 0)]}">
+                    <field name="subscription_count" widget="statinfo" string="Subscriptions"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='lines']/tree/field[@name='full_product_name']" position="after">
+                <field name="subscription_id" attrs="{'column_invisible': [('parent.subscription_count', '=', 0)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

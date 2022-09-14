@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <record id="view_audit_master_data_form" model="ir.ui.view">
+            <field name="name">audit.master.data.form</field>
+            <field name="model">audit.master.data</field>
+            <field name="arch" type="xml">
+                <form duplicate="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company_id"  groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="domains" string="Domains">
+                                <field name="domain_line">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="domain" />    
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="name" />    
+                                            <field name="model_id" invisible="1"/>    
+                                            <field name="domain" widget="domain" options="{'model':'model_id','in_dialog':True}" />    
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_audit_master_data_tree" model="ir.ui.view">
+            <field name="name">audit.master.data.tree</field>
+            <field name="model">audit.master.data</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" readonly="1"/>
+                    <field name="company_id"  groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Windows Actions -->
+        <!-- Master data -->
+        <record id="master_data_action" model="ir.actions.act_window">
+            <field name="name">Master Data</field>
+            <field name="res_model">audit.master.data</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_master_data"
+            name="Master Data"
+            action="master_data_action"
+            parent="menu_master_data_root"
+            sequence="1" />
+    </data>
+</odoo>

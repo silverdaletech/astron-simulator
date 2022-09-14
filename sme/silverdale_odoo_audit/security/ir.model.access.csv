@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+#access_odoo_audit,odoo_audit,model_odoo_audit,,1,1,1,1
+access_odoo_audit_portal,odoo_audit_portal,model_odoo_audit,base.group_portal,1,0,0,0
+access_audit_addons_list,audit.addons.list,model_audit_addons_list,,1,1,1,1
+access_audit_addons_list_wizard,audit.addons.list.wizard,model_audit_addons_list_wizard,,1,1,1,1
+access_audit_master_data,audit.master.data,model_audit_master_data,,1,1,1,1
+access_master_data_domain,master.data.domain,model_master_data_domain,,1,1,1,1
+access_duplicate_data_count,duplicate_data_count,model_duplicate_data_count,,1,1,1,1

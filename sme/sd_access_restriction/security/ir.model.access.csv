@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_allowed_ips,allowed.ips,model_allowed_ips,base.group_user,1,1,1,1
+access_allowed_mac,allowed.mac,model_allowed_mac,base.group_user,1,1,1,1

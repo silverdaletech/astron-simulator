@@ -1,0 +1,61 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sb_account_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.account.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='silverdale_integration']" position="after">
+                <h2 attrs="{'invisible':[('module_sd_account', '=', False)]}">Silverdale Accounting Extensions</h2>
+                <div class="row mt16 o_settings_container" name="silverdale_extension"
+                     attrs="{'invisible':[('module_sd_account', '=', False)]}">
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_account_check_printing_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_account_check_printing" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Check Printing Base" for="module_sd_account_check_printing"/>
+                            <div class="text-muted">
+                                By enabling this module, you will be able to have extension for check printing.<br/>
+                                Adds extra stub-lines for already reconciled payments when printing checks.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_l10n_ca_check_printing_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_l10n_ca_check_printing" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Silverdale CA Checks Layout" for="module_sd_l10n_ca_check_printing"/>
+                            <div class="text-muted">
+                                When enabled this module, it will allow to print your reconciled payments on pre-printed Canada check paper format.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_l10n_us_check_printing_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_l10n_us_check_printing" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Silverdale US Checks Layout" for="module_sd_l10n_us_check_printing"/>
+                            <div class="text-muted">
+                                When enabled this module, it will allow to print your reconciled payments on pre-printed US check paper format.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_equipment_to_asset">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_equipment_to_asset" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Silverdale Equipment to Asset" for="module_sd_equipment_to_asset"/>
+                            <div class="text-muted">
+                                When enabled this module,It will make connection between assets in accounting to the Equipment made in maintenance app.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

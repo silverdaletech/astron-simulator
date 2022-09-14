@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_test_script_view_form" model="ir.ui.view">
+            <field name="name">Test script</field>
+            <field name="model">project.test.script</field>
+            <field name="arch" type="xml">
+                <form string="Test Scripts">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="id" string="Test ID"/>
+                                <field name="partner_id" domain="[('is_company', '=', True)]" widget="many2many_tags"/>
+                                <field name="priority" widget="priority"/>
+                                <field name="test_script_detail" string="Steps to Reproduce"/>
+                                <field name="test_script_expected_result" string="Expected Result"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group>
+                                <field name="group_id"/>
+
+                                <!--Todo: Will remove this field once we start filling WS field-->
+                                <field name="section"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Tasks" name="tasks">
+                                <field name="test_script_task_ids"
+                                       options="{'no_create_edit': 1, 'no_quick_create': 1}">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="name"/>
+                                        <field name="project_id"/>
+                                        <field name="stage_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Tickets" name="tickets">
+                                <field name="test_script_ticket_ids"
+                                       options="{'no_create_edit': 1, 'no_quick_create': 1}" readonly="1"/>
+                            </page>
+                            <page string="Projects" name="projects">
+                                <field name="test_script_project_ids"
+                                       options="{'no_create_edit': 1, 'no_quick_create': 1}">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                        <field name="stage_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="project_test_script_view_tree" model="ir.ui.view">
+            <field name="name">project_test_script_view_tree</field>
+            <field name="model">project.test.script</field>
+            <field name="arch" type="xml">
+                <tree string="test script" multi_edit="1">
+                    <field name="sequence" widget="handle"/>
+                    <field name="id" string="ID"/>
+                    <field name="name" string="Test Script Name"/>
+                    <field name="test_script_expected_result" optional="hide"/>
+                    <field name="priority" widget="priority" string="Priority"/>
+                    <field name="partner_id" string="Clients" widget="many2many_tags"/>
+
+                    <!--Todo: Will remove this field once we start filling WS field-->
+                    <field name="section" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_test_script_search_form" model="ir.ui.view">
+            <field name="name">project.test.script.search.form</field>
+            <field name="model">project.test.script</field>
+            <field name="arch" type="xml">
+                <search string="Test Script">
+                    <field name="partner_id"/>
+                    <field name="priority"/>
+                    <field name="active"/>
+                    <filter string="High Priority" name="high_priority" domain="[('priority', '=', 3)]"/>
+                    <filter string="Medium Priority" name="medium_priority" domain="[('priority', '=', 2)]"/>
+                    <filter string="Low Priority" name="low_priority" domain="[('priority', '=', 1)]"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Client Specific" name="client_specific" domain="[('partner_id', '!=', False)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Client" name="client" context="{'group_by': 'partner_id'}"/>
+                        <separator/>
+                        <filter string="Priority" name="priority" context="{'group_by': 'priority'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="project_test_script_action" model="ir.actions.act_window">
+            <field name="name">Test Scripts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.test.script</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="project_test_script_qa_menu" name="QA" parent="project.menu_main_pm" sequence="2"/>
+        <menuitem id="project_test_script_menu" name="Test Scripts" parent="sd_test_scripts.project_test_script_qa_menu"
+                  action="sd_test_scripts.project_test_script_action" sequence="1"/>
+
+
+    </data>
+</odoo>

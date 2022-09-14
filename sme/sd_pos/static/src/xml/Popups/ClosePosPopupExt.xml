@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="point_of_sale.template" xml:space="preserve">
+    <t t-name="ClosePosPopupExt" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('info-title')]" position="replace">
+            <t t-if="env.pos.config.show_tips_in_closing_stats">
+                <div class="info-title column-left">
+                    <span>Total <t t-esc="ordersDetails.quantity"/> orders</span>
+                    <span>Payments</span>
+                    <span>Tips(Included in Total)</span>
+                    <span>Customer Account</span>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="info-title column-left">
+                    <span>Total <t t-esc="ordersDetails.quantity"/> orders</span>
+                    <span>Payments</span>
+                    <span>Customer Account</span>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('info-value')]" position="replace">
+            <t t-if="env.pos.config.show_tips_in_closing_stats">
+                <div class="info-value column-left">
+                    <span t-esc="env.pos.format_currency(ordersDetails.amount)"/>
+                    <span t-esc="env.pos.format_currency(paymentsAmount)"/>
+                    <span t-esc="env.pos.format_currency(ordersDetails.tips)"/>
+                    <span t-esc="env.pos.format_currency(payLaterAmount)"/>
+                </div>
+            </t>
+            <t t-else="">
+                 <div class="info-value column-left">
+                    <span t-esc="env.pos.format_currency(ordersDetails.amount)"/>
+                    <span t-esc="env.pos.format_currency(paymentsAmount)"/>
+                    <span t-esc="env.pos.format_currency(payLaterAmount)"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//footer[hasclass('footer')]" position="inside">
+            <div class="button" t-att-style="getVisibility()" t-on-click="printClosingStats()">Print Session Stats</div>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+<data>
+<!--     <template id="assets_comon_inherit" name="assets_frontend" inherit_id="web.assets_common">-->
+<!--        <xpath expr="." position="inside">-->
+
+<!--            <script type="text/javascript" src="/sd_payment_stripe_terminal/static/src/js/refund_stripe.js"></script>-->
+<!--            <script type="text/javascript" src="https://js.stripe.com/terminal/v1/"></script>-->
+
+
+<!--        </xpath>-->
+<!--    </template>-->
+<!--    <record id="testing_id" model="ir.ui.view">-->
+<!--        <field name="name">account.payment.register.form</field>-->
+<!--        <field name="model">account.payment.register</field>-->
+<!--        <field name="inherit_id" ref="account.view_account_payment_register_form"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--            <xpath expr="//button[@name='action_create_payments']" position="after">-->
+
+<!--                 <button onclick="refundback()" class="btn btn-secondary btn-block">Previous page</button>-->
+
+<!--&lt;!&ndash;                <span class="input-group-append">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <button id="refund_payment" class="btn btn-secondary search-submit" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;                                Payment refund&ndash;&gt;-->
+<!--&lt;!&ndash;                            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
+<!--&lt;!&ndash;                 <button  type="button">Refund Through stripe</button>&ndash;&gt;-->
+<!--                &lt;!&ndash; Add your fields or attributes here &ndash;&gt;-->
+
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='communication']" position="after">-->
+<!--                <a href="#">-->
+<!--                    <field name="is_stripe"  widget="test_widget"/>-->
+<!--                </a>-->
+
+
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='line_ids']" position="replace">-->
+<!--                <div>-->
+
+<!--                </div>-->
+<!--                <field name="line_ids" id="line_ids" />-->
+
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+
+<!--    account.move inherit-->
+    <!-- Inherit Form View to Modify it -->
+    <record id="stripe_account_move" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+<!--            enable_refund_option-->
+
+            <xpath expr="//button[@name='preview_invoice']" position="replace">
+                <field name="enable_refund_option" invisible="1"/>
+
+                 <button name="preview_invoice" type="object" string="Refund through Stripe Terminal"  attrs="{'invisible': ['|',('enable_refund_option', '=', False),('move_type', 'not in', ('out_refund'))]}"/>
+                <button name="preview_invoice" type="object" string="Preview"
+                                attrs="{'invisible': ['|',('enable_refund_option', '=', True),('move_type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                <!-- Add your fields or attributes here -->
+            </xpath>
+
+
+        </field>
+    </record>
+
+    </data>
+
+</odoo>

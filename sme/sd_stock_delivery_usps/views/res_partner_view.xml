@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_form_with_provider_usps" model="ir.ui.view">
+        <field name="name">res.partner.form.provider.usps</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='shipping_configuration']//group" position="inside">
+                <group name="usps_account" string="USPS Configuration">
+                    <field name="usps_username" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

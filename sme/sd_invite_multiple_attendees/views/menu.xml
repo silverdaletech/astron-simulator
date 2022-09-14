@@ -1,0 +1,13 @@
+<odoo>
+
+    <record id="action_multiple_email_send" model="ir.actions.act_window">
+            <field name="name">Invite Multiple Attendees</field>
+            <field name="res_model">slide.channel.mail.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_slide_channel"/>
+            <field name="binding_view_types">form,list</field>
+        </record>
+
+
+</odoo>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="zpl_label_design_form">
+        <field name="name">zpl.label.design.form</field>
+        <field name="model">zpl.label.design</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button context="{'default_model_id': selected_model_id}" name="%(sd_zpl_report.zpl_customization_preview_action)d" type="action" string="Add Content" />
+                    <button name="action_undo" attrs="{'invisible': [('is_undo_redo', '=', False)]}"  type="object" string="UNDO" class="btn btn-secondary fa fa-undo" />
+                    <button name="action_redo" attrs="{'invisible': [('is_undo_redo', '=', False)]}" type="object" string="REDO" class="btn btn-secondary fa fa-repeat" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="zpl_create_action" string="Add To Print Menu" type="object"  attrs="{'invisible': ['|','|', ('show_in', '=', True), ('report_action_id', '=', False), ('active','=', False)]}" icon="fa-plus-square" class="oe_stat_button"/>
+                        <button name="zpl_unlink_action" string="Remove From Print Menu" type="object" attrs="{'invisible': ['|','|', ('show_in', '=', False), ('report_action_id', '=', False), ('active','=', False)]}" icon="fa-minus-square" class="oe_stat_button"/>
+                        <button name="action_preview" type="object" class="oe_stat_button" icon="fa-search-plus" string="Preview"/>
+                    </div>
+                    <widget name="web_ribbon" title="Archived"  bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="is_archive" invisible="1"/>
+                            <field name="hidden_template" invisible="1"/>
+                            <field name="old_content" invisible="1"/>
+                            <field name="size_id" required="1"/>
+                            <field name="show_in" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                            <field name="template_id" invisible="1"/>
+                            <field name="report_template_id" invisible="1" readonly="1" />
+                            <field name="dpi" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="selected_model_id" required="1"/>
+                            <field name="report_action_id" readonly="1"/>
+                            <field name="default_label" attrs="{'invisible':[('id', '!=', False)] }" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Links with Other models" invisible="1">
+                            <field name="report_action_id" />
+                            <field name="report_template_id" />
+                            <field name="report_model_data_id" />
+                        </group>
+                    </group>
+                    <group invisible="1">
+                        <group>
+                            <field name="is_undo_redo" invisible="0"/>
+                            <field name="is_undo" invisible="0"/>
+                            <field name="is_redo" invisible="0"/>
+                        </group>
+                        <field name="undo_redo" invisible="0"/>
+                    </group>
+                    <notebook>
+                        <page string="Content" name="content" groups="base.group_no_one">
+                            <field name="content" widget="ace" />
+                            <field name="content_buffer" widget="ace" invisible="1"/>
+                            <separator/>
+                            <separator/>
+                            <field name="hidden_template" invisible="1"/>
+                            <field name="content_buffer" widget="ace"  invisible="1"/>
+                            <field name="image" widget="image" class="oe_avatar"  height="230" width="120" options="{'zoom': true, 'zoom_delay': 1000,  'preventClicks': true,}" invisible="1" />
+                            <group  string="ZPL Code"></group>
+                            <field name="zpl_content" widget="social_post_preview"  invisible="0" />
+                        </page>
+                        <page string="Placeholder Generator" name="placeholder_generator">
+                            <group>
+                                <field name="field_id" domain="[('model_id','=',selected_model_id),('ttype','!=','one2many'),('ttype','!=','many2many')]"/>
+                                <field name="place_holder" />
+                            </group>
+                        </page>
+                        <page string="History">
+                            <field name="zpl_history_ids" readonly="1">
+                                <tree readonly="1">
+                                    <field name="name" />
+                                    <field name="is_selected" string="Selected Template" widget="boolean_toggle" readonly="1" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="zpl_label_design_tree">
+        <field name="name">zpl.label.design.list</field>
+        <field name="model">zpl.label.design</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="size_id"/>
+                <field name="show_in" invisible="1"/>
+                <field name="template_id"/>
+                <field name="selected_model_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="zpl_label_design_action">
+        <field name="name">Label Design</field>
+        <field name="res_model">zpl.label.design</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No zpl labels Details ....
+            </p>
+        </field>
+    </record>
+
+</odoo>

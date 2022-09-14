@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="timesheet_form_view_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.line.form</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="timesheet_grid.my_timesheet_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_id']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="task_type_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_timesheet_line_search_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.line.search.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_id']" position="after">
+                    <field name="task_type_id" />
+                </xpath>
+                <xpath expr="//filter[@name='groupby_task']" position="after">
+                    <filter string="Task Type" name="groupby_task_type" domain="[]" context="{'group_by': 'task_type_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_timesheet_tree_view_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.tree.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_id']" position="after">
+                    <!-- Add new fields here -->
+                    <field name="task_type_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit List View to Modify it -->
+        <record id="timesheet_view_tree_user_sd_project_timesheet" model="ir.ui.view">
+            <field name="name">account.analytic.tree.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="parent_id" optional="hide"/>
+                    <field name="timesheet_manager_id" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_line_form_sd_project_timesheet" model="ir.ui.view">
+            <field name="name">account.analytic.line.form</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="parent_id"/>
+                    <field name="timesheet_manager_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="timesheet_view_search" model="ir.ui.view">
+            <field name="name">account.analytic.line.search</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="parent_id"/>
+                    <field name="timesheet_manager_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='groupby_project']" position="after">
+                    <filter string="Manager" name="groupby_parent_id" domain="[]"
+                            context="{'group_by': 'parent_id'}"/>
+                    <filter string="Timesheet Approval" name="groupby_timesheet_manager_id" domain="[]"
+                            context="{'group_by': 'timesheet_manager_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

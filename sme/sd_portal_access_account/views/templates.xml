@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+
+        <template id="account.portal_my_home_invoice" name="Show Invoices &amp; Bills" inherit_id="portal.portal_my_home" customize_show="True" priority="30">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-if="invoice_enable">
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="title">Invoices &amp; Bills</t>
+                        <t t-set="url" t-value="'/my/invoices'"/>
+                        <t t-set="placeholder_count" t-value="'invoice_count'"/>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+
+<!--        invoice list view on portal template is inherited to display customer reference-->
+        <template id="portal_my_invoices" name="Show Invoices" inherit_id="account.portal_my_invoices" customize_show="True" priority="31">
+            <xpath expr="//t[@t-call='portal.portal_table']/thead/tr/th[4]" position="after">
+                <th class="text-left">Customer Reference</th>
+            </xpath>
+             <xpath expr="//t[@t-call='portal.portal_table']/tbody/t/tr/td[4]" position="after">
+                <td><span t-field="invoice.ref"/></td>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

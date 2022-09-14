@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_project_task_type_edit" model="ir.ui.view">
+        <field name="name">project.task.type.stage.form_inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_closed']" position="after">
+                <field name="is_opened" />
+                <field name="is_cancelled" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_task_type_tree_inherit" model="ir.ui.view">
+        <field name="name">project.task.type.stage.tree_inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="is_closed" optional="hide"/>
+                <field name="is_opened" optional="hide"/>
+                <field name="is_cancelled" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

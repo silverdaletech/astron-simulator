@@ -1,0 +1,52 @@
+.o_sd_status_menu_releases .printnode_faq_link:first-child {
+    display: none;
+}
+
+.o_sd_status_icon {
+    font-size: larger;
+}
+
+
+.o_sd_status_menu_dropdown {
+    width: 400px;
+    padding: 1rem;
+}
+
+.o_sd_status_badge {
+    position: relative;
+    transform: translate(-5px, -5px);
+    background-color: #017e84;
+    margin-right: -10px;
+}
+
+.o_sd_status_loading {
+    font-size: x-small;
+    position: absolute;
+    bottom: 50%;
+    right: 0;
+}
+
+.o_sd_status_menu_rate_us {
+    text-align: right;
+}
+
+.fa-silverdale{
+    content: '';
+    background:url("/sd_base_setup/static/src/img/frowny.png");
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 1px;
+    opacity: 85%;
+}
+
+.o_sd_status_menu_get_help{
+    text-align: right;
+}
+
+.o_sd_status_menu_open_chatter{
+    margin-right:10px
+}

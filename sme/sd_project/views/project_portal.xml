@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="portal_my_projects_inherited" inherit_id="project.portal_my_projects" name="My Projects">
+            <xpath expr="//t[@t-out='project.task_count_with_subtasks']" position="replace">
+                <t t-out="task_count_with_subtasks_custom" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

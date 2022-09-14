@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    template "sale_order_portal_content" is inherited to display MO status on portal-->
+    <template id="my_orders_mo_satatus" inherit_id="sale.sale_order_portal_content" name="MO status on SO">
+        <xpath expr="//div[@id='informations']" position="after">
+            <t t-if="sale_order.manufacturing_status">
+                <span style="margin-top:20px;" class="small badge badge-info orders_label_text_align"> <b style="font-size:16px; text-transform: capitalize;">MO: <span t-esc="sale_order.manufacturing_status" /></b></span>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
+

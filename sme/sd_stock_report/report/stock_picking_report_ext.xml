@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_picking" inherit_id="stock.report_picking">
+        <xpath expr="//div[@t-field='o.name']" position="replace">
+            <img t-if="o.name" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', o.name, 400, 400)" alt="QR Code" class="mb-5 right" style="height:100px"/>
+        </xpath>
+        <xpath expr="//table/tbody/t/tr/td[5]/div" position="replace">
+            <img t-if="has_serial_number and (ml.lot_id or ml.lot_name)" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', ml.lot_id.name or ml.lot_name, 50, 50)" alt="QR Code" />
+        </xpath>
+        <xpath expr="//table/thead/tr/th[1]" position="before">
+            <th name="th_barcode" class="text-center" t-if="has_barcode">
+                <strong>Product QR-code</strong>
+            </th>
+        </xpath>
+        <xpath expr="//table/tbody/t/tr"  position="attributes">
+                <attribute name="style">height:100px !important;</attribute>
+        </xpath>
+        <xpath expr="//table/tbody/t/tr/td[1]" position="before">
+                <td style="width:150px" class="text-left" t-if="has_barcode">
+                <t  t-if="product_barcode != ml.product_id.barcode">
+                    <span t-if="ml.product_id and ml.product_id.barcode">
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', ml.product_id.barcode, 50, 50)" alt="QR Code" />
+                    </span>
+                    <t t-set="product_barcode" t-value="ml.product_id.barcode"/>
+                </t>
+                </td>
+        </xpath>
+        <xpath expr="//table/thead/tr/th[7]" position="replace">
+            <th style="display:none;"></th>
+        </xpath>
+    </template>
+</odoo>
