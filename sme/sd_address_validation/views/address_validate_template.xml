@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_address_selector_modal" name="Website Address Selector Modal">
+        <div role="dialog" class="modal show" id="addressSelector" t-att-style="style">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <header class="modal-header">
+                        <h4 class="modal-title">Select Your Address</h4>
+                        <button type="button" class="close" id="closeBtn" data-dismiss="modal" aria-label="Close">×
+                        </button>
+                    </header>
+                    <main class="modal-body">
+                        <div class="card-deck">
+                            <div class="card border-info">
+                                <form method="POST" t-attf-action="/shop/address">
+                                    <div class="card-header">Address Entered:</div>
+                                    <div class="card-body">
+
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="kw" t-att-value="json.dumps(kw)"/>
+                                        <address class="mb-0" t-if="kw">
+                                            <div>
+                                                <span>
+                                                    <t t-esc="kw['name']"/>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-baseline">
+                                                    <span class="w-100 o_force_ltr d-block">
+                                                        <t t-esc="kw['street']"/>
+                                                        <br/>
+                                                        <t t-esc="kw['street2']"/>
+                                                        <br/>
+                                                        <t t-esc="kw['city']"/>
+                                                        <t t-esc="kw['state_name']"/>
+                                                        <t t-esc="kw['zip']"/>
+                                                        <br/>
+                                                        <t t-esc="kw['country_name']"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </address>
+                                        <br/>
+                                        <a role="button" href="#"
+                                           class="btn btn-primary a-submit a-submit-disable a-submit-loading btn-block">
+                                            Keep
+                                        </a>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="card border-secondary">
+                                <form method="POST" t-attf-action="/shop/address">
+                                    <div class="card-header">We Found:</div>
+                                    <div class="card-body">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="kw_usps" t-att-value="json.dumps(kw_usps)"/>
+                                        <t t-if="kw_usps and kw_usps['error'] == ''">
+                                            <address class="mb-0">
+                                                <div>
+                                                    <span>
+                                                        <t t-esc="kw_usps['name']"/>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <div class="d-flex align-items-baseline">
+                                                        <span class="w-100 o_force_ltr d-block">
+                                                            <t t-esc="kw_usps['street']"/>
+                                                            <br/>
+                                                            <t t-esc="kw_usps['street2']"/>
+                                                            <br/>
+                                                            <t t-esc="kw_usps['city']"/>
+                                                            <t t-esc="kw_usps['state_name']"/>
+                                                            <t t-esc="kw_usps['zip']"/>
+                                                            <br/>
+                                                            <t t-esc="kw_usps['country_name']"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </address>
+                                            <br/>
+                                            <a role="button" href="#"
+                                               class="btn btn-primary a-submit a-submit-disable a-submit-loading btn-block">
+                                                Update
+                                            </a>
+                                        </t>
+
+                                        <t t-else="">
+                                            <p>
+                                                <t t-esc="kw_usps['error']"/>
+                                            </p>
+                                            <p colspan="2" class="p-0 m-0 ">
+                                                <a class="btn btn-link p-0 mb-1" data-toggle="collapse"
+                                                   href="#show_technical_data" role="button" aria-expanded="false"
+                                                   aria-controls="#show_technical_data">Show Technical Details
+                                                </a>
+                                            </p>
+                                            <div class="collapse" id="show_technical_data" colspan="2">
+                                                <div class="card card-body">
+                                                    <t t-esc="kw_usps['response_message']"/>
+                                                </div>
+                                            </div>
+                                        </t>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </main>
+                    <script>
+
+                        <!-- Handle event when user clicks on the little cross to close the modal -->
+
+                        document.addEventListener("DOMContentLoaded", function(event) {
+                        closeBtn = document.getElementById('closeBtn');
+                        closeBtn.onclick = function(){
+                        modal = document.getElementById('addressSelector');
+                        modal.style = 'display: none';
+                        }
+
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>
+

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <template id="sale.portal_my_home_sale" name="Show Quotations / Sales Orders" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+             <t t-if="sale_enable">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Quotations</t>
+                <t t-set="url" t-value="'/my/quotes'"/>
+                <t t-set="placeholder_count" t-value="'quotation_count'"/>
+            </t>
+             </t>
+             <t t-if="sale_enable">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Sales Orders</t>
+                <t t-set="url" t-value="'/my/orders'"/>
+                <t t-set="placeholder_count" t-value="'order_count'"/>
+            </t>
+             </t>
+        </xpath>
+    </template>
+
+
+
+        <template id="access_portal_portal_my_quotations" name="My Quotations" customize_show="True"
+                  inherit_id="sale.portal_my_quotations">
+            <xpath expr="//t[@t-if='not quotations']" position="replace">
+
+                <t t-if="not quotations">
+                    <p></p>
+                </t>
+
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

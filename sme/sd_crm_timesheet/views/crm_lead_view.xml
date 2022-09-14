@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Inherit Form View to Modify it -->
+        <record id="sd_crm_timesheet.crm_lead_view_form" model="ir.ui.view">
+            <field name="name">sd_crm_timesheet.crm.lead.timesheet</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/field[@name='stage_id']" position="before">
+                    <button string="Create Analytic Account" type="object" name="action_create_analytic_account"  attrs="{'invisible': [('account_analytic_id', '!=', False)]}"/>
+                    <field name="account_analytic_id" invisible="1" />
+                    <field name="company_id" invisible="1"/>
+                    <field name="encode_uom_in_days" invisible="1"/>
+                    <field name="display_timesheet_timer" invisible="1"/>
+                    <field name="timer_pause" invisible="1" />
+                    <field name="display_timer_start_primary" invisible="1"/>
+                    <field name="display_timer_start_secondary" invisible="1"/>
+                    <field name="display_timer_stop" invisible="1"/>
+                    <field name="display_timer_pause" invisible="1"/>
+                    <field name="display_timer_resume" invisible="1"/>
+                    <button class="btn-primary" name="action_timer_start" type="object" string="Start" data-hotkey="z" title="Start timer"
+                        attrs="{'invisible': ['|', ('display_timer_start_primary', '=', False), ('encode_uom_in_days', '=', True)]}" groups="hr_timesheet.group_hr_timesheet_user" icon="fa-clock-o"/>
+                    <button class="btn-secondary" name="action_timer_start" type="object" string="Start" data-hotkey="z" title="Start timer"
+                        attrs="{'invisible': ['|', ('display_timer_start_secondary', '=', False), ('encode_uom_in_days', '=', True)]}" groups="hr_timesheet.group_hr_timesheet_user" icon="fa-clock-o"/>
+                    <button class="btn-primary o_fsm_stop" name="action_timer_stop" type="object" string="Stop" data-hotkey="z" title="Stop timer"
+                        attrs="{'invisible': ['|', ('display_timer_stop', '=', False), ('encode_uom_in_days', '=', True)]}" groups="hr_timesheet.group_hr_timesheet_user" icon="fa-clock-o"/>
+                    <button class="btn-secondary" name="action_timer_pause" type="object" string="Pause" data-hotkey="w" title="Pause timer"
+                        attrs="{'invisible': ['|', ('display_timer_pause', '=', False), ('encode_uom_in_days', '=', True)]}" groups="hr_timesheet.group_hr_timesheet_user"/>
+                    <button class="btn-secondary" name="action_timer_resume" type="object" string="Resume" data-hotkey="w" title="Resume timer"
+                            attrs="{'invisible': ['|', ('display_timer_resume', '=', False), ('encode_uom_in_days', '=', True)]}" groups="hr_timesheet.group_hr_timesheet_user"/>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="before">
+                    <field name="timer_start" widget="timer_timer" class="text-secondary mr-auto h2 font-weight-bold" groups="hr_timesheet.group_hr_timesheet_user"/>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+
+                    <page string="Timesheets" attrs="{'invisible': [('account_analytic_id', '=', False)]}" >
+                        <field name="timesheet_ids">
+                            <tree editable="bottom" string="Timesheet Activities" default_order="date">
+                                <field name="date"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="employee_id" required="1" widget="many2one_avatar_employee"/>
+                                <field name="name" required="0"/>
+                                <field name="unit_amount" widget="timesheet_uom"
+                                       decoration-danger="unit_amount &gt; 24" string="Hours Spent"/>
+                                <field name="company_id" invisible="1"/>
+                            </tree>
+                        </field>
+
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+</odoo>

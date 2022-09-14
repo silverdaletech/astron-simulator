@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']"
+                       position="after">
+                    <field name="over_credit"
+                           attrs="{'invisible': [('over_credit', '=', False)]}"
+                           groups="sd_credit_management.group_credit_limit"/>
+                    <field name="override_credit_limit"
+                           attrs="{'invisible': [('over_credit', '=', False)]}"
+                           groups="sd_credit_management.group_credit_limit_override"/>
+                    <field name="hold_delivery_till_payment" attrs="{'invisible': [('over_credit', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

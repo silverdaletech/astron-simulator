@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_sale_commission" model="res.groups">
+        <field name="name">Sale commissions</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_commission_fixed" model="res.groups">
+        <field name="name">Commission Fixed Percentage</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    
+    <record id="group_commission_by_amount_brackets" model="res.groups">
+        <field name="name">Commission by Amount Brackets</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+
+    <record model="ir.module.category" id="module_category_sales_commission">
+        <field name="name">Sale Commission</field>
+        <field name="description">Help you manage Sale Commission</field>
+        <field name="sequence">25</field>
+    </record>
+
+    <record id="group_commission_user" model="res.groups">
+        <field name="name">Commission User</field>
+        <field name="category_id" ref="sd_sale_commission.module_category_sales_commission"/>
+    </record>
+
+    <record id="group_commission_manager" model="res.groups">
+        <field name="name">Commission Manager</field>
+        <field name="category_id" ref="sd_sale_commission.module_category_sales_commission"/>
+        <field name="implied_ids" eval="[(4, ref('sd_sale_commission.group_commission_user'))]"/>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_odoo_audit">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+
+                <t t-call="silverdale_odoo_audit.external_layout">
+                    <div class="page" style="z-index:9999">
+                        <!-- Load chart js -->
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                        <!-- page 1 title page -->
+                        <div class="text-center" style="page-break-after: always;padding-top:200px">
+                            <t t-if="not doc.company_id">
+                                <img class="pt-5 center" t-if="res_company.logo"
+                                     t-att-src="image_data_uri(res_company.logo)" style="max-height: 120px;" alt="Logo"/>
+    
+                                <h1 class="pt-3">
+                                    <span t-esc="res_company.name"/>
+                                    Audit
+                                </h1>
+                            </t>
+                            <t t-if="doc.company_id">
+                                <img class="pt-5 center" t-if="doc.company_id"
+                                t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 120px;" alt="Logo"/>
+
+                           <h1 class="pt-3">
+                               <span t-esc="doc.company_id.name"/>
+                               Audit
+                           </h1>
+                            </t>
+                            <h2 class="mt-3">Audit Date:
+                                <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d')"/>
+                            </h2>
+                        </div>
+
+                        <!-- Page 2  Installed app group by author chart-->
+                        <div t-if="doc.is_installed_app_chart" class="chart-container">
+                            <h2>Number of Apps Installed by Authors</h2>
+                            <table class="table table-sm" name="shopping_book">
+                                <!-- Table header -->
+                                <thead>
+                                    <tr>
+                                        <th style="text-align : center ;width :50%">Author</th>
+                                        <th style="text-align : center ; width : 50%">Number of apps installed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="data" t-value="doc.get_installed_app_chart()[0]"/>
+
+                                    <t t-foreach="data" t-as="label">
+                                        <tr style="text-align :center ; ">
+                                            <td>
+                                                <span t-esc="label"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data[label]"/>
+                                            </td>
+
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <th style="text-align : center ; width :50%">Total apps</th>
+                                        <th style="text-align : center ; width : 50%">
+                                            <span t-esc="doc.get_installed_app_chart()[1]"/>
+                                        </th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="page-break-before: always;">
+                            <br/>
+                        </div>
+
+                        <!-- Page 3  Installed app group by cate chart-->
+                        <div t-if="doc.is_categ_app" class="chart-container"
+                              style="page-break-after: always;">
+                            <h2>Number of Apps In Each Category</h2>
+                            <table class="table table-sm" name="shopping_book">
+                                <!-- Table header -->
+                                <thead>
+                                    <tr>
+                                        <th style="text-align : center ; width :50%">Categories</th>
+                                        <th style="text-align : center ; width : 50%">Number of apps installed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="data" t-value="doc.get_installed_app_catg_chart()[0]"/>
+
+                                    <t t-foreach="data" t-as="label">
+                                        <tr style="text-align :center ; ">
+                                            <td>
+                                                <span t-esc="label"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="data[label]"/>
+                                            </td>
+
+                                        </tr>
+                                    </t>
+                                    <tr>
+
+                                        <th style="text-align :center ;width :50%">Total</th>
+                                        <th style="text-align : center ; width : 50%">
+                                            <span t-esc="doc.get_installed_app_catg_chart()[1]"/>
+                                        </th>
+
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="page-break-before: always;"><br/></div>
+
+                        <!-- Page show Installed app list -->
+                        <div t-if="doc.is_installed_app_list" style="page-break-after: always;">
+                            <t t-set="data" t-value="doc.get_installed_app_list()"/>
+                            <h2 class="center">Installed Application List</h2>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th>Name</th>
+                                        <th>Technical</th>
+                                        <th>Author</th>
+                                        <th>Category</th>
+                                        <th>Website</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="data" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.display_name"/>
+                                        </td>
+                                        <td style="text-center">
+                                            <span t-esc="line.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.author"/>
+                                        </td>
+                                        <td>
+                                            <span t-if="line.category_id" t-esc="line.category_id.name"/>
+                                        </td>
+                                        <td>
+                                            <a t-att-href="line.website">
+                                                <span t-esc="line.website"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Page show Installed app list end -->
+
+                        <!-- Page show Domain master -->
+                        <div t-if="doc.is_master_data" style="page-break-after: always;">
+                            <h2>Master Data</h2>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th class="text-center center">Master Data Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.get_eval(doc.master_data)" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <th class="text-center center">
+                                            <span t-esc="line"/>
+                                        </th>
+                                        <th></th>
+                                        <tr t-foreach="line_value" t-as="v">
+                                            <td></td>
+                                            <td>
+                                                <span t-esc="v"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="v_value"/>
+                                            </td>
+                                        </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Page End show Domain master end -->
+                        <!-- Page show Duplicated Count -->
+                        <div t-if="doc.is_duplicated_count" style="page-break-after: always;">
+                            <h2>Duplicated Count</h2>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th class="text-center center">Model</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.get_eval(doc.duplicate_count)" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <th class="text-center center">
+                                            <span t-esc="line"/>
+                                        </th>
+                                        <th></th>
+                                        <tr t-foreach="line_value" t-as="v">
+                                            <td></td>
+                                            <td>
+                                                <span t-esc="v"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="v_value"/>
+                                            </td>
+                                        </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- Page End show Domain master end -->
+                        <!-- Page Studio Changes -->
+                        <div t-if="doc.is_show_studio_changes" style="page-break-after: always;">
+                            <t t-set="models" t-value="doc.get_studio_models()"/>
+                            <h2>Studio Models [Total: <t t-esc="len(models)"/>]</h2>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th class="text-center center">Model Description</th>
+                                        <th>Model</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="models" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <th class="text-center center">
+                                            <span t-esc="line.name"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="line.model"/>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <t t-set="fields" t-value="doc.get_studio_fields()"/>
+                            <h2>Studio Fields [Total: <t t-esc="len(fields)"/>]</h2>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th class="text-center center">Field Name</th>
+                                        <th>Field Label</th>
+                                        <th>Model</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="fields" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <th class="text-center center">
+                                            <span t-esc="line.name"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="line.field_description"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="line.model_id.name"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="line.ttype"/>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <t t-set="views" t-value="doc.get_studio_views()"/>
+                            <h2>Studio Views [Total: <t t-esc="len(views)"/>]</h2>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th>View Name</th>
+                                        <th>External ID</th>
+                                        <th>Model</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="views" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <th>
+                                            <span t-esc="line.name"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="line.xml_id"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="line.model"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="line.type"/>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- Page End show Studio changes end -->
+
+                        <!-- Page show User Role -->
+                        <div t-if="doc.is_group_role" style="page-break-after: always;">
+                            <h2>Security Roles</h2>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th>Users</th>
+                                        <th>Application Access</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.get_user_role()" t-as="lines">
+                                        <td>
+                                            <span t-esc="lines_index + 1"/>
+                                        </td>
+                                        <t t-foreach="lines" t-as="line">
+                                            <th>
+                                                <span t-esc="line"/>
+                                            </th>
+                                            <td>
+                                                <t t-foreach="line_value" t-as="v">
+                                                    <span t-esc="v"/>,
+                                                </t>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- Page show User Role end -->
+                        <!-- Page 4 show Installed app list -->
+
+                        <div t-if="doc.is_company_config" style="page-break-after: always;">
+                            <t t-set="data_line" t-value="doc.get_company_config_data()"/>
+                            <t t-foreach="data_line" t-as="data">
+                                <h2><t t-esc="data_value['Company Name']"/> - Company Configuration</h2>
+                                    
+                                    <table class="table table-sm">
+                                        <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th style="min-width:500px">Name</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set='sr' t-value="1"/>
+                                    <tr t-foreach="data_value" t-as="line">
+                                        <t t-if="line_value == 'Module'">
+                                            <th colspan="3" class="text-center">Module:
+                                                <span t-esc="line"/>
+                                            </th>
+                                        </t>
+                                        <t t-else="">
+
+                                            <td>
+                                                <span t-esc="sr"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line_value"/>
+                                            </td>
+                                            <t t-set='sr' t-value="sr + 1"/>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                        </div>
+                        <!-- Page 4 end -->
+                        <!-- Page 4 show Installed app list -->
+
+                        <div t-if="doc.is_system_config" style="page-break-after: always;">
+                            <h2>System Configuration</h2>
+                            <t t-set="data" t-value="doc.get_system_config_data()"/>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th style="min-width:500px">Name</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set='sr' t-value="1"/>
+                                    <tr t-foreach="data" t-as="line">
+                                        <t t-if="'database' not in line_value">
+                                            <td>
+                                                <span t-esc="sr"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line_value"/>
+                                            </td>
+                                            <t t-set='sr' t-value="sr + 1"/>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Page 4 end -->
+
+                        <!-- Page Techical Data -->
+
+                        <div t-if="doc.is_tech_data" style="page-break-after: always;">
+                            <h2>Code Quality</h2>
+                            <t t-set="data" t-value="doc.get_eval(doc.tech_data)"/>
+                            <t t-foreach="data" t-as="lines">
+                                <h4>
+                                    <t t-esc="lines"/>
+                                </h4>
+                                <table class="table table-sm">
+                                    <t t-foreach="lines_value" t-as="line">
+                                        <t t-if="line_index == 0">
+                                            <tr>
+                                                <t t-foreach="line" t-as="l">
+                                                    <th style="text-transform: capitalize;">
+                                                        <t t-esc="l"/>
+                                                    </th>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                        <t t-else="">
+                                            <tr>
+                                                <t t-foreach="line" t-as="l">
+                                                    <td>
+                                                        <t t-esc="l"/>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </table>
+                            </t>
+                        </div>
+                        <!-- Page 4 end -->
+
+
+                        <!-- Page Show application manifest details  -->
+                        <div t-if="doc.is_manifest_data">
+                            <h2 class="center">Installed Application Details</h2>
+                            <table class="table table-sm">
+                                <!-- Table header -->
+                                <tr>
+                                    <th>Sr.</th>
+                                    <th>Name</th>
+                                    <th>Dependencies</th>
+                                    <th>Reports</th>
+                                    <th>Views</th>
+                                    <th>Menus</th>
+                                    <th>license</th>
+                                </tr>
+                                <!-- End table header -->
+                                <tbody>
+                                    <tr t-foreach="data" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.display_name"/>
+                                        </td>
+                                        <td style="text-center">
+                                            <t t-foreach="line.dependencies_id" t-as="depends">
+                                                <span t-esc="depends.name"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-foreach="line.reports_by_module" t-as="report">
+                                                <span t-esc="report"/>
+                                            </t>
+
+                                        </td>
+                                        <td>
+                                            <t t-foreach="line.views_by_module.split('\n')" t-as="view">
+                                                <p>
+                                                    <span t-esc="view"/>
+                                                </p>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-foreach="line.menus_by_module.split('\n')" t-as="menu">
+                                                <p>
+                                                    <span t-esc="menu"/>
+                                                </p>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.license"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- Page Manifest details -->
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

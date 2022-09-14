@@ -1,0 +1,27 @@
+<odoo>
+
+    <!-- project form view is inherited to add boolean field on form view -->
+    <record id="project_invoice_form" model="ir.ui.view">
+        <field name="name">project.project.form.sd_project_portal.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[@id='recurring_tasks_setting']" position="before">
+                    <div class="col-lg-6 o_setting_box" id="allow_portal_timesheet_settings">
+                        <div class="o_setting_left_pane">
+                            <field name="is_timesheet_portal"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="is_timesheet_portal" string="Show Timesheets on Portal"/>
+                            <div class="text-muted">
+                                Allow user to see timesheet of task on portal
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

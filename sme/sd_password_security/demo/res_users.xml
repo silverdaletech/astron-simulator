@@ -1,0 +1,6 @@
+
+<odoo>
+    <record id="base.user_root" model="res.users">
+        <field eval="datetime.now()" name="password_write_date" />
+    </record>
+</odoo>

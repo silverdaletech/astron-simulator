@@ -1,0 +1,55 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.sale.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='stock']" position="inside">
+                <h2>Stock Shipping Connectors</h2>
+                <div class="row mt16 o_settings_container" name="sd_stock_delivery_fedex">
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_stock_delivery_fedex">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_stock_delivery_fedex"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="FedEx on Delivery" for="module_sd_stock_delivery_fedex"/>
+                            <div class="text-muted">
+                                Compute shipping costs and ship with FedEx on Delivery
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt16 o_settings_container" name="module_sd_stock_delivery_ups">
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_stock_delivery_ups">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_stock_delivery_ups"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="UPS on Delivery" for="module_sd_stock_delivery_ups"/>
+                            <div class="text-muted">
+                                Compute shipping costs and ship with UPS on Delivery
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                
+                <div class="row mt16 o_settings_container" name="module_sd_stock_delivery_usps">
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_stock_delivery_usps">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_stock_delivery_usps"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="USPS on Delivery" for="module_sd_stock_delivery_usps"/>
+                            <div class="text-muted">
+                                Compute shipping costs and ship USPS on Delivery
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

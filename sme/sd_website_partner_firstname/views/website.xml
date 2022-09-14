@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <template id="first_and_last_name" inherit_id="website_sale.address" name="First and Last name">
+            <xpath expr="//label[@for='name']/.." position="replace">
+                <div t-attf-class="form-group #{error.get('firstname') and 'has-error' or ''} col-md-6">
+                    <label class="control-label font-weight-normal label-optional" for="firstname">First Name</label>
+                    <input type="text" name="firstname" class="form-control" t-att-value="'firstname' in checkout and checkout['firstname']"/>
+                </div>
+                <div t-attf-class="form-group #{error.get('lastname') and 'has-error' or ''} col-md-6">
+                    <label class="control-label font-weight-normal label-optional" for="lastname">Last Name</label>
+                    <input type="text" name="lastname" class="form-control" t-att-value="'lastname' in checkout and checkout['lastname']"/>
+                </div>
+            </xpath>
+            <xpath expr="//input[@name='field_required']" position="replace">
+                <input type="hidden" name="field_required" t-att-value="'phone,firstname,lastname'"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

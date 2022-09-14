@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <t t-name="sd_document.documentsInfo" t-inherit="documents.DocumentsInspector.documentsInfo"
+       t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_inspector_section')]" position="after">
+            <div class="o_inspector_rule o_inspector_trigger_hover_target mb-2">
+                <button title="Attach this file to selected model record (binary files only)" class="btn fa fa-paperclip text-white bg-primary o_inspector_trigger_rule o_inspector_attach"/>
+                <span class="ml-2">
+                    Attach To Record
+                </span>
+            </div>
+        </xpath>
+    </t>
+</odoo>

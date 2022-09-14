@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.equipment.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button type="object" name="action_view_equipment" class="oe_stat_button" icon="fa-gavel" attrs="{'invisible':[('equipment_count', '=', 0)]}">
+                    <field name="equipment_count" widget="statinfo" string="Equipments"/>
+                </button>
+            </xpath> 
+            <xpath expr="//field[@name='invoice_line_ids']//tree" position="inside">
+                <field name="is_equipment_created" optional="hide" readonly="1"  />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

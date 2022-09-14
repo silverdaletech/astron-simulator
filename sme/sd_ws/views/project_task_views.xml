@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <!-- Adding Field to Form View -->
+        <record id="project_task_view_form_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="process_id"/>
+                    <field name="work_stream_id" readonly="1" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_tree2_ws_inherit" model="ir.ui.view">
+            <field name="name">project.task.tree.ws.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="process_id" optional="show"/>
+                    <field name="work_stream_id" optional="show"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Adding Filter and Group-by for week_number Field -->
+        <record id="view_project_task_search_ws" model="ir.ui.view">
+            <field name="name">project.task.search.ws</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="work_stream_id" />
+                    <field name="process_id" />
+                </xpath>
+                <xpath expr="//filter[@name='user']" position="after">
+                    <filter string="Work Stream" name="work_stream" context="{'group_by':'work_stream_id'}"/>
+                    <filter string="Process" name="process_id" context="{'group_by':'process_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

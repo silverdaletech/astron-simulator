@@ -1,0 +1,24 @@
+<odoo>
+    <!--  Inherit Form View to Modify it  -->
+    <record id="sd_sale_coupons_and_promotions_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">sd_sale_coupons_and_promotions.inherit.res_config_settings_view_form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='coupon_settings']" position="inside">
+                <div attrs="{'invisible': [('module_sale_coupon', '=', False)]}">
+                    <br/>
+                    <div class="o_setting_left_pane">
+                        <field name="show_promotion_details"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="show_promotion_details"/>
+                        <div class="text-muted" id="sale_coupon">
+                            Show Coupons &amp; Promotions details in sale order lines.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

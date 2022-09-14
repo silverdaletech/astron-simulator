@@ -1,0 +1,28 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sb_purchase_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.purchase.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='silverdale_integration']" position="after">
+                <h2 attrs="{'invisible':[('module_sd_purchase', '=', False)]}">Silverdale Purchase Extensions</h2>
+                <div class="row mt16 o_settings_container" name="silverdale_extension"
+                     attrs="{'invisible':[('module_sd_purchase', '=', False)]}">
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_purchase_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_purchase_discount" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Silverdale Purchase Discounts" for="module_sd_purchase_discount"/>
+                            <div class="text-muted">
+                                By enabling this will Allow Feature of Discounts on Purchase order line develop by
+                                Silverdale.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

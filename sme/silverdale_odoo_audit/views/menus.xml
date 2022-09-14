@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Root app menu -->
+    <menuitem
+        id="odoo_audit_root"
+        name="System Audit"
+        web_icon="silverdale_odoo_audit,static/description/menu.png"
+        sequence="10"/>
+
+        <menuitem
+            id="odoo_audit_audit"
+            name="Audit"
+            parent="odoo_audit_root"
+            sequence="1"/>
+        <!-- groups="groups_id" -->
+
+        <menuitem
+            id="odoo_audit_configuration"
+            name="Configuration"
+            parent="odoo_audit_root"
+            sequence="100"/>
+        <!-- groups="groups_id" -->
+
+        <menuitem
+            id="menu_master_data_root"
+            name="Data Set"
+            parent="odoo_audit_root"
+            sequence="2" />
+        
+
+
+</odoo>

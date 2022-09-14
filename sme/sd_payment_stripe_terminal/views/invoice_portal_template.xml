@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+      <template id="portal_invoice_page_inherit_payment_stripe" name="Payment on My Invoices" inherit_id="account.portal_invoice_page">
+        <xpath expr="//t[@t-call='portal.portal_record_sidebar']//div[hasclass('o_download_pdf')]" position="before">
+            <t t-set="tx_ids" t-value="invoice.transaction_ids.filtered(lambda tx: tx.state in ('pending', 'authorized', 'done'))"/>
+            <t t-set="pending_manual_txs" t-value="tx_ids.filtered(lambda tx: tx.state == 'pending' and tx.acquirer_id.provider in ('transfer', 'manual'))"/>
+            <div>
+                <div t-if="invoice.enable_refund_option">
+                     <a href="#" t-if="invoice.state == 'posted' and invoice.payment_state in ('not_paid', 'partial') and invoice.amount_total  and  invoice.move_type == 'out_refund' and (pending_manual_txs or not tx_ids or invoice.amount_residual)"
+
+                    class="btn btn-primary btn-block mb-2" data-toggle="modal" data-target="#pay_with">
+                    <i class="fa fa-fw fa-arrow-circle-right"/> Refund Now
+                </a>
+                </div>
+                <div t-if="invoice.is_stripe_terminal">
+                     <a href="#" t-if="invoice.payment_state in ('not_paid', 'partial') and invoice.amount_total  and  invoice.move_type == 'out_invoice' and (pending_manual_txs or not tx_ids or invoice.amount_residual)"
+
+                    class="btn btn-primary btn-block mb-2" data-toggle="modal" data-target="#pay_with">
+                    <i class="fa fa-fw fa-arrow-circle-right"/> Pay Now
+                </a>
+                </div>
+
+                <div t-if="tx_ids and not pending_manual_txs and not invoice.amount_residual and invoice.payment_state not in ('paid', 'in_payment')" class="alert alert-info py-1 mb-2" >
+                    <i class="fa fa-fw fa-check-circle"/> Pending
+                </div>
+                <div t-if="invoice.payment_state in ('paid', 'in_payment')" class="alert alert-success py-1 mb-2" >
+                    <i class="fa fa-fw fa-check-circle"/> Paid
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+
+    </data>
+</odoo>

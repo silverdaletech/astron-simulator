@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<templates>
+    <t t-name="sd_status_menu">
+        <div class="o_sd_status dropdown">
+            <a class="o_sd_status_toggler dropdown-toggle o-no-caret o-dropdown--narrow" href="#" title="Silverdale Apps Status" role="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                <i class="o_sd_status_icon fa-silverdale" role="img" aria-label="Silverdale Apps Status" />
+                <t t-if="!widget.loaded">
+                    <i class="o_sd_status_loading fa fa-circle-o-notch fa-spin"/>
+                </t>
+            </a>
+
+            <div class="o_sd_status_menu_dropdown dropdown-menu dropdown-menu-right" role="menu">
+
+                <div class="o_sd_status_menu_modules">
+                    <t t-if="widget.sd_modules > 0" >
+                        <div>
+                            <b>Total Silverdale Apps On System</b>: <t t-esc="widget.sd_modules"/>
+                        </div>
+                    </t>
+                    <t t-if="widget.sd_modules == 0">
+                        <span>No Silverdale Apps installed</span>
+                    </t>
+                </div>
+
+                <hr />
+
+               <div class="o_sd_status_menu_modules_details">
+                    <t t-if="widget.modules_installed">
+                        <div>
+                            <b>Silverdale Apps Installed:</b>
+                            <t t-esc="widget.modules_installed" />
+                        </div>
+                    </t>
+                   <t t-if="widget.modules_not_installed">
+                        <div>
+                            <b>Silverdale Apps Not Installed:</b>
+                            <t t-esc="widget.modules_not_installed" />
+                        </div>
+                    </t>
+                </div>
+
+                <div class="o_sd_status_menu_get_help">
+                    <a href="https://www.silverdaletech.com/im_livechat/support/2" target="_blank" class="o_sd_status_menu_open_chatter" title="Chat Now" aria-label="Chat Now">
+                        Chat Now
+                        <i class="fa fa-comments"/>
+                    </a>
+                    <a href="#" class="composerClicked" title="Full composer" aria-label="Email Composer">
+                        Get Help <i class="fa fa-paper-plane"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

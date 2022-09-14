@@ -1,0 +1,135 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sb_sale_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.sale.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='silverdale_integration']" position="after">
+                <h2 attrs="{'invisible':[('module_sd_sale', '=', False)]}">Silverdale Sales Extensions</h2>
+                <div class="row mt16 o_settings_container" name="silverdale_extension"
+                     attrs="{'invisible':[('module_sd_sale', '=', False)]}">
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_close_so_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_complete_so" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Complete Sale Order" for="module_sd_complete_so"/>
+                            <div class="text-muted">
+                                By enabling this module you can Complete sale order.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_signed_so_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_signed_so" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Signed Sale Order" for="module_sd_signed_so"/>
+                            <div class="text-muted">
+                                By enabling this module you Will add new Stage Signed on SO.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_sale_project_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_sale_project" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Project Description from SO" for="module_sd_sale_project"/>
+                            <div class="text-muted">
+                                It will copy the description from sale order line to project when project gets created
+                                from
+                                that sale order line.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_so_analytic">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_so_analytic" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Sales Default Analytic Rules" for="module_sd_so_analytic"/>
+                            <div class="text-muted">
+                                By enabling this you can have default analytic rule on sale order and order lines.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_sale_price">
+                        <div class="o_setting_left_pane">
+                            <field name="sale_price_change" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Sale Price Change" for="sale_price_change"/>
+                            <div class="text-muted">
+                                By enabling this, unit price on Sale order line will be calculated from quotation
+                                Template.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_mrp_status_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_mrp_status" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Invoice and MO Status" for="module_sd_mrp_status"/>
+                            <div class="text-muted">
+                                By enabling this you can have Invoice and MO status on Sale Order.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_credit_management">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_credit_management" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Credit Management" for="module_sd_credit_management"/>
+                            <div class="text-muted">
+                                By enabling this you can manage credit management for customer.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_sale_commission">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_sale_commission" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Silverdale Sale Commission" for="module_sd_sale_commission"/>
+                            <div class="text-muted">
+                                By enabling this module will help in sales for Enabling commission Features develop by
+                                Silverdale
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_sale_coupons_and_promotions">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_sale_coupons_and_promotions" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Coupons and Promotions" for="module_sd_sale_coupons_and_promotions"/>
+                            <div class="text-muted">
+                                By enabling this module will add  Coupons and Promotions amounts in sale order lines.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_sale_crm">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_sale_crm" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Sales on CRM" for="module_sd_sale_crm"/>
+                            <div class="text-muted">
+                                By enabling this module will add sales and CRM related functionlities
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

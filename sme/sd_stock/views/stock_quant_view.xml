@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="quant_search_view" model="ir.ui.view">
+            <field name="name">stock.quant.search.view.inherit</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[2]/filter[@name='locationgroup']" position="after">
+                    <filter string='Product Category' name="product_category" domain="[]" context="{'group_by': 'product_categ_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

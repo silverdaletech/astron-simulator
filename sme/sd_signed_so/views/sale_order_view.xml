@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form.signed</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,signed,sale"/>
+                </xpath>
+                <xpath expr="//header/button[@id='action_confirm']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state', 'not in', ['sent','signed'])]}</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft', 'sent','signed','sale']),
+                        ('id', '=', False)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_quotation_send'][4]" position="attributes">
+                    <attribute name="states">sent,signed, sale</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sd_sale_order_wizard_view" model="ir.ui.view">
+        <field name="name">sd_sale_order.wizard.form</field>
+        <field name="model">sd.sale.order.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="order_id" readonly="1" invisible="0"/>
+                    <field name="order_line" domain="[('order_id', '=', order_id), ('product_id.type', '=', 'service')]"/>
+                </group>
+                <footer>
+                    <button name="action_create_analytic_lines" string="Create" type="object" default_focus="1" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

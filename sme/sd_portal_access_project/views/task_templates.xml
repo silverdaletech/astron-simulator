@@ -1,0 +1,26 @@
+<odoo>
+
+    <!--     timesheet template is inherited to restrict the time sheet on task template on portal only on for portal user not for admin-->
+    <template id="portal_my_task" inherit_id="hr_timesheet.portal_my_task" name="Portal: My project Taskheets sd_project_portal">
+        <xpath expr="//div[hasclass('container')]" position="replace">
+            <t t-if="portal_user">
+                <t t-if="task.is_timesheet_portal">
+                    <div class="container" t-if="timesheets">
+                        <hr class="mt-4 mb-1"/>
+                        <h5 class="mt-2 mb-2">Timesheets</h5>
+                        <t t-call="hr_timesheet.portal_timesheet_table"/>
+                    </div>
+                </t>
+            </t>
+            <t t-else="">
+                <div class="container" t-if="timesheets">
+                    <hr class="mt-4 mb-1"/>
+                    <h5 class="mt-2 mb-2">Timesheets</h5>
+                    <t t-call="hr_timesheet.portal_timesheet_table"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
+

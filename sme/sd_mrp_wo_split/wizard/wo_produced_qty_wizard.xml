@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wo_produced_qty_wizard_view" model="ir.ui.view">
+        <field name="name">wo.produced.qty.wizard.form</field>
+        <field name="model">wo.produced.qty.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                        td.o_td_label {
+                            vertical-align: inherit !important;
+                        }
+                </style>
+                <group>
+                    <group>
+                        <field name="workorder_id" readonly="1"/>
+                        <field name="qty_production" />
+                        <field name="date_start" required="1"/>
+                        <field name="show_force" invisible="1"/>
+                        <field name="is_force" attrs="{'invisible': [('show_force', '=', False)]}" />
+                        <field name="total_worklog_qty" readonly="1" />
+                    </group>
+                    <group>
+                        <label for="qty" string="Qty" style="font-size:20px"/>
+                        <field name="qty" style="font-size:30px" widget="kiosk_board" options="{'field_type': 'float'}" class="js-kioskboard-input" nolabel="1"/>
+                        <label for="badge_number" string="Badge/ID" style="font-size:20px"/>
+                        <field name="badge_number" style="font-size:30px" widget="kiosk_board" options="{'field_type': 'char'}" class="js-kioskboard-input" nolabel="1"/>
+                        <label for="produced_range" string="Range" style="font-size:20px"/>
+                        <field name="produced_range" style="font-size:30px" widget="kiosk_board" options="{'field_type': 'char'}" class="js-kioskboard-input" nolabel="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_add_qty" type="object" string="Add Qty"  class="btn-primary" data-hotkey="q"/>
+                    <button string="Discard" class="btn-default btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_wo_produced_qty_wizard" model="ir.actions.act_window">
+        <field name="name">Workcenter Productivity</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wo.produced.qty.wizard</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" eval="wo_produced_qty_wizard_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

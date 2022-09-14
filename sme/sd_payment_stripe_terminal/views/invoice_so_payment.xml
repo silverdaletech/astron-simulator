@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="checkout_stripe_terminal" inherit_id="payment.checkout">
+        <xpath expr="." position="inside">
+
+            <script type="text/javascript" src="https://js.stripe.com/terminal/v1/"></script>
+        </xpath>
+    </template>
+
+    <template id="manage_stripe_terminal" inherit_id="payment.manage">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="https://js.stripe.com/terminal/v1/"></script>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,57 @@
+<odoo>
+
+    <record id="sale_commission_agent_view_form" model="ir.ui.view">
+        <field name="name">sale_commission_view_form</field>
+        <field name="model">sale.commission.agent</field>
+        <field name="arch" type="xml">
+            <form string="Sale Commission form">
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="partner_id" required="1"/>
+
+                    </group>
+                    <group>
+                        <field name="commission_expense_acc_id" domain="[('deprecated', '=', False), ('user_type_id.type', 'not in', ('receivable', 'payable')), ('is_off_balance', '=', False)]"  required="1"/>
+                        <field name="commission_percentage"  required="1" groups="sd_sale_commission.group_commission_fixed"/>
+                    </group>
+                        <field name="line_ids" groups="sd_sale_commission.group_commission_by_amount_brackets">
+                            <tree editable="bottom">
+                                <field name="amount_from"  required="1" />
+                                <field name="amount_to"  required="1" />
+                                <field name="commission_percentage" />
+                            </tree>
+
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_commission_agent_view_tree" model="ir.ui.view">
+        <field name="name">sale_commission_view_tree</field>
+        <field name="model">sale.commission.agent</field>
+        <field name="arch" type="xml">
+            <tree string="Sale Commission tree">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="commission_expense_acc_id"/>
+                <field name="commission_percentage" groups="sd_sale_commission.group_commission_fixed"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_commission_agent_action" model="ir.actions.act_window">
+        <field name="name">Commission Agents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.commission.agent</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="menu_commission" name="Commissions" parent="sale.sale_menu_root" groups="sd_sale_commission.group_sale_commission" sequence="5"/>
+    <menuitem id="menu_sale_commission" name="Commission Agents" groups="sd_sale_commission.group_commission_manager" parent="sd_sale_commission.menu_commission" action="sd_sale_commission.sale_commission_agent_action" sequence="1"/>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_sales_agreement" model="ir.sequence">
+            <field name="name">Sales Agreement</field>
+            <field name="code">sale.agreement.blanket.order</field>
+            <field name="prefix">SA</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"></field>
+        </record>
+    </data>
+</odoo>

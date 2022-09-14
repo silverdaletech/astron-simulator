@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_partner_form_with_provider_fedex" model="ir.ui.view">
+        <field name="name">res.partner.form.provider.fedex</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='shipping_configuration']//group" position="inside">
+                <group name="fedex_account" string="Fedex Configuration">
+                    <field name="fedex_account_number" string="Account Number" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

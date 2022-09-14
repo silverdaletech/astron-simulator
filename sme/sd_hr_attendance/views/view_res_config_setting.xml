@@ -1,0 +1,27 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sd_hr_attendance_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.hr_attendance.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='silverdale_integration']" position="after">
+                <h2 attrs="{'invisible':[('module_sd_hr_attendance', '=', False)]}">Silverdale Attendance Extensions</h2>
+                <div class="row mt16 o_settings_container" name="silverdale_extension"
+                     attrs="{'invisible':[('module_sd_hr_attendance', '=', False)]}">
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_hr_attendance_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="is_portal_attendance" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Attendance on Portal" for="is_portal_attendance"/>
+                            <div class="text-muted">
+                                 Display Attendance on Portal.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

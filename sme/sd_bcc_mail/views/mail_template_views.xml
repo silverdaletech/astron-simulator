@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="sd_bcc_mail.email_template_form" model="ir.ui.view">
+            <field name="name">sd_bcc_mail.email.template.form</field>
+            <field name="model">mail.template</field>
+            <field name="inherit_id" ref="mail.email_template_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email_cc']" position="after">
+                  <field name="email_bcc" placeholder="Comma-separated black carbon copy recipients addresses"/>
+                </xpath>
+            </field>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_order_form_sd_sale" model="ir.ui.view">
+            <field name="name">view_order_form_sd_sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="compute_can_edit_price" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree" position="inside">
+                    <field name="can_edit_price" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('can_edit_price', '=', False)]}</attribute>
+                </xpath>
+<!--  //////// Dynamic domain has been applied on below two fields  /////////////////////-->
+                <field name="partner_id" position="after">
+                    <field name="partner_shipping_id_domain" invisible="1"/>
+                    <field name="partner_invoice_id_domain" invisible="1"/>
+                </field>
+                <field name="partner_shipping_id" position="attributes">
+                    <attribute name="domain">partner_shipping_id_domain</attribute>
+                </field>
+                <field name="partner_invoice_id" position="attributes">
+                    <attribute name="domain">partner_invoice_id_domain</attribute>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="sale_order_template_view_form_sd_sale" model="ir.ui.view">
+            <field name="name">sale.order.template.form.inherit.sd_sale</field>
+            <field name="inherit_id" ref="sale_management.sale_order_template_view_form"/>
+            <field name="model">sale.order.template</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position='after'>
+                    <field name="allow_price_change" widget="boolean_toggle"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

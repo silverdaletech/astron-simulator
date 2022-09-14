@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+<!--            sale.order model is inherited to add delivery_status on SO form view-->
+        <record id="sale_order_status_form_view_inherit" model="ir.ui.view">
+            <field name="name">sale.order.status.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='order_details']" position="inside">
+                    <field name="delivery_status"  attrs="{'invisible': [('delivery_status', '=', False)]}"
+                           decoration-bf="1" decoration-info="delivery_status == 'partial'"
+                           decoration-danger="delivery_status == 'over'" decoration-success="delivery_status == 'done'" />
+                </xpath>
+                <xpath expr="//page[@name ='order_lines']/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                       position="after">
+                    <field name="delivery_status" optional="hide"  attrs="{'column_invisible': [('parent.delivery_status', '=', False)]}"
+                           decoration-info="delivery_status == 'partial'"
+                           decoration-danger="delivery_status == 'over'" decoration-success="delivery_status == 'done'"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

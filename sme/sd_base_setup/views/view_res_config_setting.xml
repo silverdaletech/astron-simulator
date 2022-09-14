@@ -1,0 +1,419 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sd_base_setup_inherit_view_res_config_settings_form" model="ir.ui.view">
+        <field name="name">silverdale Integrations</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('app_settings_block')]" position="after">
+                <div class="app_settings_block" data-string="Silverdale Extension" string="Silverdale Extension"
+                     data-key="sd_base_setup">
+
+                    <h2>Silverdale License Settings</h2>
+                    <div class="row mt16 o_settings_container" name="silverdale_license">
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_license_key">
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="sd_license_key"/>
+                                <div class="text-muted">
+                                </div>
+                                <div class="mt8">
+                                    <field name="sd_license_key" class="o_light_label"/>
+                                </div>
+                                <div class="mt8">
+                                    <label for="is_license_valid"/>
+                                    <field name="is_license_valid" style="margin-left: 40px;" widget="boolean_toggle"
+                                           force_save="1" class="o_light_label"/>
+                                </div>
+                                <div class="mt8">
+                                    <button type="object" name="update_silverdale_license_key" string="Validate Key"
+                                            icon="fa-arrow-right" class="btn-link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Main Extensions-->
+                    <field name="is_license_valid" widget="boolean_toggle" invisible="1"/>
+                    <h2 >Silverdale Module Extensions</h2>
+                    <div class="row mt16 o_settings_container" name="silverdale_integration">
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_sale">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_sale" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Sales Extension" for="module_sd_sale"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale sales extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_project">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_project" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Project Extension" for="module_sd_project"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale project extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_sale">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_mail" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Mail Extension" for="module_sd_mail"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale mail extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_account">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_account" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Account Extension" for="module_sd_account"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale account extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_mrp">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_mrp" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale MRP Extension" for="module_sd_mrp"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale MRP extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_point_of_sale">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_point_of_sale" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Point of Sales Extension" for="module_sd_point_of_sale"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale point of sale extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_contacts">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_contact" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Contacts Extension" for="module_sd_contact"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale contact extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_purchase">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_purchase" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Purchase Extension" for="module_sd_purchase"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale purchase extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_website_slides">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_website_slides" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale eLearning Extension" for="module_sd_website_slides"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale eLearning extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_helpdesk">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_helpdesk" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Helpdesk Extensions" for="module_sd_helpdesk"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale helpdesk extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="sd_hr_attendance">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_hr_attendance" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Attendance Extensions" for="module_sd_hr_attendance"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale attendance extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_document">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_document" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Documents Extension" for="module_sd_document"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale document extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_stock">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_stock" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Silverdale Inventory Extension" for="module_sd_stock"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to use Silverdale inventory extension features
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_sale_agreement">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_sale_agreement" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Sale Agreements" for="module_sd_sale_agreement"/>
+                            <div class="text-muted">
+                                By enabling this module allows you to manage your Sale Agreements.
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+
+                    <!--Generic Modules-->
+                    <h2>Silverdale General Extensions</h2>
+                    <div class="row mt16 o_settings_container" name="silverdale_integration">
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="uninstall_multiple_module">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_multi_uninstall" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Uninstall multiple Modules" for="module_sd_multi_uninstall"/>
+                                <div class="text-muted">
+                                    By enabling this you will be able to select and uninstall multiple modules with a
+                                    single click.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_event">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_event" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Hold attendee status un-confirm until payment" for="module_sd_event"/>
+                                <div class="text-muted">
+                                    By enabling this will hold attendee status 'un-confirm' until payment status is not
+                                    paid if auto confirmation is enabled in event and ticket is paid
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_maintenace_mode">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_maintenace_mode" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Website Maintenance Mode" for="module_sd_maintenace_mode"/>
+                                <div class="text-muted">
+                                    By enabling this module will set maintenance Mode on website if database upgrade is
+                                    in process!!!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_odoo_audit_data">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_odoo_audit_data" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Audit Master And Duplicate Data" for="module_sd_odoo_audit_data"/>
+                                <div class="text-muted">
+                                    By enabling this will provide master and duplicate data for Silverdale odoo audit
+                                    module.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_password_security">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_password_security" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Password Security" for="module_sd_password_security"/>
+                                <div class="text-muted">
+                                    By enabling this module wil allow admin to set password security requirements.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_product_brand">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_product_brand" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Product Brand Manager" for="module_sd_product_brand"/>
+                                <div class="text-muted">
+                                    By enabling this module will allow to set product brand on products
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_product_defaults">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_product_defaults" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Product Defaults" for="module_sd_product_defaults"/>
+                                <div class="text-muted">
+                                    By enabling this module will allow barcode and reference auto generated on product
+                                    creation if rule is set in inventory settings.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_public_redirect">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_public_redirect" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="URL landing page management" for="module_sd_public_redirect"/>
+                                <div class="text-muted">
+                                    By enabling this module will take user to that page after login, from where he
+                                    clicked on login button
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_restrict_multicompany_checkboxes">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_restrict_multicompany_checkboxes" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Restrict Multi-Company Checkboxes"
+                                       for="module_sd_restrict_multicompany_checkboxes"/>
+                                <div class="text-muted">
+                                    By enabling this module will restrict Multi-company Checkboxes based on user group.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_user_logs">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_user_logs" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="User Log Details"
+                                       for="module_sd_user_logs"/>
+                                <div class="text-muted">
+                                    By enabling this module will add Login User Details, IP Address and MAC Address
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_user_security_rules">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_user_security_rules" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="User Security Roles"
+                                       for="module_sd_user_security_rules"/>
+                                <div class="text-muted">
+                                    By enabling this module will add User Security Roles.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_website_search">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_website_search" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Website Search"
+                                       for="module_sd_website_search"/>
+                                <div class="text-muted">
+                                    By enabling This module will allow category search only for current website in
+                                    website search bar.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_sd_zpl_report">
+                            <div class="o_setting_left_pane">
+                                <field name="module_sd_zpl_report" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="ZPL Label Designer"
+                                       for="module_sd_zpl_report"/>
+                                <div class="text-muted">
+                                    By enabling This module Will Be Used To Create Custom ZPL Labels.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="module_silverdale_odoo_audit">
+                            <div class="o_setting_left_pane">
+                                <field name="module_silverdale_odoo_audit" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Odoo Audit"
+                                       for="module_silverdale_odoo_audit"/>
+                                <div class="text-muted">
+                                    By enabling This module It audits the custom code and the configuration you did on
+                                    your odoo instance.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <script>
+                    <!--Gray out Silverdale Integrations and Extensions if license is not valid-->
+                    $(document).ready(function() {
+                        var is_license_valid = $('[name="is_license_valid"]')[0].children[0]
+                        var integration_elements = $('[name="silverdale_integration"]')
+                        var extension_elements = $('[name="silverdale_extension"]')
+                        if (is_license_valid.checked === false){
+                            for(let i=0; i &lt; integration_elements.length; i++){
+                                integration_elements[i].setAttribute('style', 'opacity:40%')
+                            }
+                            for(let i=0; i &lt; extension_elements.length; i++){
+                                extension_elements[i].setAttribute('style', 'opacity:40%')
+                            }
+                        }
+                    });
+                </script>
+            </xpath>
+        </field>
+    </record>
+</odoo>

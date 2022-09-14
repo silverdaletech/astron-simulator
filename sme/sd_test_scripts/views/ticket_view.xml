@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+      <!-- Inherit Form View to Modify it -->
+      <record id="ticket_form_view_inherit" model="ir.ui.view">
+          <field name="name">helpdesk.ticket.form</field>
+          <field name="model">helpdesk.ticket</field>
+          <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='ticket_type_id']" position="after">
+                  <!-- Add your fields or attributes here -->
+                  <field name="project_test_script_id" />
+                  <field name="test_script_priority" widget="priority"/>
+              </xpath>
+
+          </field>
+      </record>
+
+      
+  </data>
+</odoo>

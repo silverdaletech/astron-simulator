@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="task_stages_log_list">
+            <field name="name">task_stages_log list</field>
+            <field name="model">stage.log</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" delete="false">
+                    <field name="user"/>
+                    <field name="task"/>
+                    <field name="stage_from"/>
+                    <field name="stage_to"/>
+                    <field name="time"/>
+                    <field name="task_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="task_stages_log_form">
+            <field name="name">task_stages_log form</field>
+            <field name="model">stage.log</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user"/>
+                                <field name="stage_from"/>
+                                <field name="stage_to"/>
+                                <field name="time"/>
+                            </group>
+                            <group>
+                                <field name="task"/>
+                                <field name="task_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="task_stages_log_search" model="ir.ui.view">
+            <field name="name">task_stages_log_search</field>
+            <field name="model">stage.log</field>
+            <field name="arch" type="xml">
+                <search string="Search stage log">
+                    <field name="task"/>
+                    <field name="task_id"/>
+                    <field name="user"/>
+                    <field name="stage_from"/>
+                    <field name="stage_to"/>
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_stage_from" string="Stage From" domain="[]"
+                                context="{'group_by':'stage_from'}"/>
+                        <filter name="group_by_stage_to" string="Stage To" domain="[]"
+                                context="{'group_by':'stage_to'}"/>
+                        <filter name="group_by_stage_user" string="User" domain="[]" context="{'group_by':'user'}"/>
+                        <filter name="group_by_stage_task_id" string="Task ID" domain="[]" context="{'group_by':'task_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="task_stages_log_action_window">
+            <field name="name">Stages Log</field>
+            <field name="res_model">stage.log</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="stage_log"
+                parent="project.menu_project_report"
+                name="Stage Log"
+                groups="project.group_project_manager"
+                action="task_stages_log_action_window"
+                sequence="50"/>
+
+    </data>
+</odoo>

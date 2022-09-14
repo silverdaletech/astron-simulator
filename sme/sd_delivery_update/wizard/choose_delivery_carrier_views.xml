@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- Inherit Form View -->
+    <record id="delivery_ext_inherit_choose_delivery_carrier_view_form" model="ir.ui.view">
+        <field name="name">delivery_ext.inherit.choose_delivery_carrier_view_form</field>
+        <field name="model">choose.delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.choose_delivery_carrier_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='display_price']" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='display_price']" position="attributes">
+                <attribute name="string">Total Delivery Cost</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_row')]" position="after">
+                <field name="remaining_amount" invisible="not context.get('carrier_recompute')" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="can_hide" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//button[@name='button_confirm']" position="after">
+                <button name="action_add_delivery_product" attrs="{'invisible':[('can_hide', '=', True)]}" type="object" string="Update" class="btn-primary"/>
+            </xpath>
+            <xpath expr="//button[@name='button_confirm']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

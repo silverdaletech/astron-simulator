@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_sale_agreement_wiz_to_so">
+        <field name="name">Sale Quotation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('agreement_id','=',sale_agreement_id)]</field>
+        <field name="context">{
+            "default_agreement_id":sale_agreement_id,
+            "default_user_id": False,
+            }
+        </field>
+    </record>
+
+    <record id="sale_agreement_wiz_view_form" model="ir.ui.view">
+        <field name="name">sale.agreement.wizard.form</field>
+        <field name="model">sale.agreement.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sale Agreement Lines selection">
+                <sheet>
+                    <group>
+                        <field name="sale_agreement_id" readonly="1"/>
+                    </group>
+                    <field name="line_ids" domain="[('agreement_id','=', sale_agreement_id)]" options="{'no_create': True, 'no_create_edit':True,'no_open': True}">
+                            <tree string="Products" editable="0"  create="0" delete="0">
+                                <field name="product_id" readonly="1"
+                                       domain="[('sale_ok', '=', True)]"/>
+                                <field name="product_description_variants"  readonly="1" attrs="{'invisible': [('product_description_variants', '=', '')], }"/>
+                                <field name="is_sale_line_for_wizard" optional="hide" widget="boolean_toggle" readonly="0" />
+                                <field name="product_qty" readonly="1"/>
+                                <field name="qty_ordered" readonly="1" optional="show"/>
+                                <field name="qty_delivered" readonly="1" optional="show"/>
+                                <field name="qty_invoiced" readonly="1" optional="show"/>
+                                <field name="product_uom_category_id" invisible="1"/>
+                                <field name="product_uom_id" readonly="1" string="UoM" groups="uom.group_uom" optional="show" attrs="{'required': [('product_id', '!=', False)]}"/>
+                                <field name="account_analytic_id" readonly="1" optional="hide" groups="analytic.group_analytic_accounting"/>
+                                <field name="analytic_tag_ids" readonly="1" optional="hide"  groups="analytic.group_analytic_tags" widget="many2many_tags"/>
+                                <field name="price_unit" readonly="1"  optional="show" />
+                                <field name="price_line_total" readonly="1" widget='monetary' />
+                            </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Confirm" name="action_create_saleorder" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+</odoo>

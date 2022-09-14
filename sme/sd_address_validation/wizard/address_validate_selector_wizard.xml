@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="usps_address_selector_wizard_form" model="ir.ui.view">
+        <field name="name">usps.address.selector.form</field>
+        <field name="model">usps.address.selector</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Current Address">
+                            <div>
+                                <field name="current_street"/>
+                                <field name="current_street_2"/>
+                                <field name="current_city"/>
+                                <field name="current_state_id"/>
+                                <field name="current_zip"/>
+                                <button string="Keep" name="button_keep_address" type="object" class="oe_highlight"/>
+                            </div>
+                        </group>
+                        <group string="Updated Address">
+                            <div>
+                                <field name="partner_id" invisible="1"/>
+                                <field name="updated_street"/>
+                                <field name="updated_street_2"/>
+                                <field name="updated_city"/>
+                                <field name="updated_state_id"/>
+                                <field name="updated_zip"/>
+                                <button name="button_validated_address" string="Update" type="object" default_focus="1"
+                                        class="oe_highlight"/>
+                            </div>
+                        </group>
+                        <footer>
+                            <button string="Cancel" special="cancel"/>
+                        </footer>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

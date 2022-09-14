@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_res_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form.usps.validation</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='child_ids']/kanban" position="inside">
+                    <field name="validation_failed" display="full" widget="toggle_button"/>
+                    <field name="validation_status" widget="badge"
+                           decoration-info="validation_status == 'valid'"
+                           decoration-warning="validation_status == 'invalid'"
+                           decoration-success="validation_status == 'not-validated'"/>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/kanban/templates/t/div/div[@class='oe_kanban_details']"
+                       position="inside">
+                    <!--                    <field name="validation_failed"  display="full" widget="toggle_button" class="oe_title pr-0"/>-->
+                    <field name="validation_status" widget="state_selection" class="ml-auto"/>
+
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/form/sheet" position="before">
+                    <header>
+
+                    </header>
+                    <div class="alert alert-warning" role="alert"
+                         attrs="{'invisible': [('validation_failed', '=', False), ('date_validated', '=', False)]}">
+                        <span class="fa fa-info-circle"/>
+                        <field name="validation_message" class="alart alert-warning"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/form/sheet" position="inside">
+                    <group>
+                        <field name="date_validated"/>
+                        <field name="validation_failed"/>
+                    </group>
+
+                    <button name="button_validate_address" context="{'form_button': True}" string="Validate Address"
+                            class="oe_inline btn-primary"
+                            type="object"
+                            attrs="{'invisible': ['|', ('date_validated', '!=', False), ('country_id', '!=', %(base.us)d)]}"/>
+                    <button name="button_validate_address" string="Re-validate Address" icon="fa-refresh" class="oe_inline" type="object"
+                            attrs="{'invisible': ['|', ('date_validated', '=', False), ('country_id', '!=', %(base.us)d)]}"
+                            context="{'form_button': True}"/>
+                </xpath>
+                <xpath expr="//sheet" position="before">
+                    <header>
+
+                    </header>
+                    <div class="alert alert-warning" role="alert" readonly="1"
+                         attrs="{'invisible': [('validation_failed', '=', False), ('date_validated', '=', False)]}">
+                        <span class="fa fa-info-circle"/>
+                        <field name="validation_message" class="alart alert-warning"/>
+                    </div>
+                </xpath>
+
+                <field name="vat" position="after">
+                    <field name="address_updated" invisible="1"/>
+                    <field name="date_validated"/>
+                    <field name="validation_failed"/>
+                    <field name="validation_status" invisible="1"/>
+                </field>
+                <field name="country_id" position="after">
+                    <button name="button_validate_address" string="Validate Address" class="oe_inline btn-primary"
+                            type="object" context="{'form_button': True}"
+                            attrs="{'invisible': ['|', ('date_validated', '!=', False), ('country_id', '!=', %(base.us)d)]}"/>
+                    <button name="button_validate_address" help="Re-validate Address" icon="fa-refresh" class="oe_inline" type="object"
+                            attrs="{'invisible': ['|', ('date_validated', '=', False), ('country_id', '!=', %(base.us)d)]}"
+                            context="{'form_button': True}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_res_partner_search" model="ir.ui.view">
+            <field name="name">res.partner.search.usps.validation</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <filter name="inactive" position="after">
+                    <filter string="Not Valid" name="not_valid" domain="[('validation_failed','=',True)]"/>
+                    <filter string="Need Validation" name="need_validation"
+                            domain="[('validation_failed','=',False),('date_validated','=',False)]"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_res_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree.usps.validation</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="validation_failed" invisible="1"/>
+                </field>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-danger">validation_failed==True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

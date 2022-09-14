@@ -1,0 +1,60 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sb_website_slides_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.website_slides.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='silverdale_integration']" position="after">
+                <h2 attrs="{'invisible':[('module_sd_website_slides', '=', False)]}">Silverdale eLearning Extensions</h2>
+                <div class="row mt16 o_settings_container" name="silverdale_extension"
+                     attrs="{'invisible':[('module_sd_website_slides', '=', False)]}">
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_vimeo_video_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_vimeo_video" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Vimeo Videos - eLearning Platform" for="module_sd_vimeo_video"/>
+                            <div class="text-muted">
+                                By enabling this module, Vimeo video links will render same as YouTube video links in eLearning module.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_website_slides_publish_unpublish_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_website_slides_publish_unpublish" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Publish/UnPublish in eLearning" for="module_sd_website_slides_publish_unpublish"/>
+                            <div class="text-muted">
+                                By enabling this module, Publish/UnPublish features will be available in eLearning.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_invite_multiple_attendees_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_invite_multiple_attendees" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Multiple Attendees Invitation" for="module_sd_invite_multiple_attendees"/>
+                            <div class="text-muted">
+                                By enabling this module, you will be able to invite multiple attendees to join multiple courses in eLearning.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_website_slides_video_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_website_slides_video" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="module_sd_website_slides_video"/>
+                            <div class="text-muted">
+                                By enabling this module, you will be able to use MP4 videos from documents in your eLearning slides contents.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sd_access_restriction_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.sd.access.restriction</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invite_users']" position="inside">
+                <div class="row mt16 o_settings_container" name="silverdale_access_restriction">
+                    <div class="col-12 col-lg-6 o_setting_box" id="is_ip_restrict">
+                        <div class="o_setting_left_pane">
+                            <field name="is_ip_restrict"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="IP base Restriction" for="is_ip_restrict"/>
+                            <div class="text-muted">
+                                By enabling this feature you can restrict user base on their IP Address.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="is_mac_restrict">
+                        <div class="o_setting_left_pane">
+                            <field name="is_mac_restrict"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Mac base Restriction" for="is_mac_restrict"/>
+                            <div class="text-muted">
+                                By enabling this feature you can restrict user base on their Mac Address.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

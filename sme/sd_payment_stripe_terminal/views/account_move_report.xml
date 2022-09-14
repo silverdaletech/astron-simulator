@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+            <template id="inherit_invoice_with_payment" inherit_id="account.report_invoice_document" >
+                <xpath expr="//div[@id='total']/div/table/t[2]" position="replace">
+                   <t t-if="print_with_payments">
+                                        <t t-if="o.payment_state != 'invoicing_legacy'">
+                                            <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
+                                            <t t-foreach="payments_vals" t-as="payment_vals">
+                                                <tr>
+                                                    <td>
+                                                        <t t-if="payment_vals['stripe']">
+                                                            <t t-set="card_detail" t-value=" str('Stripe Terminal: ')+str(payment_vals['card_type'])+ str(' Card Number Ending ') + str(payment_vals['card_number'])"/>
+                                                            <div class="mt16">
+                                                             <i class="oe_form_field text-right oe_payment_label"> <t t-esc='card_detail'/><br/> Paid on <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></i>
+                                                            </div>
+                                                        </t>
+                                                        <t t-else="">
+                                                             <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></i>
+                                                        </t>
+
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="len(payments_vals) > 0">
+                                                <tr class="border-black">
+                                                    <td><strong>Amount Due</strong></td>
+                                                    <td class="text-right">
+                                                        <span t-field="o.amount_residual"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </t>
+
+
+                </xpath>
+
+            </template>
+
+
+    </data>
+</odoo>

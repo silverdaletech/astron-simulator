@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+crm_price_role_all_group,crm.price.role.all,model_crm_price_role,,1,1,1,1
+crm_lead_line_all_group,crm.lead.line.all,model_crm_lead_line,,1,1,1,1
+access_crm_product_report_user,crm.product.report.user,model_crm_product_report,base.group_user,1,0,0,0

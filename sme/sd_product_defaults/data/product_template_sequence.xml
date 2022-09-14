@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+<!--        two new record created in model ir.sequence to generate 2 sequence one is for reference and other is for barcode in product.template model-->
+        <record id="product_template_internal_reference" model="ir.sequence">
+            <field name="name">Product Template Reference</field>
+            <field name="code">product_template.reference</field>
+            <field name="prefix">P_Ref-</field>
+            <field name="number_next">1</field>
+            <field name="padding">10</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="product_template_barcode" model="ir.sequence">
+            <field name="name">Product Template Barcode</field>
+            <field name="code">product_template.barcode</field>
+            <field name="prefix">P_Bar-</field>
+            <field name="number_next">1</field>
+            <field name="padding">10</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+<!--        two new record created in model ir.sequence to generate 2 sequence one is for reference and other is for barcode in product.template model-->
+        <record id="product_product_reference" model="ir.sequence">
+            <field name="name">Product Product Reference</field>
+            <field name="code">product_product.reference</field>
+            <field name="prefix">P_Ref-</field>
+            <field name="number_next">1</field>
+            <field name="padding">10</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="product_product_barcode" model="ir.sequence">
+            <field name="name">Product Product Barcode</field>
+            <field name="code">product_product.barcode</field>
+            <field name="prefix">P_Bar-</field>
+            <field name="number_next">1</field>
+            <field name="padding">10</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
+

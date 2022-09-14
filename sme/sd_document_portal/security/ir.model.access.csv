@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_documents_document_portal,access.documents.document,documents.model_documents_document,base.group_portal,1,0,0,0
+access_ir_attachment_portal,access.ir.attachment,base.model_ir_attachment,base.group_portal,1,0,0,0
+access_documents_folder_portal,access.documents.folder,documents.model_documents_folder,base.group_portal,1,0,0,0
+access_documents_share_portal,access.documents.share,documents.model_documents_share,base.group_portal,1,0,0,0

@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="slide_slide_form_view_inherit" model="ir.ui.view">
+            <field name="name">slide.slide.form.inherit</field>
+            <field name="model">slide.slide</field>
+            <field name="inherit_id" ref="website_slides.view_slide_slide_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <!-- Add your fields or attributes here -->
+                    <button name="website_content_publish" type="object" string="UNPUBLISHED" class="btn btn-primary oe_highlight " icon="fa-arrow-up" attrs="{'invisible':[('is_published','=',True)]}" style="color:red" />
+                    <button name="website_content_unpublish" type="object" string="PUBLISHED" class="btn btn-primary " icon="fa-arrow-down" attrs="{'invisible':[('is_published','=',False)]}" style="color:green" />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

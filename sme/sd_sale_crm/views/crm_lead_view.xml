@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_lead_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.order.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+          
+           <xpath expr="//notebook/page" position="before">
+            <page string="Products" name="product">
+                <field name="lead_line_ids">
+                    <tree string="Products" editable="bottom" decoration-danger="sale_type == 'unexpected'">
+                        <field name="can_edit_offer" invisible="1" />
+                        <field name="allow_percentage" invisible="1" />
+                        <field name="product_id" />
+                        <field name="name" widget="section_and_note_text" />
+                        <field name="category_id" optional="hide"/>
+                        <field name="product_barcode" optional="hide"/>
+                        <field name="product_tmpl_id" invisible="1" />
+                        <field name="product_qty" string="Quantity" />
+                        <field name="uom_id" force_save="1" />
+                        <field name="price_unit" force_save="1" string="Price Unit" />
+                        <field name="price_offered" force_save="1" attrs="{'readonly':[('can_edit_offer', '=', False)]}" />
+                        <field name="percentage_difference" />
+                        <field name="expected_revenue" string="Expected revenue" />
+                        <field name="estimated_revenue" />
+                        <field name="actual_revenue" />
+                        <field name="actual_qty_sold" optional="hide" />
+                        <field name="sale_type"  readonly="1" optional="hide"/>
+                        <field name="planned_revenue" string="Planned revenue" />
+                    </tree>
+                </field>   
+                    <group col="4">
+                        <group class="oe_subtotal_footer oe_right" >
+
+                            <field name="total_estimated_revenue"/>
+                            <field name="total_planned_revenue" />
+                            <field name="total_actual_revenue"/>
+                        </group>
+                    </group>
+            </page>
+           </xpath>
+        </field>
+    </record>
+
+</odoo>

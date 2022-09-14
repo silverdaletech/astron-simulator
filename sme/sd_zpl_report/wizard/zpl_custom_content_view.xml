@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="zpl_custom_preview_view_form" model="ir.ui.view">
+            <field name="name">zpl.custom.content.view.form</field>
+            <field name="model">zpl.custom.content</field>
+            <field name="arch" type="xml">
+                <form string="Email Preview">
+
+                    <group>
+                        <field name="model_id" invisible="1" readonly="1"/>
+                        <group invisible="0">
+                            <field name="content_type" />
+                        </group>
+                        <group>
+                            <field name="field_chain" widget="model_field_selector" options="{'model': 'model_name','in_dialog': True}"  attrs="{'invisible': [('content_type', 'not in', ['field','barcode','qr'])]}" />
+                            <field name="model_name" invisible="1"/>
+                            <field name="field_id"  invisible="1"  domain="[('model_id','=',model_id),('ttype','!=','one2many'),('ttype','!=','many2many')]"/>
+                        </group>
+                        <group>
+                            <field name="x_origin"/>
+                        </group>
+                        <group>
+                            <field name="y_origin" />
+                        </group>
+                    </group>
+
+                    <group name="circle" attrs="{'invisible': [('content_type', '!=', 'line')]}">
+                        <group>
+                            <field name="line_type" />
+                        </group>
+                        <group attrs="{'invisible': [('line_type', '=', 'D')]}">
+                            <field name="line_length" />
+                        </group>
+                        <group attrs="{'invisible': [('line_type', '!=', 'D')]}">
+                            <field name="diagonal_height" />
+                        </group>
+                        <group attrs="{'invisible': [('line_type', '!=', 'D')]}">
+                            <field name="diagonal_width" />
+                        </group>
+                        <group attrs="{'invisible': [('line_type', '!=', 'D')]}">
+                            <field name="orientation" />
+                        </group>
+                    </group>
+
+                    <group name="circle" attrs="{'invisible': [('content_type', '!=', 'circle')]}">
+                        <group>
+                            <field name="circle_diameter" />
+                        </group>
+                    </group>
+                    <group name="circle" attrs="{'invisible': [('content_type', '!=', 'rectangle')]}">
+                        <group>
+                            <field name="diagonal_width" string="Width" />
+                        </group>
+                        <group>
+                            <field name="diagonal_height" string="Height" />
+                        </group>
+                    </group>
+                    <group  attrs="{'invisible': [('content_type', '!=', 'custom_content')]}">
+                        <field name="custom_text" string="Type Here" />
+                    </group>
+                    <group attrs="{'invisible': [('content_type', '!=', 'image_logo')]}">
+                        <group>
+                            <field name="image" widget="image"  options='{"size": [50, 50]}' attrs="{'invisible': [('content_type', '!=', 'image_logo')]}" />
+                        </group><group></group>
+                        <group>
+                            <field name="image_width" attrs="{'invisible': [('content_type', '!=', 'image_logo')]}" />
+                        </group>
+                        <group>
+                            <field name="image_height" attrs="{'invisible': [('content_type', '!=', 'image_logo')]}" />
+                        </group>
+                    </group>
+                    <group name="qr" attrs="{'invisible': [('content_type', 'not in', ['qr','barcode'])]}">
+                        <group>
+                            <field name="qr_code_size" widget="float_toggle" options="{'range': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}" attrs="{'invisible': [('content_type', '!=', 'qr')]}" />
+                            <field name="barcode_size"  attrs="{'invisible': [('content_type', '!=', 'barcode')]}" />
+                        </group>
+                        <group>
+                            <field name="barcode_type"  attrs="{'invisible': [('content_type', '!=', 'barcode')]}" />
+                            <field name="barcode_text_position" string="Human Readable" attrs="{'invisible': [('content_type', '!=', 'barcode')]}" />
+                        </group>
+                    </group>
+                    <group name="custom_content" attrs="{'invisible': [('content_type', 'not in', ['field','custom_content'])]}">
+                        <group>
+                            <field name="char_height"  attrs="{'invisible': [('content_type', 'in', ['barcode', 'qr'])]}" />
+                            <field name="line_width"  attrs="{'invisible': [('content_type', 'in', ['barcode', 'qr'])]}" />
+                        </group>
+                        <group>
+                            <field name="char_width"  attrs="{'invisible': [('content_type', 'in', ['barcode', 'qr'])]}" />
+                            <field name="justification" required="1" attrs="{'invisible': [('content_type', 'in', ['barcode', 'qr'])]}" />
+                        </group>
+                    </group>
+                    <group namr="sketch" attrs="{'invisible': [('content_type', 'not in', ['line','circle','rectangle'])]}" >
+                        <group>
+                            <field name="color" />
+                        </group>
+                        <group>
+                            <field name="thickness" />
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('content_type', 'not in', ['custom_content','field'])]}" >
+                        <group>
+                            <field name="text_in_multiline" />
+                        </group>
+                    </group>
+
+                    <group name="gs1_barcode" attrs="{'invisible': [('content_type', 'not in', ['gs1'])]}">
+                        <group>
+                            <field name="gs1_barcode_rule" />
+                            <field name="gs1_barcode_size" attrs="{'required': [('content_type', '=', 'gs1')]}" placeholder="50" />
+                        </group>
+                        <group>
+                            <field name="product_quantity"  attrs="{'required': [('content_type', '=', 'gs1')]}" placeholder="12" />
+                            <field name="product_lot" attrs="{'required': [('content_type', '=', 'gs1')]}" placeholder="lot-0042" />
+                        </group>
+                        <group>
+                            <field name="product_barcode" attrs="{'required': [('content_type', '=', 'gs1')]}" placeholder="76543210" />
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="action_add_field" string="Add Content" type="object" class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="zpl_customization_preview_action" model="ir.actions.act_window">
+            <field name="name">Add ZPL Content</field>
+            <field name="res_model">zpl.custom.content</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="zpl_custom_preview_view_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

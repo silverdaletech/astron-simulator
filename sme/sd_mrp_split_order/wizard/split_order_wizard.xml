@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="split_order_wizard_form" model="ir.ui.view">
+        <field name="name">split.order.wizard.form</field>
+        <field name="model">split.order.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="date_planned" invisible="1"/>
+                    <field name="split_into"/>
+                </group>
+                <field name="split_line_ids" style="margin-top:25px">
+                    <tree editable="bottom" create="0" delete="0">
+                        <field name="line_date_planned" />
+                        <field name="is_original" invisible="1"/>
+                        <field name="ratio" invisible="1"/>
+                        <field name="quantity" sum="Total Qty"/>
+                    </tree>
+                </field>
+<!--                <field name="quant_diff" attrs="{'invisible': [('quant_diff', '=', False)]}" style="background: beige;width: 50%;text-align: center;margin-left: 152px;margin-top: 30px;padding: 15px;"/>-->
+                <div style="float:right;">
+                    <label for="total_quantity" string="Total Original Qty"/>:
+                    <field name="total_quantity" readonly="1" />
+                </div>
+                <footer>
+                    <button name="action_split_mo" string="Split" type="object" default_focus="1" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

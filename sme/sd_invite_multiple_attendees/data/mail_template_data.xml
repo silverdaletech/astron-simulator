@@ -1,0 +1,28 @@
+
+<odoo>
+    <data noupdate="1" >
+        <record id="mail_template_invite_multiple_attendees" model="mail.template">
+            <field name="name">Invite Multiple Attendees</field>
+            <field name="model_id" ref="model_slide_channel"/>
+            <field name="subject">You have been invited to join {{object.name}}</field>
+            <field name="use_default_to" eval="True"/>
+            <field name="body_html" type="xml">
+<div style="margin: 0px; padding: 0px; font-size: 13px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear <br/><br/>
+        You have been invited to join a new course: <t t-ecs="object.name"/>
+        <div style="margin: 16px 0px 16px 0px;">
+<!--            <a href="${(object.website_url) | safe}"-->
+            <a  t-att-href="'%s' % object.website_url"
+                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                Click here to start the course.
+            </a>
+        </div>
+        Enjoy this exclusive content !
+    </p>
+</div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

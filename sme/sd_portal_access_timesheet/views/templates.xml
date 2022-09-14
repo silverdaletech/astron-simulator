@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+
+
+           <template id="hr_timesheet.portal_my_home_timesheet" name="Show Timesheets" customize_show="True"  inherit_id="portal.portal_my_home" priority="45">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="timesheet_enable">
+            <t t-call="portal.portal_docs_entry">
+
+                <t t-set="title">Timesheets</t>
+                <t t-set="url" t-value="'/my/timesheets'"/>
+                <t t-set="placeholder_count" t-value="'timesheet_count'"/>
+            </t>
+            </t>
+        </xpath>
+    </template>
+
+          <template id="portal_my_task" inherit_id="hr_timesheet.portal_my_task" name="Portal: My project Taskheets">
+        <xpath expr="//div[hasclass('container')]" position="replace">
+            <t t-if="portal_user">
+                <t t-if="task.is_timesheet_portal">
+                    <div class="container" t-if="timesheets">
+                        <hr class="mt-4 mb-1"/>
+                        <h5 class="mt-2 mb-2">Timesheets</h5>
+                        <t t-call="hr_timesheet.portal_timesheet_table"/>
+                    </div>
+                </t>
+            </t>
+            <t t-else="">
+                <div class="container" t-if="timesheets">
+                    <hr class="mt-4 mb-1"/>
+                    <h5 class="mt-2 mb-2">Timesheets</h5>
+                    <t t-call="hr_timesheet.portal_timesheet_table"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+
+        <template id="hr_timesheet.portal_tasks_list_inherit" inherit_id="project.portal_tasks_list" name="Portal: My Tasks with Timesheets">
+        <xpath expr="//t[@t-call='portal.portal_table']" position="inside">
+            <t t-set="timesheet_ids" t-value="task.sudo().timesheet_ids"/>
+            <t t-set="is_uom_day" t-value="timesheet_ids._is_timesheet_encode_uom_day()"/>
+        </xpath>
+        <xpath expr="//thead/tr/th[@name='project_portal_assignees']" position="after">
+<!--            <t t-if="task.is_all_enable_timesheet or task.is_self_enable_timesheet">-->
+                <th t-if="is_uom_day">Days Spent</th>
+                <th t-else="">Hours Spent</th>
+<!--            </t>-->
+        </xpath>
+        <xpath expr="//tbody/t/tr/td[@name='project_portal_assignees']" position="after">
+
+                     <td>
+                <t t-if="is_uom_day">
+                    <t t-if="task.is_self_enable_timesheet or task.is_all_enable_timesheet">
+                    <t t-out="timesheet_ids._convert_hours_to_days(task.effective_hours)"/>
+                    <span t-if="task.planned_hours > 0"> / <t t-out="timesheet_ids._convert_hours_to_days(task.planned_hours)"/></span>
+                    <span> day(s)</span>
+                        </t>
+                </t>
+                <t t-else="">
+                     <t t-if="task.is_self_enable_timesheet or task.is_all_enable_timesheet">
+                        <span t-field="task.effective_hours" t-options='{"widget": "float_time"}'/>
+                        <t t-if="task.planned_hours > 0">
+                            /
+                            <span t-field="task.planned_hours" t-options='{"widget": "float_time"}'/>
+                        </t>
+                        <span> hour(s)</span>
+                     </t>
+                </t>
+            </td>
+
+        </xpath>
+    </template>
+
+
+
+
+    </data>
+</odoo>

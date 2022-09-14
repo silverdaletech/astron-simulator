@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="view_audit_addons_list_wiz_form" model="ir.ui.view">
+            <field name="name">audit.addons.list.wizard.form</field>
+            <field name="model">audit.addons.list.wizard</field>
+            <field name="arch" type="xml">
+               <form string="Update Addons list">
+                    <group>
+
+                    </group>
+				    <footer>
+				        <button name="action_update_addons_list" string="Update" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+				    </footer>
+				</form>
+            </field>
+        </record>
+
+
+        <record id="action_update_addons_list" model="ir.actions.act_window">
+            <field name="name">Update Addons Path</field>
+            <field name="res_model">audit.addons.list.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_audit_addons_list_wiz_form"/>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_audit_addons_list"/>
+            <field name="binding_view_types">tree</field>
+        </record>
+        
+        <menuitem
+            id="update_addons_list"
+            name="Update Addons List"
+            action="action_update_addons_list"
+            parent="odoo_audit_configuration"
+            sequence="20"/>
+    </data>
+</odoo>

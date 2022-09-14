@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <!-- Duplicate master data set -->
+        <record id="view_duplicate_data_count_form" model="ir.ui.view">
+            <field name="name">duplicate.data.count.form</field>
+            <field name="model">duplicate.data.count</field>
+            <field name="arch" type="xml">
+                <form duplicate="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company_id"  groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="fields" string="Fields">
+                                <field name="duplicate_data_line" options="{'no_create_edit':True,'no_create':True}" 
+                                domain="[
+                                ('model_id','=',name),
+                                ('ttype','in',['boolean','char','date','datetime','float','interger','many2one','selection']),
+                                ('store','=',True)
+                                ]" />
+                                
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="duplicate_data_count_tree" model="ir.ui.view">
+            <field name="name">duplicate.data.count.tree</field>
+            <field name="model">duplicate.data.count</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" readonly="1"/>
+                    <field name="company_id"  groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action duplicated data -->
+        <record id="duplicate_data_count_action" model="ir.actions.act_window">
+            <field name="name">Duplicated Data</field>
+            <field name="res_model">duplicate.data.count</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_duplicate_data"
+            name="Duplicated Data"
+            action="duplicate_data_count_action"
+            parent="menu_master_data_root"
+            sequence="2" />
+
+    </data>
+</odoo>

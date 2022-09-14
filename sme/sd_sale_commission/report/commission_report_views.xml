@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Opportunities by user and team pivot View -->
+    <record id="crm_opportunity_report_view_pivot" model="ir.ui.view">
+        <field name="name">sale.commission.report.pivot</field>
+        <field name="model">sale.commission.report</field>
+        <field name="priority">60</field>
+        <field name="arch" type="xml">
+            <pivot string="Pipeline Analysis">
+                <field name="product_id" type="row" />
+                <field name="unit_price" type="measure" />
+                <field name="qty" type="measure" />
+                <field name="subtotal" type="measure" />
+                <field name="commissionable_amount" type="measure" />
+                <field name="commission_amount" type="measure" />
+            </pivot>
+        </field>
+    </record>
+   
+    <!-- Opportunities by user and team Tree View -->
+    <!-- <record id="crm_opportunity_report_view_tree" model="ir.ui.view">
+        <field name="name">crm.opportunity.report.list</field>
+        <field name="model">crm.product.report</field>
+        <field name="arch" type="xml">
+            <tree string="Pipeline Analysis">
+                <field name="create_date" />
+                <field name="product_id" />
+                <field name="product_qty" />
+                <field name="category_id" />
+                <field name="product_tmpl_id" />
+                <field name="name" />
+                <field name="partner_name" />
+                <field name="country_id" />
+                <field name="stage_id" />
+                <field name="expected_revenue" />
+                <field name="team_id" />
+            </tree>
+        </field>
+    </record> -->
+    <!-- Opportunities by user and team Search View -->
+    <record id="sale_commission_report_view_search" model="ir.ui.view">
+        <field name="name">sale.commission.report.search</field>
+        <field name="model">sale.commission.report</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <search string="Commission Analysis">
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Agent"
+                        name="groupby_agent"
+                        context="{'group_by':'agent_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="sale_commission_report_action" model="ir.actions.act_window">
+        <field name="name">Sale Commssion Analysis</field>
+        <field name="res_model">sale.commission.report</field>
+        <field name="view_mode">pivot</field>
+        <field name="context">{'search_default_groupby_agent': True}</field>
+        <!-- <field name="search_view_id" ref="crm_opportunity_report_view_search" /> -->
+    </record>
+    <menuitem
+        id="sale_commssion_report_menu"
+        name="Commissions Report"
+        groups="sd_sale_commission.group_commission_user"
+        parent="sd_sale_commission.menu_commission"
+        action="sale_commission_report_action"
+        sequence="20"
+    />
+</odoo>

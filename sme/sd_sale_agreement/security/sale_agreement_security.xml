@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="group_sale_agreement" model="res.groups">
+        <field name="name">Sale Agreement</field>
+<!--        <field name="category_id" ref="base.module_category_hidden"/>-->
+    </record>
+
+    <record model="ir.rule" id="sale_agreement_comp_rule">
+        <field name="name">Sale Agreement multi-company</field>
+        <field name="model_id" ref="model_sale_agreement"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="sale_agreement_line_comp_rule">
+        <field name="name">Sale Agreement Line multi-company</field>
+        <field name="model_id" ref="model_sale_agreement_line"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

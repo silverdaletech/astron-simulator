@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_sale_agreement" model="ir.actions.report">
+        <field name="name">Sale Agreement With Quotations</field>
+        <field name="model">sale.agreement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sd_sale_agreement.report_sale_agreement</field>
+        <field name="report_file">sd_sale_agreement.report.report_sale_agreement</field>
+        <field name="print_report_name">'Sale Agreement - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_sale_agreement"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_sale_agreement_without_quot" model="ir.actions.report">
+        <field name="name">Sale Agreement</field>
+        <field name="model">sale.agreement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sd_sale_agreement.report_sale_agreement_without_quot</field>
+        <field name="report_file">sd_sale_agreement.report.report_sale_agreement</field>
+        <field name="print_report_name">'Sale Agreement - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_sale_agreement"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

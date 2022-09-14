@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="root_zpl_menu" name="ZPL Label" web_icon="sd_zpl_report,static/description/menu.png" />
+    <menuitem id="zpl_label_design_menu" parent="root_zpl_menu" name="Design" sequence="1" action="zpl_label_design_action" />
+    <menuitem id="zpl_label_size_menu" parent="root_zpl_menu" name="Size" sequence="2" action="zpl_label_size_action" />
+</odoo>

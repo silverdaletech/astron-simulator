@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="is_having.model">
+        <div t-if="hasModel" class="o_field_domain_panel">
+            <t t-if="nbRecords !== null">
+                <i class="fa fa-arrow-right" role="img" aria-label="Domain" title="All Fields Are Here For Current Model"/>
+                <span t-if="!isValid" class="text-warning" role="alert"><i class="fa fa-exclamation-triangle" role="img" aria-label="Warning" title="Warning"/>
+                    It May Be an Invalid Field
+                </span>
+            </t>
+            <t t-else="">
+                <i class="fa fa-circle-o-notch fa-spin" role="img" aria-label="Loading" title="Loading"/>
+            </t>
+            <button t-if="inDialog and editMode" class="btn btn-sm btn-primary o_field_domain_dialog_button">Select Fields</button>
+        </div>
+        <div t-else="">Select a model to add a filter.</div>
+    </t>
+
+    <div aria-atomic="true" t-name="DomainSelectors"
+         t-attf-class="o_domain_node o_domain_tree o_domain_selector #{widget.readonly ? 'o_read_mode' : 'o_edit_mode'}">
+        <t t-if="widget.children.length === 0">
+            <button t-if="!widget.readonly" class="btn btn-sm btn-primary o_domain_add_first_node_button"><i class="fa fa-plus"/>
+                Select Field For Your Current Model
+            </button>
+        </t>
+        <t t-else="">
+        <div class="o_domain_tree_header">
+        </div>
+            <div class="o_domain_node_children_container"/>
+        </t>
+        <label t-if="widget.debug &amp;&amp; !widget.readonly" class="o_domain_debug_container">
+            <span class="small"># Code editor</span>
+            <textarea type="text" class="o_domain_debug_input"/>
+        </label>
+    </div>
+
+    <div t-name="DomainLeafs"
+         t-attf-class="o_domain_node o_domain_leaf o_domain_selector_row #{widget.readonly ? 'o_read_mode' : 'o_edit_mode'}">
+        <div t-if="!widget.readonly" class="o_domain_leaf_edition"/>
+        <div t-else="" class="o_domain_leaf_info">
+            <t t-if="_.isString(widget.value)">
+                <span class="o_domain_leaf_operator"><t t-esc="widget.operator_mapping[widget.operator]"/></span>
+                <span class="o_domain_leaf_value text-primary">"<t t-esc="widget.value"/>"</span>
+            </t>
+                <t t-if="_.isArray(widget.value)">
+                <span class="o_domain_leaf_operator"><t t-esc="widget.operator_mapping[widget.operator]"/></span>
+                    <t t-foreach="widget.value" t-as="v">
+                    <span class="o_domain_leaf_value text-primary">"<t t-esc="v"/>"</span>
+                        <t t-if="!v_last"> or </t>
+                </t>
+            </t>
+                <t t-if="_.isNumber(widget.value)">
+                <span class="o_domain_leaf_operator"><t t-esc="widget.operator_mapping[widget.operator]"/></span>
+                    <span class="o_domain_leaf_value text-primary"><t t-esc="widget.value"></t></span>
+            </t>
+                <t t-if="_.isBoolean(widget.value)">
+                is
+                <t t-if="widget.operator === '=' &amp;&amp; widget.value === false || widget.operator === '!=' &amp;&amp; widget.value === true">not</t>
+                    set
+            </t>
+        </div>
+    </div>
+
+</templates>

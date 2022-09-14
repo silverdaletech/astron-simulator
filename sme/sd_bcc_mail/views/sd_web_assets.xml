@@ -1,0 +1,7 @@
+<odoo>
+    <template id="sd_assets_backend" name="sd saas assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sd_bcc_mail/static/src/js/sd_message_inherit.js"></script>
+        </xpath>
+    </template>
+</odoo>

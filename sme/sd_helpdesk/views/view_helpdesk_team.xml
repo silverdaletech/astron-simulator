@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="helpdesk_team_view_form_silverdale" model="ir.ui.view">
+            <field name="name">helpdesk_team_view_form_silverdale</field>
+            <field name="model">helpdesk.team</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@id='self-Service']/div[4]" position="inside">
+                    <div class="content-group o_setting_right_pane" attrs="{'invisible': [('allow_portal_ticket_closing', '=', False)]}">
+                        <field name="close_stage_id" invisible="1"/>
+                        <div class="mt16">
+                            <label for="close_stage_id"/>
+                            <field name="close_stage_id" class="ml-2 oe_inline"
+                                   attrs="{'required': [('allow_portal_ticket_closing', '=', True)]}"
+                                   context="{'default_team_id': active_id}"/>
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+
+         <record id="helpdesk_team_view_form_inherit_helpdesk_timesheet_inerhit" model="ir.ui.view">
+            <field name="name">helpdesk_team_view_form_inherit_helpdesk_timesheet_silverdale</field>
+            <field name="model">helpdesk.team</field>
+            <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_team_view_form_inherit_helpdesk_timesheet"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <div>
+                    <label for="project_stage_ids"/>
+                    <field name="project_stage_ids"  class="oe_inline" widget="many2many_tags"/>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

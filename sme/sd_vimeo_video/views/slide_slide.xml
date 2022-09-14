@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_slide_slide_form_inherit" model="ir.ui.view">
+        <field name="name">slide.slide.form.inherit</field>
+        <field name="model">slide.slide</field>
+        <field name="inherit_id" ref="website_slides.view_slide_slide_form"/>
+        <field name="arch" type="xml">
+            <field name="datas" position="after">
+                <field name="external_url"
+                       on_change="onchange_slide_type()"
+                       attrs="{'invisible':[('slide_type', '!=', 'vimeovideo')], 'required':[('slide_type', '=', 'vimeovideo',)]}"
+                       />
+                    </field>
+            <field name="date_published" position="after">
+                <field name="is_published"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record model="ir.ui.view" id="sd_message_wizard_form">
+			<field name="name">sd.message.wizard.form</field>
+			<field name="model">sd.message.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Silverdale Message">
+					<field name="message"/>
+					<footer>
+						<button special="cancel" string="Close" class="btn-primary"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+</odoo>

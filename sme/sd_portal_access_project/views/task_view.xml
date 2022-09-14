@@ -1,0 +1,38 @@
+<odoo>
+
+    <!-- task form view is inherited to add 1 boolean field "is_timesheet_portal" on form view of task -->
+    <record id="view_task_form2_inherited" model="ir.ui.view">
+        <field name="name">project.view_task_form2_inherited.form.sd_project_portal</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet/notebook/page[@id='timesheets_tab']/group" position="before">
+                    <group>
+                        <div class="row o_td_label o_settings_container">
+                            <div class="col-lg-6 o_setting_box" id="is_timesheet_portal">
+                                <div class="o_setting_left_pane">
+                                    <field name="is_timesheet_portal" attrs="{'readonly':[('is_show_task','=',False)]}"/>
+                                    <field name="is_show_task_project" invisible="1"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="is_timesheet_portal" string="Show Timesheets on Portal"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row o_td_label o_settings_container" attrs="{'invisible': [('is_show_task_project', '=', False)]}" >
+                            <div class="col-lg-6 o_setting_box" id="is_show_task">
+                                <div class="o_setting_left_pane">
+                                    <field name="is_show_task"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="is_show_task" string="Show Task on Portal"/>
+                                </div>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,18 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sale_order_from_commission_inherit" model="ir.ui.view">
+        <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='team_id']" position="after">
+                <!-- Add your fields or attributes here -->
+                <field name="mandatory" invisible="1"/>
+                <field name="commission_agent_id" groups="sd_sale_commission.group_sale_commission" attrs="{'required': [('mandatory', '=', True)], 'invisible':[('mandatory', '=', False)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

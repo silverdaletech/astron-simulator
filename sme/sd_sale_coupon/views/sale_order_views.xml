@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="sd_sale_coupons_inherit_view_order_form" model="ir.ui.view">
+        <field name="name">sd_sale_coupons.inherit.view_order_form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+          <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']" position="after">
+              <field name="coupon_program_ids" optional="hide" widget="many2many_tags" readonly="1"/>
+          </xpath>
+          <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='discount']" position="after">
+              <field name="promotional_discount" optional="hide"  readonly="1"/>
+              <field name="discounted_total" optional="hide"  readonly="1"/>
+          </xpath>
+
+        </field>
+    </record>
+</odoo>

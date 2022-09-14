@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="sd_disallow_negative_stock_inherit_view_location_form" model="ir.ui.view">
+        <field name="name">sd_disallow_negative_stock.inherit.view_location_form</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form" />
+        <field name="arch" type="xml">
+            <field name="usage" position="after">
+                <field
+                    name="prevent_negative_stock"
+                    attrs="{'invisible': [('usage', 'not in', ['internal', 'transit'])]}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="sd_disallow_negative_inherit_view_location_tree2" model="ir.ui.view">
+        <field name="name">sd_disallow_negative.inherit.stock.location.tree</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='usage']" position="after">
+                <field name="prevent_negative_stock" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="sd_disallow_negative_stock_inherit_view_location_search" model="ir.ui.view">
+        <field name="name">sd_disallow_negative_stock.inherit.view_location_search</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <filter string="Prevent Negative Stock" name="prevent_negative_stock" domain="[('prevent_negative_stock','=',True)]"/>
+                <filter string="Prevent Negative Stock" name="groupby_prevent_negative_stock" domain="[]" context="{'group_by': 'prevent_negative_stock'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

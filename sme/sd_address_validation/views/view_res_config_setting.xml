@@ -1,0 +1,37 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sd_address_validation.sd_contact_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">sd_address_validation.res.config.settings.sd_contact.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_contact.sb_contact_inherit_res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='sd_address_validation_feature']" position="inside">
+                <div class="o_setting_right_pane">
+                    <div class="mt8">
+                        <field name="address_check_on_creation" attrs="{'readonly':[('is_license_valid', '=', False)]}" class="o_light_label"/>
+                        <label for="address_check_on_creation" />
+                        <div class="text-muted">
+                            By enabling this, USPS address validation will apply on contact creation.
+                        </div>
+                    </div>
+
+                    <div class="mt8">
+                        <label for="auto_revalidate"/>
+                        <div class="text-muted">
+                            Address validation will be for period of weeks,months and years
+                        </div>
+                        <div class="content-group">
+                            <field name="number_of_period" attrs="{'readonly':[('is_license_valid', '=', False)]}" style="width:30%"/> &amp;nbsp;
+                            <field name="auto_revalidate" attrs="{'readonly':[('is_license_valid', '=', False)]}" style="width: 50% !important;" class="oe_inline"/>
+                        </div>
+                    </div>
+                    <div class="mt8">
+                        <label for="usps_user_id" string="USPS User ID"/>
+                        <field name="usps_user_id" attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                    </div>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

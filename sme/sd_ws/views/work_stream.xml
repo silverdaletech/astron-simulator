@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+
+        <record id="work_stream_view_form" model="ir.ui.view">
+            <field name="name">work.stream.view.form</field>
+            <field name="model">work.stream</field>
+            <field name="arch" type="xml">
+                <form string="Work Stream">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="active"/>
+                        </group>
+                        <notebook>
+                            <page name="processes" string="Processes">
+                                <field name="process_ids" context="{'default_work_stream_id':active_id}">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle" />
+                                        <field name="name" />
+                                        <field name="process_desc" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="work_stream_view_tree" model="ir.ui.view">
+            <field name="name">work.stream.view.tree</field>
+            <field name="model">work.stream</field>
+            <field name="arch" type="xml">
+                <tree string="Work Streams">
+                    <field name="sequence" widget="handle" />
+                    <field name="name"/>
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="work_stream_action" model="ir.actions.act_window">
+            <field name="name">Work Stream</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">work.stream</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+
+        <menuitem id="work_stream_main_menu" name="Process Library" parent="project.menu_main_pm"  sequence="2"/>
+        <menuitem id="work_stream_menu" name="Work Streams" parent="sd_ws.work_stream_main_menu" action="sd_ws.work_stream_action"  sequence="1"/>
+
+    </data>
+</odoo>

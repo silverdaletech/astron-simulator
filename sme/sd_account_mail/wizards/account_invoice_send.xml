@@ -1,0 +1,21 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="account_invoice_send_wizard_form" model="ir.ui.view">
+        <field name="name">account.invoice.send.wizard.inherited</field>
+        <field name="model">account.invoice.send</field>
+        <field name="inherit_id" ref="account.account_invoice_send_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//group" position="before">
+                <group>
+                    <field name="is_followers_exist" invisible="1" />
+                    <field name="current_followers_ids" widget="many2many_tags"
+                           readonly="1"  attrs="{'invisible': [('is_followers_exist', '=', False)]}" />
+                </group>
+            </xpath>
+            <xpath expr="//label[@for='partner_ids']" position="before">
+                <field name="allowed_users" invisible="1" />
+                <field name="from_email_partner_id" colspan="2" domain="[('id', 'in',allowed_users)]" groups="sd_mail_ext.group_mail_composer" required="1" attrs="{'invisible': [('is_email', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

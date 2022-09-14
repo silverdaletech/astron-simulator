@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Folders -->
+
+        <record id="documents_portal_folder" model="documents.folder">
+            <field name="name">Portal Documents</field>
+            <field name="sequence">130</field>
+        </record>
+
+    </data>
+</odoo>

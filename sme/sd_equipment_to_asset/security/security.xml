@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="res.groups" id="group_product_attributes_and_variants">
+        <field name="name">Display Attributes &amp; Variants</field>
+    </record>
+</odoo>

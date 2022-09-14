@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!--/////////////////Domain data lines in odoo audit master data.//////////////////////////////////////-->
+    <record model="master.data.domain" id="audit_domain_line1">
+        <field name="name">Barcode is not Set</field>
+        <field name="domain">[["barcode","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line2">
+        <field name="name">Internal reference not Set</field>
+        <field name="domain">[["default_code","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line3">
+        <field name="name">Company Address incomplete</field>
+        <field name="domain">["&amp;","&amp;",["street","=",False],["street2","=",False],["is_company","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line4">
+        <field name="name">Missing Barcode</field>
+        <field name="domain">["&amp;",["barcode","=",False],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line5">
+        <field name="name">Missing SKU</field>
+        <field name="domain">["&amp;",["default_code","=",False],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line6">
+        <field name="name">Bad Pricing</field>
+        <field name="domain">["&amp;","&amp;",["sale_ok","=",True],["list_price", "&lt;" ,2],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line7">
+        <field name="name">Purchase Products without Vendors</field>
+        <field name="domain">["&amp;","&amp;",["purchase_ok","=",True],["seller_ids","=",False],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line8">
+        <field name="name">Missing Sales Description</field>
+        <field name="domain">["&amp;",["description_sale","=",False],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line9">
+        <field name="name">Missing Weight or Volume</field>
+        <field name="domain">["&amp;",["active","=",True],"|",["weight","=",0],["volume","=",0]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line10">
+        <field name="name">Missing Responsible</field>
+        <field name="domain">["&amp;",["activity_user_id","=",False],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line11">
+        <field name="name">Missing Customer Lead Time</field>
+        <field name="domain">["&amp;",["sale_delay","=",""],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line12">
+        <field name="name">Invoicing based on Ordered Quantities</field>
+        <field name="domain">["&amp;",["invoice_policy","=","order"],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line13">
+        <field name="name">Billing based on Ordered Quantities</field>
+        <field name="domain">["&amp;",["purchase_method","=","purchase"],["active","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line14">
+        <field name="name">Missing Email Address</field>
+        <field name="domain">[["email","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line15">
+        <field name="name">Missing Phone</field>
+        <field name="domain">[["phone","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line16">
+        <field name="name">Missing Address (one or more pieces)</field>
+        <field name="domain">["|","|","|","|",["street","=",False],["city","=",False],["country_id","=",False],["zip","=",False],["state_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line17">
+        <field name="name">Contact Persons without Job Positions</field>
+        <field name="domain">["&amp;","&amp;",["type","=","contact"],["function","=",False],["parent_id","!=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line18">
+        <field name="name">Companies without Contacts</field>
+        <field name="domain">["&amp;",["is_company","=",True],["child_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line19">
+        <field name="name">Customer without Salesperson</field>
+        <field name="domain">["&amp;",["customer_rank","=",1],["user_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line20">
+        <field name="name">Customers without Payment Terms</field>
+        <field name="domain">["&amp;",["property_payment_term_id","=",False],["customer_rank","=",1]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line21">
+        <field name="name">Vendors without Payment Terms</field>
+        <field name="domain">["&amp;",["property_supplier_payment_term_id","=",False],["supplier_rank","=",1]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line22">
+        <field name="name">Vendors without Bank Details</field>
+        <field name="domain">["&amp;",["bank_ids","=",False],["supplier_rank","=",1]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line23">
+        <field name="name">Companies without websites</field>
+        <field name="domain">["&amp;",["is_company","=",True],["website","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line24">
+        <field name="name">Companies without Tax IDs</field>
+        <field name="domain">["&amp;",["vat","=",False],["is_company","=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line25">
+        <field name="name">Missing Phone, Website or Email</field>
+        <field name="domain">["|","|",["phone","=",False],["email","=",False],["website","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line26">
+        <field name="name">Missing VAT Numbers</field>
+        <field name="domain">[["vat","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line27">
+        <field name="name">Social Media Links Missing</field>
+        <field name="domain">["|","|","|",["social_facebook","=",False],["social_twitter","=",False],["social_instagram","=",False],["social_youtube","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line28">
+        <field name="name">Bad Valuation Method</field>
+        <field name="domain">[["property_valuation","=","manual_periodic"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line29">
+        <field name="name">Bad Costing Method</field>
+        <field name="domain">[["property_cost_method","=","standard"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line30">
+        <field name="name">Missing Destination Country</field>
+        <field name="domain">[["country_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line31">
+        <field name="name">Fixed Price or Rule based Methods</field>
+        <field name="domain">["|",["delivery_type","=","fixed"],["delivery_type","=","base_on_rule"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line32">
+        <field name="name">Notifications by Email</field>
+        <field name="domain">["&amp;",["notification_type","=","email"],["groups_id","ilike","internal"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line33">
+        <field name="name">No Alternative Workcenter</field>
+        <field name="domain">[["alternative_workcenter_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line34">
+        <field name="name">Missing Cleaning or Set up Time</field>
+        <field name="domain">["&amp;",["time_stop","=",0],["time_start","=",0]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line35">
+        <field name="name">Missing Cost</field>
+        <field name="domain">[["costs_hour","=",0]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line36">
+        <field name="name">Missing Code</field>
+        <field name="domain">[["code","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line37">
+        <field name="name">Missing Alias</field>
+        <field name="domain">[["alias_id.alias_name","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line38">
+        <field name="name">Missing Leader</field>
+        <field name="domain">[["user_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line39">
+        <field name="name">Missing Target</field>
+        <field name="domain">[["invoiced_target","=",0]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line40">
+        <field name="name">Missing Members</field>
+        <field name="domain">[["member_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line41">
+        <field name="name">No SLA Policies</field>
+        <field name="domain">[["use_sla","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line42">
+        <field name="name">Does not take Refund or Return Requests</field>
+        <field name="domain">["&amp;",["use_credit_notes","!=",True],["use_product_returns","!=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line43">
+        <field name="name">Alias is not set</field>
+        <field name="domain">[["alias_id.alias_name","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line44">
+        <field name="name">Timesheets not activated</field>
+        <field name="domain">[["use_helpdesk_timesheet","!=",True]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line45">
+        <field name="name">Roles without Employees</field>
+        <field name="domain">[["employee_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line46">
+        <field name="name">Without details</field>
+        <field name="domain">["|","|","|","|",["bic","=",False],["city","=",False],["country","=",False],["email","=",False],["phone","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line47">
+        <field name="name">Accounts without Holder Name</field>
+        <field name="domain">[["acc_holder_name","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line48">
+        <field name="name">Accounts without Banks</field>
+        <field name="domain">[["bank_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line49">
+        <field name="name">Without Rights Configured</field>
+        <field name="domain">["|",["read_group_ids","=",False],["group_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line50">
+        <field name="name">Missing Operations</field>
+        <field name="domain">[["operation_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line51">
+        <field name="name">Missing Reference</field>
+        <field name="domain">[["code","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line52">
+        <field name="name">Missing Accounting Configuration for Scrap, Adjustment or Production Locations</field>
+        <field name="domain">["&amp;",["valuation_in_account_id","=",False],"|",["usage","=","production"],["usage","=","inventory"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line53">
+        <field name="name">Barcode is not set</field>
+        <field name="domain">[["barcode","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line54">
+        <field name="name">Statements in Processing</field>
+        <field name="domain">["|",["state","=","open"],["state","=","posted"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line55">
+        <field name="name">Taxes without Accounts</field>
+        <field name="domain">["|",["invoice_repartition_line_ids.account_id","=",False],["refund_repartition_line_ids.account_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line56">
+        <field name="name">Payments Acquirers Installed but Disabled</field>
+        <field name="domain">["&amp;",["module_state","=","installed"],["state","=","disabled"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line57">
+        <field name="name">Manual Rules</field>
+        <field name="domain">[["trigger","=","manual"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line58">
+        <field name="name">Auto Rules</field>
+        <field name="domain">[["trigger","=","auto"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line59">
+        <field name="name">Variant Creating Attributes</field>
+        <field name="domain">["|",["create_variant","=","always"],["create_variant","=","dynamic"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line60">
+        <field name="name">Attributes without values</field>
+        <field name="domain">[["value_ids","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line61">
+        <field name="name">Without Dimensions or Max Weight</field>
+        <field name="domain">["&amp;","&amp;","&amp;",["height","=",0],["width","=",0],["packaging_length","=",0],["max_weight","=",0]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line62">
+        <field name="name">Without Barcodes</field>
+        <field name="domain">[["barcode","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line63">
+        <field name="name">Without Code</field>
+        <field name="domain">[["shipper_package_code","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line64">
+        <field name="name">Without Carrier</field>
+        <field name="domain">[["package_carrier_type","=","none"]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line65">
+        <field name="name">Without Phone</field>
+        <field name="domain">[["work_phone","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line66">
+        <field name="name">Without Email</field>
+        <field name="domain">[["work_email","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line67">
+        <field name="name">Without Department</field>
+        <field name="domain">[["department_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line68">
+        <field name="name">Missing Private Details</field>
+        <field name="domain">["|","|",["address_home_id","=",False],["private_email","=",False],["phone","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line69">
+        <field name="name">Missing Managers or Approvers</field>
+        <field name="domain">["|","|",["parent_id","=",False],["expense_manager_id","=",False],["timesheet_manager_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line70">
+        <field name="name">Missing Timesheet Cost</field>
+        <field name="domain">[["timesheet_cost","=",0]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line71">
+        <field name="name">Missing Manager</field>
+        <field name="domain">[["manager_id","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line72">
+        <field name="name">Missing Job Description</field>
+        <field name="domain">[["description","=",False]]</field>
+    </record>
+
+    <record model="master.data.domain" id="audit_domain_line73">
+        <field name="name">Missing Department</field>
+        <field name="domain">[["department_id","=",False]]</field>
+    </record>
+
+
+    <!--///////////////// End //////////////////////////////////////-->
+</odoo>

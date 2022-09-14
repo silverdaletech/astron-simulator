@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="view_payment_acquirer_form_inherit" model="ir.ui.view">
+            <field name="name">Authorize.Net Acquirer Form</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment_authorize.payment_acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='country_ids']" position="before">
+                    <label for="is_invoice_address" string="Use Invoice Address for Payment"
+                           attrs="{'invisible': [('provider', '!=', 'authorize')]}"/>
+                    <div attrs="{'invisible': [('provider', '!=', 'authorize')]}">
+                        <field name="is_invoice_address"/>
+                        <br/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

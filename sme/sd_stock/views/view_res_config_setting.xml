@@ -1,0 +1,65 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sb_stock_inherit_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.stock.extension</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sd_base_setup.sd_base_setup_inherit_view_res_config_settings_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='silverdale_integration']" position="after">
+                <h2 attrs="{'invisible':[('module_sd_stock', '=', False)]}">Silverdale Inventory Extensions</h2>
+                <div class="row mt16 o_settings_container" name="silverdale_extension"
+                     attrs="{'invisible':[('module_sd_stock', '=', False)]}">
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_disallow_negative_stock_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_disallow_negative_stock"
+                                   attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="module_sd_disallow_negative_stock"/>
+                            <div class="text-muted">
+                                By enabling this module you will be able to disallow negative Inventory Levels.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box" id="sd_stock_status_feature">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_stock_status"
+                                   attrs="{'readonly':[('is_license_valid', '=', False)]}"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Delivery Order Status" for="module_sd_stock_status"/>
+                            <div class="text-muted">
+                                By enabling this you can have stock status on sale order.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_stock_invoice">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_stock_invoice"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Create Invoice from Stock" for="module_sd_stock_invoice"/>
+                            <div class="text-muted">
+                                By enabling this module will add feature automatic invoice on delivery confirmation
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="module_sd_stock_delivery">
+                        <div class="o_setting_left_pane">
+                            <field name="module_sd_stock_delivery"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Shipping on Delivery order" for="module_sd_stock_delivery"/>
+                            <div class="text-muted">
+                                By enabling this module adds Add Shipping on delivery order and remove delivery option
+                                from sale order,This will add Fedex, UPS and USPS on delivery
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

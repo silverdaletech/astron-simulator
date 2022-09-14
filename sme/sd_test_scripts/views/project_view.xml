@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+      <!-- Inherit Form View to Modify it -->
+      <record id="test_script_project_view_inherit" model="ir.ui.view">
+          <field name="name">project.project.form</field>
+          <field name="model">project.project</field>
+          <field name="inherit_id" ref="project.edit_project"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//page[@name='settings']" position="after">
+                  <!-- Add your fields or attributes here -->
+                  <page name="testscript" string="Test Scripts">
+                      <field name="project_testscript_ids" force_save="1"/>
+                  </page>
+              </xpath>
+
+          </field>
+      </record>
+      
+  </data>
+</odoo>

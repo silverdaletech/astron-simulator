@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="zpl_label_size_form">
+        <field name="name">zpl.label.size Form</field>
+        <field name="model">zpl.label.size</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Width X Height"/>
+                            <field name="density" />
+                            <field name="unit_of_measure" />
+                        </group>
+                        <group>
+                            <field name="width" placeholder="Width must be between 0.001 inches and 15.0 inches."  />
+                            <field name="height" placeholder="Height must be between 0.001 inches and 15.0 inches." />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="zpl_label_size_tree">
+        <field name="name">zpl.label.size List</field>
+        <field name="model">zpl.label.size</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="width"/>
+                <field name="height"/>
+                <field name="unit_of_measure" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="zpl_label_size_action">
+        <field name="name">Label Size</field>
+        <field name="res_model">zpl.label.size</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No zpl labels Details ....
+            </p>
+        </field>
+    </record>
+
+</odoo>

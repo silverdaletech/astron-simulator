@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="sd_address_validation_view_order_form" model="ir.ui.view">
+            <field name="name">sd_address_validation.sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <field name="partner_validation_failed" invisible="1"/>
+                    <field name="partner_date_validated" invisible="1"/>
+                    <button name="button_validate_partner_address" type="object" string="Validate Partner Address" context="{'form_button': True}"
+                            attrs="{'invisible': ['|',('partner_date_validated', '!=', False),('id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//header" position="after">
+                    <div class="alert alert-warning" role="alert" attrs="{'invisible': [('partner_validation_failed', '=', False), ('partner_date_validated', '=', False)]}" readonly="1">
+                        <span class="fa fa-info-circle"/>
+                        <field name="partner_validation_message" class="alart alert-warning"/>
+
+                    </div>
+
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherts" model="ir.ui.view">
+        <field name="name">account.payment.term.inherits</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form" />
+        <field name="arch" type="xml">
+        <xpath expr="//form/sheet/group/group/field[@name='company_id']" position="after">
+            <field name="hold_delivery_till_payment" string="Hold Operations Without Payment" />
+<!--            <field name="applied_operation_types" string="Apply to these Operations Types" widget="many2many_tags" attrs="{'invisible':[('hold_delivery_till_payment','=',False)]}" />-->
+
+        </xpath>
+        </field>
+        </record>
+
+
+</odoo>

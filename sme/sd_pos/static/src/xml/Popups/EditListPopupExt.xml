@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="EditListPopupExt" t-inherit="point_of_sale.EditListPopup" t-inherit-mode="extension" owl="1">
+        <xpath expr="//main" position="inside">
+            <div class="searchbox-lot top-content-center" t-if="state.lots.filter((item) => item.text.trim() !== '').length &gt; 0 and env.pos.config.show_selectable_lots">
+                <input placeholder="Search Lot/Serial Number" size="1" t-on-keyup="updateLotList" style="margin-right: 15px;" />
+                <span class="search-clear-lot"/>
+            </div>
+
+            <div t-if="state.lots.filter((item) => item.text.trim() !== '').length &gt; 0 and env.pos.config.show_selectable_lots" style="padding-top: 15px;margin-right: 15px">
+                    <div class="scrollable-y" style="display:flex; justify-content: center;">
+                    <table class="lot-list">
+                        <tbody class="lot-list-contents">
+                            <t t-foreach="lots" t-as="lot" t-key="lot._id">
+                                <LotLine lot="lot"
+                                         selectedLot="state.selectedLot"
+                                         t-on-click-lot="clickLot" />
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

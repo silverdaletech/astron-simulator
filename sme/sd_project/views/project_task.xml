@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <record id="view_project_task_form_inherited" model="ir.ui.view">
+            <field name="name">project.task.inherited</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="client_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="task_type_id" required="1"/>
+                    <field name="project_stage_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Adding Filter and Group By -->
+        <record id="task_type_search_view" model="ir.ui.view">
+            <field name="name">project.task.search.view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="task_type_id" string="Task Type"/>
+                    <field name="project_stage_id" string="Project Status" groups="project.group_project_stages" />
+                    <field name="id" string="Task ID"/>
+                </xpath>
+<!--                <xpath expr="//search/filter[@name='late']" position="after">-->
+                <xpath expr="//search[1]/separator[3]" position="after">
+                    <filter name="open_tasks" string="Open Tasks" domain="[('stage_id.is_opened', '=', True)]" />
+                    <filter name="close_tasks" string="Closed Tasks" domain="[('stage_id.is_closed', '=', True)]" />
+                    <filter name="cancelled_tasks" string="Cancelled Tasks" domain="[('stage_id.is_cancelled', '=', True)]" />
+                </xpath>
+                <xpath expr="//filter[@name='personal_stage']" position="before">
+                    <filter name="task_type_id" string="Task Type" domain="[]" context="{'group_by': 'task_type_id'}"/>
+                    <filter name="client_id" string="Client" domain="[]" context="{'group_by': 'client_id'}"/>
+                </xpath>
+                <xpath expr="//filter[@name='project']" position="before">
+                    <filter name="project_stage_id" string="Project Status" domain="[]"
+                            context="{'group_by': 'project_stage_id'}" groups="project.group_project_stages"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_tree2_inherit" model="ir.ui.view">
+            <field name="name">project.task.tree.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='priority']" position="after">
+                    <field name="id" optional="show" string="Task ID"/>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="task_type_id" optional="show"/>
+                    <field name="client_id" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="planned_date_begin" optional="hide" widget="daterange" options='{"related_end_date":"planned_date_end"}'/>
+                    <field name="planned_date_end" optional="hide" widget="daterange" options='{"related_start_date":"planned_date_begin"}'/>
+                    <field name="project_stage_id" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
