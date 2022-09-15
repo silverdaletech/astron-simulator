@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    invoice report is inherited to display invoice address on left side and shipping address on right side.-->
+    <template id="sale.report_invoice_document_inherit_sale" inherit_id="account.report_invoice_document">
+        <xpath expr="//address" position="attributes">
+            <attribute name="groups">!sale.group_delivery_invoice_address</attribute>
+        </xpath>
+        <xpath expr="//address" position="before">
+            <div style="height:49px;"></div>
+            <t  t-if="o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)">
+                <strong style="margin-left:18px;" >Shipping Address</strong>
+                <div  style="margin-left:18px;" t-field="o.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}" groups="sale.group_delivery_invoice_address"/>
+            </t>
+            <t t-set="information_block">
+                <div groups="sale.group_delivery_invoice_address" name="shipping_address_block">
+                    <div style="height:49px;"></div>
+                    <strong style="margin-left:70px;" >Invoice Address</strong>
+                    <div style="margin-left:70px;" t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                </div>
+            </t>
+            <div style="height:20px;"></div>
+        </xpath>
+    </template>
+
+    <!--    invoice report is inherited to display unit price with only two decimal precision.-->
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[hasclass('page')]/table/tbody/t[3]/tr/t/td[3]" position="replace">
+            <td class="text-right">
+                <span class="text-nowrap"  t-esc="'%.2f'% line.price_unit"  />
+            </td>
+        </xpath>
+    </template>
+
+</odoo>
